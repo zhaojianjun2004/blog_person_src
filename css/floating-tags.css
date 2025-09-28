@@ -1,0 +1,186 @@
+/* 动态漂浮标签云样式 */
+
+.floating-tags-container {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 16px;
+  margin: 2rem 0;
+  /* 移除背景和边框 */
+}
+
+.floating-tag {
+  position: absolute;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--tech-border);
+  border-radius: 25px;
+  color: var(--tech-text);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  white-space: nowrap;
+  user-select: none;
+  z-index: 1;
+}
+
+.floating-tag:hover {
+  border-color: var(--tech-primary);
+  color: var(--tech-primary);
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 255, 255, 0.3);
+  z-index: 2;
+}
+
+/* 漂浮动画 */
+@keyframes float1 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-15px);
+  }
+  75% {
+    transform: translateY(-30px) translateX(5px);
+  }
+}
+
+@keyframes float2 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  33% {
+    transform: translateY(-15px) translateX(-20px);
+  }
+  66% {
+    transform: translateY(-25px) translateX(10px);
+  }
+}
+
+@keyframes float3 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  20% {
+    transform: translateY(-25px) translateX(15px);
+  }
+  40% {
+    transform: translateY(-10px) translateX(-10px);
+  }
+  60% {
+    transform: translateY(-35px) translateX(-5px);
+  }
+  80% {
+    transform: translateY(-20px) translateX(20px);
+  }
+}
+
+@keyframes float4 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-30px) translateX(-15px);
+  }
+  50% {
+    transform: translateY(-5px) translateX(25px);
+  }
+  75% {
+    transform: translateY(-20px) translateX(-10px);
+  }
+}
+
+@keyframes float5 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  30% {
+    transform: translateY(-20px) translateX(20px);
+  }
+  60% {
+    transform: translateY(-40px) translateX(-20px);
+  }
+}
+
+/* 不同的漂浮样式 */
+.floating-tag.float-1 {
+  animation: float1 8s ease-in-out infinite;
+}
+
+.floating-tag.float-2 {
+  animation: float2 10s ease-in-out infinite;
+}
+
+.floating-tag.float-3 {
+  animation: float3 12s ease-in-out infinite;
+}
+
+.floating-tag.float-4 {
+  animation: float4 9s ease-in-out infinite;
+}
+
+.floating-tag.float-5 {
+  animation: float5 11s ease-in-out infinite;
+}
+
+/* 不同大小的标签 */
+.floating-tag.size-small {
+  font-size: 0.8rem;
+  padding: 0.4rem 0.8rem;
+}
+
+.floating-tag.size-medium {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+
+.floating-tag.size-large {
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+}
+
+/* 不同颜色主题 */
+.floating-tag.theme-primary {
+  border-color: rgba(0, 255, 255, 0.5);
+  color: var(--tech-primary);
+}
+
+.floating-tag.theme-secondary {
+  border-color: rgba(255, 0, 255, 0.5);
+  color: #ff00ff;
+}
+
+.floating-tag.theme-accent {
+  border-color: rgba(255, 165, 0, 0.5);
+  color: #ffa500;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .floating-tags-container {
+    height: 300px;
+  }
+  
+  .floating-tag {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .floating-tag.size-large {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-tags-container {
+    height: 250px;
+  }
+}

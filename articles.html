@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles - CaiCaiXiong</title>
+    
+    <!-- 引入字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/main-styles.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/button-styles.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+        <link rel="stylesheet" href="css/tech-landing.css">
+    <link rel="stylesheet" href="css/page-styles.css">
+    <link rel="stylesheet" href="css/pagination-styles.css">
+</head>
+<body data-theme="dark">
+    <!-- 加载屏幕 -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- 星空背景 -->
+    <div class="stars-container">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+    </div>
+    
+    <!-- 主题切换按钮 -->
+    <div class="theme-toggle" id="themeToggle">
+        <div class="toggle-icon">🌓</div>
+    </div>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1 class="brand-text">CaiCaiXiong</h1>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="/articles" class="nav-link active">Articles</a></li>
+                <li class="nav-item"><a href="/categories" class="nav-link">Categories</a></li>
+                <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="main-content page-content">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">Articles</h1>
+                <p class="page-subtitle">Thoughts, tutorials, and insights on software development</p>
+            </div>
+            
+            <!-- 文章搜索和筛选 -->
+            <div class="articles-filter">
+                <div class="search-box">
+                    <input type="text" placeholder="搜索文章..." class="search-input">
+                </div>
+                <div class="filter-tags">
+                    <button class="filter-tag active" data-category="all">全部</button>
+                    <button class="filter-tag" data-category="java">Java</button>
+                    <button class="filter-tag" data-category="database">Database</button>
+                    <button class="filter-tag" data-category="spring">Spring</button>
+                    <button class="filter-tag" data-category="uncategorized">未分类</button>
+                </div>
+                <div class="results-info"></div>
+            </div>
+            
+            <!-- 文章列表 -->
+            <div class="articles-grid">
+                <!-- 文章将通过JavaScript动态加载 -->
+                <div class="loading-articles">
+                    <div class="loading-spinner"></div>
+                    <p>加载文章中...</p>
+                </div>
+            </div>
+            
+            <!-- 分页导航 -->
+            <div class="pagination" style="display: none;">
+                <!-- 分页按钮将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </main>
+    
+    <!-- 引入脚本 -->
+    <script src="/js/init.js"></script>
+    <script src="/js/enhanced-navbar-autohide.js"></script>
+    <script src="/js/theme-switcher.js"></script>
+    <script src="/js/mobile-nav.js"></script>
+    <script src="/js/dynamic-articles-manager.js"></script>
+    <script src="/js/mouse-trail.js"></script>
+</body>
+</html>

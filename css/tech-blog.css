@@ -1,0 +1,134 @@
+/* 科技博客页面样式 */
+
+:root {
+  --tech-blog-bg: #0a0a0a;
+  --tech-blog-card-bg: rgba(26, 26, 26, 0.8);
+  --tech-blog-aside-bg: rgba(15, 15, 15, 0.9);
+  --tech-blog-text: #ffffff;
+  --tech-blog-text-muted: #888888;
+  --tech-blog-primary: #00ffff;
+  --tech-blog-border: rgba(0, 255, 255, 0.2);
+}
+
+[data-theme="light"] {
+  --tech-blog-bg: #f5f5f5;
+  --tech-blog-card-bg: rgba(255, 255, 255, 0.9);
+  --tech-blog-aside-bg: rgba(248, 248, 248, 0.95);
+  --tech-blog-text: #333333;
+  --tech-blog-text-muted: #666666;
+  --tech-blog-primary: #0066cc;
+  --tech-blog-border: rgba(0, 102, 204, 0.2);
+}
+
+.tech-blog-container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 30px;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* 侧边栏 */
+.tech-blog-aside {
+  background: var(--tech-blog-aside-bg);
+  border-radius: 12px;
+  border: 1px solid var(--tech-blog-border);
+  padding: 20px;
+  height: fit-content;
+}
+
+.category-widget .widget-title {
+  font-size: 1.5rem;
+  color: var(--tech-blog-primary);
+  margin-bottom: 20px;
+  font-family: 'Courier New', monospace;
+}
+
+.category-list {
+  list-style: none;
+}
+
+.category-item a {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 15px;
+  color: var(--tech-blog-text);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.category-item a:hover {
+  background: var(--tech-blog-card-bg);
+  border-left-color: var(--tech-blog-primary);
+  transform: translateX(5px);
+}
+
+.category-name {
+  font-weight: 500;
+}
+
+.category-count {
+  color: var(--tech-blog-text-muted);
+}
+
+/* 文章列表 */
+.tech-blog-content {
+  display: grid;
+  gap: 25px;
+}
+
+.post-card {
+  display: block;
+  background: var(--tech-blog-card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--tech-blog-border);
+  padding: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--tech-blog-primary);
+  box-shadow: 0 8px 25px rgba(0, 255, 255, 0.2);
+}
+
+.post-title {
+  font-size: 1.8rem;
+  color: var(--tech-blog-text);
+  margin-bottom: 15px;
+  font-family: 'Courier New', monospace;
+}
+
+.post-card:hover .post-title {
+  color: var(--tech-blog-primary);
+}
+
+.post-meta {
+  color: var(--tech-blog-text-muted);
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.post-meta .separator {
+  margin: 0 10px;
+}
+
+.post-excerpt {
+  color: var(--tech-blog-text-muted);
+  line-height: 1.7;
+}
+
+/* 响应式 */
+@media (max-width: 992px) {
+  .tech-blog-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .tech-blog-aside {
+    height: auto;
+  }
+}

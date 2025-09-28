@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - CaiCaiXiong</title>
+    
+    <!-- 引入字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/main-styles.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/button-styles.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/page-styles.css">
+</head>
+<body data-theme="dark">
+    <!-- 加载屏幕 -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- 星空背景 -->
+    <div class="stars-container">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+    </div>
+    
+    <!-- 主题切换按钮 -->
+    <div class="theme-toggle" id="themeToggle">
+        <div class="toggle-icon">🌓</div>
+    </div>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1 class="brand-text">CaiCaiXiong</h1>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/about" class="nav-link active">About</a></li>
+                <li class="nav-item"><a href="/articles" class="nav-link">Articles</a></li>
+                <li class="nav-item"><a href="/categories" class="nav-link">Categories</a></li>
+                <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="main-content page-content">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">About Me</h1>
+                <p class="page-subtitle">Get to know the person behind the code</p>
+            </div>
+            
+            <div class="about-grid">
+                <!-- 个人简介 -->
+                <div class="about-intro-card">
+                    <h2>Hello, I'm CaiCaiXiong</h2>
+                    <p>
+                        I'm a passionate Java backend developer with 3+ years of experience in building 
+                        scalable web applications. I specialize in the Spring ecosystem and have a strong 
+                        foundation in microservices architecture.
+                    </p>
+                    <p>
+                        My journey in software development started with curiosity about how things work 
+                        behind the scenes. Today, I enjoy creating efficient solutions and sharing 
+                        knowledge with the developer community.
+                    </p>
+                </div>
+                
+                <!-- 技能板块 -->
+                <div class="skills-card">
+                    <h3>Technical Skills</h3>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h4>Backend</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Java</span>
+                                <span class="skill-tag">Spring Boot</span>
+                                <span class="skill-tag">MyBatis</span>
+                                <span class="skill-tag">JPA</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h4>Database</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">MySQL</span>
+                                <span class="skill-tag">Redis</span>
+                                <span class="skill-tag">MongoDB</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h4>DevOps</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Docker</span>
+                                <span class="skill-tag">Git</span>
+                                <span class="skill-tag">Linux</span>
+                                <span class="skill-tag">Nginx</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h4>Message Queue</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">RabbitMQ</span>
+                                <span class="skill-tag">Kafka</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 经验时间线 -->
+                <div class="timeline-card">
+                    <h3>Experience</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">2024 - Present</div>
+                            <div class="timeline-content">
+                                <h4>Senior Java Developer</h4>
+                                <p>Leading backend development for enterprise applications</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-date">2022 - 2024</div>
+                            <div class="timeline-content">
+                                <h4>Java Developer</h4>
+                                <p>Developed microservices and RESTful APIs</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-date">2021 - 2022</div>
+                            <div class="timeline-content">
+                                <h4>Junior Developer</h4>
+                                <p>Started journey in backend development</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 引入脚本 -->
+    <script src="/js/init.js"></script>
+    <script src="/js/enhanced-navbar-autohide.js"></script>
+    <script src="/js/theme-switcher.js"></script>
+    <script src="/js/mobile-nav.js"></script>
+    <script src="/js/mouse-trail.js"></script>
+</body>
+</html>

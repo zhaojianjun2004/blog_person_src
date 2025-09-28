@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章详情 - CaiCaiXiong</title>
+    
+    <!-- 引入字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/main-styles.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/button-styles.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/page-styles.css">
+    <link rel="stylesheet" href="/css/article-detail.css">
+    
+    <!-- 代码高亮 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+</head>
+<body data-theme="dark">
+    <!-- 加载屏幕 -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- 星空背景 -->
+    <div class="stars-container">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+    </div>
+    
+    <!-- 主题切换按钮 -->
+    <div class="theme-toggle" id="themeToggle">
+        <div class="toggle-icon">🌓</div>
+    </div>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1 class="brand-text">CaiCaiXiong</h1>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="/articles" class="nav-link active">Articles</a></li>
+                <li class="nav-item"><a href="/categories" class="nav-link">Categories</a></li>
+                <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="main-content page-content">
+        <div class="container">
+            <!-- 面包屑导航 -->
+            <nav class="breadcrumb">
+                <a href="/">Home</a>
+                <span class="separator">›</span>
+                <a href="/articles">Articles</a>
+                <span class="separator">›</span>
+                <span class="current" id="breadcrumbTitle">Loading...</span>
+            </nav>
+            
+            <div class="article-container">
+                <!-- 加载状态 -->
+                <div class="article-loading" id="articleLoading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading article...</p>
+                </div>
+                
+                <!-- 文章内容 -->
+                <article class="article-detail" id="articleContent" style="display: none;">
+                    <header class="article-header">
+                        <h1 class="article-title" id="articleTitle"></h1>
+                        <p class="article-excerpt" id="articleExcerpt"></p>
+                        
+                        <!-- 文章信息和标签区域 -->
+                        <div class="article-info-section">
+                            <!-- 文章信息区域将通过JS动态插入 -->
+                        </div>
+                        
+                        <div class="article-tags-category">
+                            <div class="article-tags" id="articleTags"></div>
+                            <div class="article-category-section">
+                                <span class="category-label">分类：</span>
+                                <span class="article-category" id="articleCategory"></span>
+                            </div>
+                        </div>
+                    </header>
+                    
+                    <!-- 文章目录 -->
+                    <aside class="table-of-contents" id="tableOfContents">
+                        <h3>目录</h3>
+                        <ul id="tocList"></ul>
+                    </aside>
+                    
+                    <!-- 文章正文 -->
+                    <div class="article-body" id="articleBody">
+                        <!-- 文章内容将在这里加载 -->
+                    </div>
+                    
+                    <!-- 文章底部 -->
+                    <footer class="article-footer">
+                        <div class="article-actions">
+                            <button class="share-btn" id="shareBtn">
+                                <span class="icon">�</span>
+                                复制链接
+                            </button>
+                            <button class="like-btn" id="likeBtn">
+                                <span class="icon">❤️</span>
+                                <span class="like-count">0</span>
+                            </button>
+                        </div>
+                        
+                        <div class="article-nav">
+                            <a href="/articles" class="back-to-articles">
+                                ← 返回文章列表
+                            </a>
+                        </div>
+                    </footer>
+                </article>
+                
+                <!-- 错误状态 -->
+                <div class="article-error" id="articleError" style="display: none;">
+                    <div class="error-content">
+                        <h2>📄 文章未找到</h2>
+                        <p>抱歉，您要访问的文章不存在或已被删除。</p>
+                        <div class="error-actions">
+                            <a href="/articles" class="btn btn-primary">← 返回文章列表</a>
+                            <a href="/" class="btn btn-outline">回到首页</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" id="backToTop">
+        <span>↑</span>
+    </button>
+    
+    <!-- 引入脚本 -->
+    <script src="/js/init.js"></script>
+    <script src="/js/enhanced-navbar-autohide.js"></script>
+    <script src="/js/theme-switcher.js"></script>
+    <script src="/js/mobile-nav.js"></script>
+    <script src="/js/article-detail.js"></script>
+    <script src="/js/mouse-trail.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CaiCaiXiong - 科技博客</title>
+    
+    <!-- 引入字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/main-styles.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/hero-redesign.css">
+    <link rel="stylesheet" href="/css/button-styles.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/tech-blog.css">
+    <link rel="stylesheet" href="/css/tech-landing.css">
+    
+    <!-- Meta信息 -->
+    <meta name="description" content="CaiCaiXiong的个人技术博客，专注于Java后端开发、SpringBoot、微服务等技术分享">
+    <meta name="keywords" content="Java, SpringBoot, 后端开发, 微服务, 技术博客">
+    <meta name="author" content="CaiCaiXiong">
+</head>
+<body data-theme="dark">
+    <!-- 加载屏幕 -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- 星空背景 -->
+    <div class="stars-container">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+    </div>
+    
+    <!-- 主题切换按钮 -->
+    <div class="theme-toggle" id="themeToggle">
+        <div class="toggle-icon">🌓</div>
+    </div>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1 class="brand-text">CaiCaiXiong</h1>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
+                <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="/articles" class="nav-link">Articles</a></li>
+                <li class="nav-item"><a href="/categories" class="nav-link">Categories</a></li>
+                <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- 英雄区域 -->
+        <section class="hero-section" id="home">
+            <div class="hero-container">
+                <!-- 上方问候语 -->
+                <div class="hero-greeting">
+                    <span class="greeting-text">Welcome to my digital world</span>
+                    <h1 class="main-title">Full Stack Developer</h1>
+                </div>
+                
+                <!-- 中央打字机效果 -->
+                <div class="hero-center">
+                    <p>Welcome to my blog!</p>
+                </div>
+                
+                <!-- 底部操作按钮 -->
+                <div class="hero-actions">
+                    <a href="https://github.com/caicaixiong" target="_blank" class="btn btn-primary glow-btn">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="mailto:caicaixiong@example.com" class="btn btn-outline">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-20.728c-.904 0-1.636-.732-1.636-1.636v-13.909c0-.904.732-1.636 1.636-1.636h20.728c.904 0 1.636.732 1.636 1.636zm-1.636-1.636h-20.728l10.364 6.999 10.364-6.999zm0 2.446l-10.364 7-10.364-7v11.19h20.728v-11.19z"/>
+                        </svg>
+                        <span>Email</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- 技术词汇飞行效果 -->
+            <div class="tech-words"></div>
+        </section>
+        
+        <!-- 底部隐私声明 -->
+        <footer class="privacy-footer">
+            <div class="container">
+                <div class="privacy-content">
+                    <p class="privacy-text">
+                        © 2025 CaiCaiXiong. All rights reserved. | 
+                        <a href="#" class="footer-link">Privacy Policy</a> | 
+                        <a href="#" class="footer-link">Terms of Service</a> | 
+                        <a href="/contact" class="footer-link">Contact</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </main>
+    
+    <!-- 引入脚本 -->
+    <script src="/js/init.js"></script>
+    <script src="/js/enhanced-navbar-autohide.js"></script>
+    <script src="/js/theme-switcher.js"></script>
+    <script src="/js/mobile-nav.js"></script>
+    <script src="/js/stats-animator.js"></script>
+    <script src="/js/dynamic-text-switcher.js"></script>
+    <script src="/js/tech-floating-words.js"></script>
+    <script src="/js/custom.js"></script>
+    <script src="/js/tech-blog.js"></script>
+    <script src="/js/tech-landing.js"></script>
+    <script src="/js/theme-main.js"></script>
+    <script src="/js/dynamic-home.js"></script>
+    <script src="/js/dynamic-stats.js"></script>
+</body>
+</html>

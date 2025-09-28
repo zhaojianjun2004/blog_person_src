@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - CaiCaiXiong</title>
+    
+    <!-- 引入字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/main-styles.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/button-styles.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/page-styles.css">
+    <link rel="stylesheet" href="/css/floating-tags.css">
+</head>
+<body data-theme="dark">
+    <!-- 加载屏幕 -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- 星空背景 -->
+    <div class="stars-container">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+    </div>
+    
+    <!-- 主题切换按钮 -->
+    <div class="theme-toggle" id="themeToggle">
+        <div class="toggle-icon">🌓</div>
+    </div>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1 class="brand-text">CaiCaiXiong</h1>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="/articles" class="nav-link">Articles</a></li>
+                <li class="nav-item"><a href="/categories" class="nav-link active">Categories</a></li>
+                <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="main-content page-content">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">Categories</h1>
+                <p class="page-subtitle">Explore articles organized by topics and technologies</p>
+            </div>
+            
+            <!-- 分类统计 -->
+            <div class="categories-stats">
+                <div class="stat-item">
+                    <span class="stat-number">25</span>
+                    <span class="stat-label">Total Articles</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">Categories</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Tags</span>
+                </div>
+            </div>
+            
+            <!-- 分类网格 -->
+            <div class="categories-grid">
+                <div class="category-card" data-category="java">
+                    <div class="category-icon">☕</div>
+                    <h3 class="category-title">Java</h3>
+                    <p class="category-description">Core Java concepts, best practices, and advanced features</p>
+                    <div class="category-stats">
+                        <span class="article-count">8 articles</span>
+                    </div>
+                    <div class="category-tags">
+                        <span class="mini-tag">JVM</span>
+                        <span class="mini-tag">Concurrency</span>
+                        <span class="mini-tag">Best Practices</span>
+                    </div>
+                </div>
+                
+                <div class="category-card" data-category="spring">
+                    <div class="category-icon">🌱</div>
+                    <h3 class="category-title">Spring Framework</h3>
+                    <p class="category-description">Spring Boot, Spring Security, and microservices architecture</p>
+                    <div class="category-stats">
+                        <span class="article-count">6 articles</span>
+                    </div>
+                    <div class="category-tags">
+                        <span class="mini-tag">Spring Boot</span>
+                        <span class="mini-tag">Security</span>
+                        <span class="mini-tag">Microservices</span>
+                    </div>
+                </div>
+                
+                <div class="category-card" data-category="database">
+                    <div class="category-icon">🗄️</div>
+                    <h3 class="category-title">Database</h3>
+                    <p class="category-description">MySQL, Redis, and database optimization techniques</p>
+                    <div class="category-stats">
+                        <span class="article-count">4 articles</span>
+                    </div>
+                    <div class="category-tags">
+                        <span class="mini-tag">MySQL</span>
+                        <span class="mini-tag">Redis</span>
+                        <span class="mini-tag">Performance</span>
+                    </div>
+                </div>
+                
+                <div class="category-card" data-category="devops">
+                    <div class="category-icon">🚀</div>
+                    <h3 class="category-title">DevOps</h3>
+                    <p class="category-description">Docker, deployment strategies, and CI/CD pipelines</p>
+                    <div class="category-stats">
+                        <span class="article-count">3 articles</span>
+                    </div>
+                    <div class="category-tags">
+                        <span class="mini-tag">Docker</span>
+                        <span class="mini-tag">CI/CD</span>
+                        <span class="mini-tag">Deployment</span>
+                    </div>
+                </div>
+                
+                <div class="category-card" data-category="architecture">
+                    <div class="category-icon">🏗️</div>
+                    <h3 class="category-title">Architecture</h3>
+                    <p class="category-description">System design, patterns, and scalability concepts</p>
+                    <div class="category-stats">
+                        <span class="article-count">2 articles</span>
+                    </div>
+                    <div class="category-tags">
+                        <span class="mini-tag">Design Patterns</span>
+                        <span class="mini-tag">Scalability</span>
+                    </div>
+                </div>
+                
+                <div class="category-card" data-category="tools">
+                    <div class="category-icon">🛠️</div>
+                    <h3 class="category-title">Tools & Utilities</h3>
+                    <p class="category-description">Development tools, IDE tips, and productivity hacks</p>
+                    <div class="category-stats">
+                        <span class="article-count">2 articles</span>
+                    </div>
+                    <div class="category-tags">
+                        <span class="mini-tag">IntelliJ IDEA</span>
+                        <span class="mini-tag">Git</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 标签云 -->
+            <div class="tags-section">
+                <h2 class="section-title">Popular Tags</h2>
+                <div class="tags-cloud" id="tagsCloud">
+                    <!-- 标签将通过JavaScript动态加载 -->
+                    <div class="loading-tags">
+                        <p>加载标签中...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 引用脚本 -->
+    <script src="/js/init.js"></script>
+    <script src="/js/enhanced-navbar-autohide.js"></script>
+    <script src="/js/theme-switcher.js"></script>
+    <script src="/js/mobile-nav.js"></script>
+    <script src="/js/categories.js"></script>
+    <script src="/js/dynamic-categories.js"></script>
+    <script src="/js/static-tags.js"></script>
+    <script src="/js/mouse-trail.js"></script>
+</body>
+</html>

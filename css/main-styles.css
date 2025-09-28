@@ -1,0 +1,167 @@
+/* 现代化博客主页样式 */
+
+/* 主题切换按钮 */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: var(--card-bg);
+  border: 2px solid var(--tech-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1001;
+  transition: all 0.3s ease;
+  box-shadow: var(--tech-shadow);
+}
+
+.theme-toggle:hover {
+  border-color: var(--tech-primary);
+  box-shadow: var(--tech-glow);
+  transform: scale(1.1);
+}
+
+.toggle-icon {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover .toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* 导航栏样式补充 */
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-brand .brand-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--tech-primary);
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.nav-brand .brand-text:hover {
+  color: var(--tech-secondary);
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  color: var(--tech-text);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--tech-primary);
+}
+
+.nav-link.active {
+  color: var(--tech-primary);
+}
+
+/* 英雄区域 */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 2rem 2rem;
+  position: relative;
+}
+
+.hero-container {
+  max-width: 1200px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 4rem;
+  align-items: center;
+}
+
+.hero-content {
+  text-align: left;
+}
+
+.hero-greeting {
+  margin-bottom: 0.5rem;
+}
+
+.greeting-text {
+  font-size: 1.2rem;
+  color: var(--tech-text-muted);
+  font-weight: 300;
+}
+
+.hero-name {
+  margin-bottom: 1rem;
+}
+
+.name-text {
+  font-size: 4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--tech-primary), var(--tech-secondary), var(--tech-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  line-height: 1.1;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.hero-title {
+  margin-bottom: 1.5rem;
+}
+
+.title-text {
+  font-size: 1.5rem;
+  color: var(--tech-text-muted);
+  font-weight: 400;
+  margin: 0;
+}
+
+.hero-description {
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+}
+
+.hero-description p {
+  font-size: 1.1rem;
+  color: var(--tech-text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
