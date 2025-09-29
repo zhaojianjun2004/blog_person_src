@@ -376,8 +376,16 @@
 .categories-stats .stat-item {
   text-align: center;
   background: transparent;
-  border: none;
-  padding: 1rem;
+  border: 1px solid var(--tech-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.categories-stats .stat-item:hover {
+  border-color: var(--tech-primary);
+  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.1);
+  transform: translateY(-2px);
 }
 
 .stat-item .stat-number {

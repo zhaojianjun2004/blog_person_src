@@ -1,4 +1,4 @@
-// 全屏随机飘动技术栈效果
+// 全屏随机飘动技术栈效果 - 支持主题切换
 class TechFloatingWords {
     constructor() {
         this.canvas = null;
@@ -13,6 +13,7 @@ class TechFloatingWords {
         ];
         this.animationId = null;
         this.isActive = false;
+        this.currentTheme = 'dark';
         
         this.init();
     }
@@ -20,12 +21,23 @@ class TechFloatingWords {
     init() {
         this.createCanvas();
         this.bindEvents();
+        this.detectCurrentTheme();
         this.createInitialWords();
         this.start();
         console.log('🎈 全屏随机飘动技术栈效果初始化完成');
     }
     
+    detectCurrentTheme() {
+        this.currentTheme = document.body.getAttribute('data-theme') || 'dark';
+    }
+    
     createCanvas() {
+        // 删除已存在的canvas
+        const existingCanvas = document.getElementById('tech-floating-canvas');
+        if (existingCanvas) {
+            existingCanvas.remove();
+        }
+        
         this.canvas = document.createElement('canvas');
         this.canvas.id = 'tech-floating-canvas';
         this.canvas.style.position = 'fixed';
@@ -45,6 +57,20 @@ class TechFloatingWords {
     
     bindEvents() {
         window.addEventListener('resize', () => this.resizeCanvas());
+        
+        // 监听主题变化
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                    this.currentTheme = document.body.getAttribute('data-theme') || 'dark';
+                }
+            });
+        });
+        
+        observer.observe(document.body, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+        });
         
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
@@ -66,33 +92,23 @@ class TechFloatingWords {
     }
     
     createWord() {
-        const word = this.techWords[Math.floor(Math.random() * this.techWords.length)];
-        const x = Math.random() * window.innerWidth;
-        const y = Math.random() * window.innerHeight;
-        const vx = (Math.random() - 0.5) * 1.2; // 增加水平速度
-        const vy = (Math.random() - 0.5) * 1.2; // 增加垂直速度
-        const opacity = 0.4 + Math.random() * 0.6;
-        const fontSize = 10 + Math.random() * 6;
-        const rotation = Math.random() * Math.PI * 2;
-        const rotationSpeed = (Math.random() - 0.5) * 0.04; // 增加旋转速度
-        
         return {
-            word,
-            x,
-            y,
-            vx,
-            vy,
-            opacity,
-            fontSize,
-            rotation,
-            rotationSpeed,
-            life: 1.0,
-            maxLife: 1.0,
+            word: this.techWords[Math.floor(Math.random() * this.techWords.length)],
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            vx: (Math.random() - 0.5) * 2, // 水平速度
+            vy: (Math.random() - 0.5) * 2, // 垂直速度
+            fontSize: 12 + Math.random() * 20, // 字体大小
+            opacity: 0.3 + Math.random() * 0.7, // 透明度
+            rotation: 0,
+            rotationSpeed: (Math.random() - 0.5) * 0.02, // 旋转速度
+            life: 0.8 + Math.random() * 0.2, // 生命值
             pulsePhase: Math.random() * Math.PI * 2 // 呼吸效果相位
         };
     }
     
     createInitialWords() {
+        this.words = [];
         // 初始创建更多词汇，让效果立即可见
         for (let i = 0; i < 25; i++) {
             this.words.push(this.createWord());
@@ -154,15 +170,27 @@ class TechFloatingWords {
             // 计算呼吸效果的透明度
             const pulseOpacity = word.opacity * (0.7 + 0.3 * Math.sin(word.pulsePhase));
             
+            // 根据主题动态设置颜色
+            let baseColor, shadowColor;
+            if (this.currentTheme === 'dark') {
+                // 黑夜模式：使用青蓝色系，更亮更明显
+                baseColor = '0, 255, 255'; // 青色
+                shadowColor = 'rgba(0, 255, 255, 0.5)';
+            } else {
+                // 白天模式：使用深蓝色系
+                baseColor = '100, 149, 237'; // 深蓝色
+                shadowColor = 'rgba(100, 149, 237, 0.3)';
+            }
+            
             // 设置字体和样式
             this.ctx.font = `${word.fontSize}px 'JetBrains Mono', monospace`;
-            this.ctx.fillStyle = `rgba(100, 149, 237, ${pulseOpacity * word.life})`;
+            this.ctx.fillStyle = `rgba(${baseColor}, ${pulseOpacity * word.life})`;
             this.ctx.textAlign = 'center';
             this.ctx.textBaseline = 'middle';
             
-            // 添加轻微的发光效果
-            this.ctx.shadowColor = 'rgba(100, 149, 237, 0.3)';
-            this.ctx.shadowBlur = 5;
+            // 添加发光效果（黑夜模式更明显）
+            this.ctx.shadowColor = shadowColor;
+            this.ctx.shadowBlur = this.currentTheme === 'dark' ? 12 : 8;
             
             // 绘制文字
             this.ctx.fillText(word.word, 0, 0);
@@ -177,6 +205,7 @@ class TechFloatingWords {
         this.updateWords();
         this.drawWords();
         
+        // 使用更高频率的动画帧，确保流畅度
         this.animationId = requestAnimationFrame(() => this.animate());
     }
     
@@ -206,7 +235,7 @@ class TechFloatingWords {
     }
 }
 
-// 页面加载后立即初始化，不等待DOMContentLoaded
+// 页面加载后立即初始化
 document.addEventListener('DOMContentLoaded', function() {
     if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
         // 立即启动，不延迟

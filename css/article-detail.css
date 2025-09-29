@@ -7,12 +7,15 @@
   margin-bottom: 2rem;
   font-size: 0.9rem;
   color: var(--text-muted);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace !important; /* 使用主题字体 */
+  font-weight: 500;
 }
 
 .breadcrumb a {
   color: var(--text-muted);
   text-decoration: none;
   transition: color 0.3s ease;
+  font-family: inherit;
 }
 
 .breadcrumb a:hover {
@@ -26,7 +29,8 @@
 
 .breadcrumb .current {
   color: var(--text-color);
-  font-weight: 500;
+  font-weight: 600;
+  font-family: inherit;
 }
 
 /* 文章容器 */
@@ -89,13 +93,22 @@
   align-items: center;
   gap: 1.5rem;
   margin: 1rem 0;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  font-family: 'Fira Code', 'JetBrains Mono', monospace;
+  font-weight: 500;
   color: #656d76;
   flex-wrap: wrap;
+  padding: 0.8rem 1.2rem;
+  background: rgba(246, 248, 250, 0.8);
+  border-radius: 8px;
+  border-left: 3px solid var(--primary-color);
+  backdrop-filter: blur(5px);
 }
 
 [data-theme="dark"] .article-info-section {
   color: #8b949e;
+  background: rgba(22, 27, 34, 0.8);
+  border-left-color: var(--tech-primary);
 }
 
 .article-info-section .article-info {
@@ -184,23 +197,74 @@
 }
 
 .article-title {
-  font-size: 2.2rem;
-  font-weight: 600;
-  color: #24292f;
-  margin: 1rem 0 0.5rem;
-  line-height: 1.25;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 2.2rem !important;
+  font-weight: 700 !important;
+  color: #24292f !important;
+  margin: 0.2rem 0 0.1rem !important; /* 进一步减小间距 */
+  line-height: 1.2 !important;
+  font-family: 'Fira Code', 'JetBrains Mono', 'Consolas', monospace !important; /* 更换为等宽字体 */
+  text-align: left !important;
+  letter-spacing: -0.02em !important;
 }
 
 [data-theme="dark"] .article-title {
-  color: #f0f6fc;
+  color: #f0f6fc !important;
+}
+
+.article-excerpt {
+  font-size: 1rem !important;
+  color: #656d76 !important;
+  margin: 0.1rem 0 0.4rem !important; /* 进一步减小间距 */
+  line-height: 1.4 !important;
+  font-style: italic !important;
+  text-align: left !important;
+}
+
+[data-theme="dark"] .article-excerpt {
+  color: #8b949e !important;
+}
+
+/* 文章信息区域 - 缩小间距 */
+.article-info-section {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important; /* 减小间距 */
+  margin: 0.2rem 0 !important; /* 进一步减小间距 */
+  font-size: 0.85rem !important;
+  font-family: 'Fira Code', 'JetBrains Mono', monospace !important;
+  font-weight: 500 !important;
+  color: #656d76 !important;
+  flex-wrap: wrap !important;
+  padding: 0.5rem 0 !important; /* 减小内边距 */
+  background: transparent !important; /* 移除背景 */
+  border-radius: 0 !important;
+  border-left: none !important;
+  backdrop-filter: none !important;
+  text-align: left !important;
+}
+
+[data-theme="dark"] .article-info-section {
+  color: #8b949e;
+  background: rgba(22, 27, 34, 0.8);
+  border-left-color: var(--tech-primary);
+}
+
+/* 标签和分类区域 - 缩小间距 */
+.article-tags-category {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  margin: 0.2rem 0 0.8rem !important; /* 进一步减小间距 */
+  flex-wrap: wrap !important;
+  text-align: left !important;
 }
 
 .article-excerpt {
   font-size: 1rem;
   color: #656d76;
+  margin: 0.3rem 0 0.8rem; /* 减小间距 */
   line-height: 1.5;
-  margin: 0 0 1rem;
+  font-style: italic;
 }
 
 [data-theme="dark"] .article-excerpt {
@@ -398,7 +462,7 @@
   padding-left: 1.5rem;
 }
 
-/* 图片样式 - 修复图片显示不全问题 */
+/* 图片样式优化 - 修复图片显示不全问题并添加点击查看功能 */
 .article-body img {
   max-width: 100%;
   height: auto;
@@ -407,6 +471,120 @@
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.article-body img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+[data-theme="dark"] .article-body img {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+[data-theme="dark"] .article-body img:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+/* 图片查看器模态框 */
+.image-viewer-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.image-viewer-modal.show {
+  display: flex;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.image-viewer-content {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  transform: scale(1);
+  transition: transform 0.3s ease;
+  cursor: zoom-out;
+}
+
+.image-viewer-content:hover {
+  transform: scale(1.05); /* 悬停时轻微放大 */
+}
+
+.image-viewer-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.3s ease;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-viewer-close:hover {
+  opacity: 0.7;
+  background: rgba(0,0,0,0.8);
+}
+
+/* 图片缩放控制按钮 */
+.image-zoom-controls {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  background: rgba(0,0,0,0.7);
+  padding: 10px;
+  border-radius: 25px;
+}
+
+.zoom-btn {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.zoom-btn:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.zoom-btn:active {
+  transform: scale(0.95);
 }
 
 [data-theme="dark"] .article-body img {

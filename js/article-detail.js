@@ -26,6 +26,7 @@ class ArticleDetailManager {
             this.generateTableOfContents();
             this.setupBackToTop();
             this.highlightCode();
+            this.initImageViewer(); // 添加图片查看器初始化
         } catch (error) {
             console.error('❌ 加载文章失败:', error);
             this.showError();
@@ -308,6 +309,142 @@ class ArticleDetailManager {
                 hljs.highlightElement(block);
             });
         }
+    }
+    
+    // 初始化图片查看器功能
+    initImageViewer() {
+        // 创建图片查看器模态框
+        if (!document.querySelector('.image-viewer-modal')) {
+            const modal = document.createElement('div');
+            modal.className = 'image-viewer-modal';
+            modal.innerHTML = `
+                <span class="image-viewer-close">&times;</span>
+                <img class="image-viewer-content" src="" alt="">
+                <div class="image-zoom-controls">
+                    <button class="zoom-btn" id="zoomOut" title="缩小">-</button>
+                    <button class="zoom-btn" id="resetZoom" title="重置">⌂</button>
+                    <button class="zoom-btn" id="zoomIn" title="放大">+</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        let currentScale = 1;
+        let isDragging = false;
+        let startX = 0, startY = 0;
+        let translateX = 0, translateY = 0;
+        
+        // 点击文章中的图片打开查看器
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG' && e.target.closest('.article-body')) {
+                const img = e.target;
+                const modal = document.querySelector('.image-viewer-modal');
+                const modalImg = modal.querySelector('.image-viewer-content');
+                
+                modal.classList.add('show');
+                modalImg.src = img.src;
+                modalImg.alt = img.alt;
+                document.body.style.overflow = 'hidden';
+                
+                // 重置缩放和位置
+                currentScale = 1;
+                translateX = 0;
+                translateY = 0;
+                updateImageTransform(modalImg);
+            }
+        });
+        
+        // 缩放功能
+        function updateImageTransform(img) {
+            img.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
+        }
+        
+        // 缩放按钮事件
+        document.addEventListener('click', (e) => {
+            const modalImg = document.querySelector('.image-viewer-content');
+            
+            if (e.target.id === 'zoomIn') {
+                e.stopPropagation();
+                currentScale = Math.min(currentScale * 1.2, 3); // 最大3倍
+                updateImageTransform(modalImg);
+            } else if (e.target.id === 'zoomOut') {
+                e.stopPropagation();
+                currentScale = Math.max(currentScale / 1.2, 0.5); // 最小0.5倍
+                updateImageTransform(modalImg);
+            } else if (e.target.id === 'resetZoom') {
+                e.stopPropagation();
+                currentScale = 1;
+                translateX = 0;
+                translateY = 0;
+                updateImageTransform(modalImg);
+            }
+        });
+        
+        // 鼠标拖拽功能（当图片放大时）
+        document.addEventListener('mousedown', (e) => {
+            if (e.target.classList.contains('image-viewer-content') && currentScale > 1) {
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+                e.target.style.cursor = 'grabbing';
+                e.preventDefault();
+            }
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging && currentScale > 1) {
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                const modalImg = document.querySelector('.image-viewer-content');
+                updateImageTransform(modalImg);
+            }
+        });
+        
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                const modalImg = document.querySelector('.image-viewer-content');
+                modalImg.style.cursor = 'zoom-out';
+            }
+        });
+        
+        // 滚轮缩放
+        document.addEventListener('wheel', (e) => {
+            if (document.querySelector('.image-viewer-modal.show')) {
+                e.preventDefault();
+                const modalImg = document.querySelector('.image-viewer-content');
+                const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                currentScale = Math.max(0.5, Math.min(3, currentScale * delta));
+                updateImageTransform(modalImg);
+            }
+        }, { passive: false });
+        
+        // 点击关闭按钮或背景关闭查看器
+        document.addEventListener('click', (e) => {
+            const modal = document.querySelector('.image-viewer-modal');
+            if (e.target.classList.contains('image-viewer-close') || 
+                e.target.classList.contains('image-viewer-modal')) {
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+                currentScale = 1;
+                translateX = 0;
+                translateY = 0;
+            }
+        });
+        
+        // ESC键关闭查看器
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.querySelector('.image-viewer-modal');
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+                currentScale = 1;
+                translateX = 0;
+                translateY = 0;
+            }
+        });
+        
+        console.log('🖼️ 增强图片查看器初始化完成');
     }
     
     showError() {

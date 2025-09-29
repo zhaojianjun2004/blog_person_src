@@ -495,20 +495,20 @@ a:hover {
 
 /* 滚动条优化 */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px; /* 减小宽度 */
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--tech-dark);
+  background: rgba(0,0,0,0.1);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, var(--tech-primary), var(--tech-secondary));
-  border-radius: 4px;
+  background: rgba(150, 150, 150, 0.5); /* 使用浅灰色 */
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, var(--tech-secondary), var(--tech-primary));
+  background: rgba(120, 120, 120, 0.7); /* 悬停时稍微加深 */
 }
 
 /* 动画优化 */
