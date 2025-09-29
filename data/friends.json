@@ -1,20 +1,14 @@
 [
   {
-    "name": "示例友链1",
-    "url": "https://example1.com",
-    "avatar": "https://via.placeholder.com/40x40/00ffff/000000?text=EX1",
-    "description": "这是一个示例友链描述"
+    "name": "NingMao",
+    "url": "http://ningmao.top/",
+    "avatar": "https://personal-blog01.oss-cn-chengdu.aliyuncs.com/image-20250904164522620.png",
+    "description": "强者很强"
   },
   {
-    "name": "示例友链2", 
-    "url": "https://example2.com",
-    "avatar": "https://via.placeholder.com/40x40/0099ff/ffffff?text=EX2",
-    "description": "另一个示例友链"
-  },
-  {
-    "name": "CaiCaiXiong's Blog",
-    "url": "https://caicaixiong.github.io",
-    "avatar": "https://via.placeholder.com/40x40/ff6600/ffffff?text=CC",
-    "description": "技术博客与生活分享"
+    "name": "Chenchen", 
+    "url": "http://cclmsy.cc",
+    "avatar": "https://personal-blog01.oss-cn-chengdu.aliyuncs.com/cc.png",
+    "description": "算法大佬，飞升实践者"
   }
 ]
