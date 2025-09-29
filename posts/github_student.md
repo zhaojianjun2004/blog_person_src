@@ -2,11 +2,11 @@
 title: github学生认证常见问题解决方案（已Approved）
 date:
 updated:
-category: github
+category: tools
 toc: true
 toc_number: false
 tags:
- - '解决方案'
+ - 'github'
  - '学生认证'
 ---
 

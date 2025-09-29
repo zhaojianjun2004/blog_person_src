@@ -150,12 +150,12 @@ class DynamicCategoriesManager {
     getRelatedTags(categoryId) {
         // 根据分类返回相关标签
         const tagMap = {
-            'java': ['Java', 'JVM', 'Spring Boot', 'Maven'],
-            'database': ['MySQL', 'Redis', 'MongoDB', 'SQL'],
-            'daily': ['Daily Life', 'Thoughts', 'Experience', 'Growth'],
-            'spring': ['Spring Boot', 'Spring Cloud', 'Microservices', 'REST API'],
-            'devops': ['Docker', 'CI/CD', 'AWS', 'Linux'],
-            'tools': ['VS Code', 'Git', 'Postman', 'CLI']
+            'java': ['Java', 'JVM', 'SpringBoot', 'Maven','JUC'],
+            'database': ['MySQL', 'Redis', 'MongoDB', 'SQL' , 'NoSQL' , 'PostgreSQL'],
+            'daily': ['Daily Life', 'Thoughts', 'Experience', 'Growth','Thinking','daily','life'],
+            'spring': ['SpringBoot', 'SpringCloud', 'Microservices', 'RESTAPI','Spring','security'],
+            'devops': ['Docker', 'CI/CD', 'Kubernetes', 'Linux', 'Nginx','DevOps'],
+            'tools': ['VSCode', 'Git', 'Github', 'CLI', 'Postman','IDEA']
         };
         return tagMap[categoryId] || ['General'];
     }

@@ -5,8 +5,7 @@ update:
 tags:
   - "hexo"
   - "解决方案"
-  - "部署"
-category: hexo
+category: devops
 ---
 
 ## 前言

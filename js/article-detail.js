@@ -80,7 +80,7 @@ class ArticleDetailManager {
             'java': 'Java',
             'spring': 'Spring',
             'database': 'Database',
-            'uncategorized': '未分类'
+            'daily': 'daily',
         };
         return categoryMap[category] || category;
     }
