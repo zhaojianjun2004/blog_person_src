@@ -50,7 +50,6 @@
     width: 200px;
     text-align: center;
   }
-}
 
 /* 英雄区域响应式 */
 @media (max-width: 1024px) {
