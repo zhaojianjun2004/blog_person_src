@@ -45,18 +45,18 @@
 }
 
 .nav-brand .brand-text {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--tech-primary);
-  margin: 0;
-  font-family: 'JetBrains Mono', monospace;
-  letter-spacing: 2px;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: var(--tech-primary) !important;
+  margin: 0 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  letter-spacing: 2px !important;
   cursor: pointer;
   transition: color 0.2s ease;
 }
 
 .nav-brand .brand-text:hover {
-  color: var(--tech-secondary);
+  color: var(--tech-secondary) !important;
 }
 
 .nav-menu {

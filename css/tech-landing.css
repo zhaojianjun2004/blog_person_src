@@ -158,17 +158,9 @@ body {
   z-index: 100;
 }
 
-.nav-brand {
-  display: flex;
-  align-items: center;
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--tech-primary);
-}
+/* 移除nav-brand重复定义，使用main-styles.css中的统一样式 */
 
-.brand-text {
-  margin-right: 5px;
-}
+/* 删除会覆盖main-styles.css的.brand-text样式 */
 
 .brand-cursor {
   animation: blink 1s infinite;

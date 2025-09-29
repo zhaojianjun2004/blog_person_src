@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leisure - CaiCaiXiong</title>
+    
+    <!-- 引入字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/main-styles.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/button-styles.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/tech-landing.css">
+    <link rel="stylesheet" href="/css/page-styles.css">
+</head>
+<body data-theme="dark">
+    <!-- 加载屏幕 -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- 星空背景 -->
+    <div class="stars-container">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+    </div>
+    
+    <!-- 主题切换按钮 -->
+    <div class="theme-toggle" id="themeToggle">
+        <div class="toggle-icon">🌓</div>
+    </div>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1 class="brand-text">CaiCaiXiong</h1>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/articles" class="nav-link">Articles</a></li>
+                <li class="nav-item"><a href="/categories" class="nav-link">Categories</a></li>
+                <li class="nav-item"><a href="/leisure" class="nav-link active">Leisure</a></li>
+                <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 主内容 -->
+    <main class="page-content">
+        <div class="container">
+            <!-- 页面标题 -->
+            <div class="page-header">
+                <h1 class="page-title">Leisure & Fun</h1>
+                <p class="page-subtitle">Life beyond code, hobbies and interesting stuff</p>
+            </div>
+            
+            <!-- 休闲内容区域 -->
+            <div class="leisure-grid">
+                <!-- 兴趣爱好卡片 -->
+                <div class="leisure-card">
+                    <h3>🎮 Hobbies & Interests</h3>
+                    <div class="hobbies-list">
+                        <span class="hobby-tag">🎵 Music</span>
+                        <span class="hobby-tag">📚 Reading</span>
+                        <span class="hobby-tag">🎬 Movies</span>
+                        <span class="hobby-tag">🏀 Basketball</span>
+                        <span class="hobby-tag">🎨 Design</span>
+                        <span class="hobby-tag">📸 Photography</span>
+                    </div>
+                </div>
+                
+                <!-- 友链板块 -->
+                <div class="friends-links-card">
+                    <h3>🔗 友情链接</h3>
+                    <p class="friends-description">一些有趣的朋友们的博客和网站</p>
+                    <div class="friends-grid" id="friendsGrid">
+                        <!-- 友链将通过JavaScript动态加载 -->
+                        <div class="loading-friends">加载友链中...</div>
+                    </div>
+                    <div class="add-friend-link">
+                        <p>想要交换友链？<a href="mailto:caicaixiong@example.com">联系我</a></p>
+                    </div>
+                </div>
+                
+                <!-- 生活随想卡片 -->
+                <div class="life-thoughts-card">
+                    <h3>💭 Life Thoughts</h3>
+                    <div class="thoughts-list">
+                        <blockquote>
+                            "Code is poetry, but life is the whole book."
+                        </blockquote>
+                        <blockquote>
+                            "在代码的世界里，我们创造；在生活中，我们体验。"
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 引入脚本 -->
+    <script src="/js/init.js"></script>
+    <script src="/js/enhanced-navbar-autohide.js"></script>
+    <script src="/js/theme-switcher.js"></script>
+    <script src="/js/mobile-nav.js"></script>
+    <script src="/js/mouse-trail.js"></script>
+    <script src="/js/friends-loader.js"></script>
+</body>
+</html>

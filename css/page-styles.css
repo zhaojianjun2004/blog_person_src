@@ -1,4 +1,4 @@
-/* 标签云动效 */
+﻿/* 鏍囩浜戝姩鏁?*/
 @keyframes tagFadeIn {
   from {
     opacity: 0;
@@ -67,7 +67,8 @@
   font-weight: 700;
   color: var(--tech-text);
   margin-bottom: 1rem;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Courier New', monospace;
+  text-shadow: var(--tech-glow);
 }
 
 .page-subtitle {
@@ -75,9 +76,10 @@
   color: var(--tech-text-muted);
   margin: 0;
   font-weight: 400;
+  font-family: 'Courier New', monospace;
 }
 
-/* About 页面样式 */
+/* About 椤甸潰鏍峰紡 */
 .about-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -100,15 +102,18 @@
   color: var(--tech-primary);
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
+  font-family: 'Courier New', monospace;
+  text-shadow: var(--tech-glow);
 }
 
 .about-intro-card p {
   color: var(--tech-text);
   line-height: 1.7;
   margin-bottom: 1rem;
+  font-family: 'Courier New', monospace;
 }
 
-/* 技能样式 */
+/* 鎶€鑳芥牱寮?*/
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -119,6 +124,8 @@
   color: var(--tech-text);
   margin-bottom: 0.8rem;
   font-size: 1.1rem;
+  font-family: 'Courier New', monospace;
+  text-shadow: var(--tech-glow);
 }
 
 .skill-tags {
@@ -136,7 +143,7 @@
   border: 1px solid var(--tech-border);
 }
 
-/* 时间线样式 */
+/* 鏃堕棿绾挎牱寮?*/
 .timeline {
   position: relative;
   padding-left: 2rem;
@@ -178,14 +185,17 @@
 .timeline-content h4 {
   color: var(--tech-text);
   margin-bottom: 0.5rem;
+  font-family: 'Courier New', monospace;
+  text-shadow: var(--tech-glow);
 }
 
 .timeline-content p {
   color: var(--tech-text-muted);
   margin: 0;
+  font-family: 'Courier New', monospace;
 }
 
-/* Articles 页面样式 */
+/* Articles 椤甸潰鏍峰紡 */
 .articles-filter {
   display: flex;
   justify-content: space-between;
@@ -237,7 +247,7 @@
   border-color: var(--tech-primary);
 }
 
-/* 文章卡片 */
+/* 鏂囩珷鍗＄墖 */
 .articles-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -249,7 +259,7 @@
   background: var(--card-bg);
   border: 1px solid var(--tech-border);
   border-radius: 16px;
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   backdrop-filter: blur(10px);
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
@@ -300,6 +310,9 @@
   color: var(--tech-text-muted);
   line-height: 1.6;
   margin-bottom: 1.5rem;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 0.95rem;
 }
 
 .article-tags {
@@ -317,7 +330,7 @@
   border: 1px solid var(--tech-border);
 }
 
-/* 分页 */
+/* 鍒嗛〉 */
 .pagination {
   display: flex;
   justify-content: center;
@@ -350,20 +363,21 @@
   font-size: 0.9rem;
 }
 
-/* Categories 页面样式 */
+/* Categories 椤甸潰鏍峰紡 */
 .categories-stats {
   display: flex;
   justify-content: center;
   gap: 3rem;
   margin-bottom: 3rem;
-  padding: 2rem;
-  background: var(--card-bg);
-  border-radius: 16px;
-  border: 1px solid var(--tech-border);
+  padding: 2rem 0;
+  /* 取消背景和边框，与主题融合 */
 }
 
-.stat-item {
+.categories-stats .stat-item {
   text-align: center;
+  background: transparent;
+  border: none;
+  padding: 1rem;
 }
 
 .stat-item .stat-number {
@@ -383,7 +397,7 @@
 
 .categories-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-bottom: 4rem;
 }
@@ -413,12 +427,14 @@
   color: var(--tech-text);
   margin-bottom: 1rem;
   font-size: 1.4rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .category-description {
   color: var(--tech-text-muted);
   line-height: 1.6;
   margin-bottom: 1.5rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .category-stats {
@@ -429,6 +445,7 @@
   color: var(--tech-primary);
   font-weight: 600;
   font-size: 0.9rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .category-tags {
@@ -483,7 +500,7 @@
   transform: scale(1.05);
 }
 
-/* Contact 页面样式 */
+/* Contact 椤甸潰鏍峰紡 */
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -560,7 +577,7 @@
   text-decoration: underline;
 }
 
-/* 联系表单 */
+/* 鑱旂郴琛ㄥ崟 */
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -600,7 +617,7 @@
   min-height: 120px;
 }
 
-/* 额外信息卡片 */
+/* 棰濆淇℃伅鍗＄墖 */
 .contact-extra {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -656,7 +673,7 @@
   border: 1px solid var(--tech-border);
 }
 
-/* 响应式设计 */
+/* 鍝嶅簲寮忚璁?*/
 @media (max-width: 768px) {
   .page-title {
     font-size: 2rem;
@@ -687,62 +704,191 @@
     left: -1.5rem;
   }
 }
- 
- / *   �X:_Hr�e�zaSGr7h_  * / 
- . a r t i c l e - c a r d   { 
-     p o s i t i o n :   r e l a t i v e ; 
-     o v e r f l o w :   h i d d e n ; 
- } 
- 
- . a r t i c l e - c a r d : : b e f o r e   { 
-     c o n t e n t :   ' ' ; 
-     p o s i t i o n :   a b s o l u t e ; 
-     t o p :   0 ; 
-     l e f t :   - 1 0 0 % ; 
-     w i d t h :   1 0 0 % ; 
-     h e i g h t :   1 0 0 % ; 
-     b a c k g r o u n d :   l i n e a r - g r a d i e n t ( 9 0 d e g ,   t r a n s p a r e n t ,   r g b a ( 0 ,   2 5 5 ,   2 5 5 ,   0 . 1 ) ,   t r a n s p a r e n t ) ; 
-     t r a n s i t i o n :   l e f t   0 . 5 s   e a s e ; 
- } 
- 
- . a r t i c l e - c a r d : h o v e r : : b e f o r e   { 
-     l e f t :   1 0 0 % ; 
- } 
- 
- . r e a d - m o r e - b t n   { 
-     d i s p l a y :   i n l i n e - f l e x ; 
-     a l i g n - i t e m s :   c e n t e r ; 
-     g a p :   0 . 5 r e m ; 
-     c o l o r :   v a r ( - - t e c h - p r i m a r y ) ; 
-     t e x t - d e c o r a t i o n :   n o n e ; 
-     f o n t - w e i g h t :   5 0 0 ; 
-     p a d d i n g :   0 . 5 r e m   1 r e m ; 
-     b o r d e r :   1 p x   s o l i d   t r a n s p a r e n t ; 
-     b o r d e r - r a d i u s :   6 p x ; 
-     t r a n s i t i o n :   a l l   0 . 3 s   e a s e ; 
- } 
- 
- . r e a d - m o r e - b t n : h o v e r   { 
-     b o r d e r - c o l o r :   v a r ( - - t e c h - p r i m a r y ) ; 
-     b a c k g r o u n d :   r g b a ( 0 ,   2 5 5 ,   2 5 5 ,   0 . 1 ) ; 
-     t r a n s f o r m :   t r a n s l a t e X ( 2 p x ) ; 
- } 
- 
- / *   �e�zh~{�X:_He�g  * / 
- . a r t i c l e - t a g   { 
-     b a c k g r o u n d :   r g b a ( 0 ,   2 5 5 ,   2 5 5 ,   0 . 1 ) ; 
-     c o l o r :   v a r ( - - t e c h - p r i m a r y ) ; 
-     p a d d i n g :   0 . 2 5 r e m   0 . 7 5 r e m ; 
-     b o r d e r - r a d i u s :   1 6 p x ; 
-     f o n t - s i z e :   0 . 8 r e m ; 
-     b o r d e r :   1 p x   s o l i d   r g b a ( 0 ,   2 5 5 ,   2 5 5 ,   0 . 3 ) ; 
-     c u r s o r :   p o i n t e r ; 
-     t r a n s i t i o n :   a l l   0 . 3 s   e a s e ; 
- } 
- 
- . a r t i c l e - t a g : h o v e r   { 
-     b a c k g r o u n d :   r g b a ( 0 ,   2 5 5 ,   2 5 5 ,   0 . 2 ) ; 
-     t r a n s f o r m :   t r a n s l a t e Y ( - 1 p x ) ; 
- } 
-  
- 
+
+/* Leisure 页面样式 */
+.leisure-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.leisure-card,
+.friends-links-card,
+.life-thoughts-card {
+  background: var(--card-bg);
+  border: 1px solid var(--tech-border);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.leisure-card h3,
+.friends-links-card h3,
+.life-thoughts-card h3 {
+  color: var(--tech-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  font-family: 'Courier New', monospace;
+  text-shadow: var(--tech-glow);
+}
+
+/* 兴趣爱好标签 */
+.hobbies-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.hobby-tag {
+  background: rgba(0, 255, 255, 0.1);
+  color: var(--tech-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  border: 1px solid var(--tech-border);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.hobby-tag:hover {
+  background: rgba(0, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
+}
+
+/* 友链样式 */
+.friends-description {
+  color: var(--tech-text-muted);
+  margin-bottom: 1.5rem;
+  font-family: 'Courier New', monospace;
+}
+
+.friends-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.friend-link {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem;
+  background: rgba(0, 255, 255, 0.05);
+  border: 1px solid var(--tech-border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--tech-text);
+  transition: all 0.3s ease;
+}
+
+.friend-link:hover {
+  border-color: var(--tech-primary);
+  background: rgba(0, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.friend-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--tech-primary);
+}
+
+.friend-info {
+  flex: 1;
+}
+
+.friend-name {
+  font-weight: 600;
+  color: var(--tech-text);
+  font-size: 0.95rem;
+  font-family: 'Courier New', monospace;
+}
+
+.friend-description {
+  font-size: 0.8rem;
+  color: var(--tech-text-muted);
+  margin-top: 0.2rem;
+}
+
+.loading-friends {
+  text-align: center;
+  color: var(--tech-text-muted);
+  font-style: italic;
+  padding: 2rem;
+}
+
+.add-friend-link {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--tech-border);
+}
+
+.add-friend-link p {
+  color: var(--tech-text-muted);
+  font-family: 'Courier New', monospace;
+}
+
+.add-friend-link a {
+  color: var(--tech-primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.add-friend-link a:hover {
+  color: var(--tech-secondary);
+  text-shadow: var(--tech-glow);
+}
+
+/* 生活随想 */
+.thoughts-list blockquote {
+  background: rgba(0, 255, 255, 0.05);
+  border-left: 4px solid var(--tech-primary);
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: var(--tech-text);
+  font-family: 'Courier New', monospace;
+  border-radius: 0 8px 8px 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .leisure-grid {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  .categories-stats {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .categories-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .friends-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .leisure-card,
+  .friends-links-card,
+  .life-thoughts-card {
+    padding: 1.5rem;
+  }
+  
+  .hobbies-list {
+    justify-content: center;
+  }
+}

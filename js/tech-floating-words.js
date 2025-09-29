@@ -93,15 +93,15 @@ class TechFloatingWords {
     }
     
     createInitialWords() {
-        // 初始创建一些词汇
-        for (let i = 0; i < 15; i++) {
+        // 初始创建更多词汇，让效果立即可见
+        for (let i = 0; i < 25; i++) {
             this.words.push(this.createWord());
         }
     }
     
     updateWords() {
-        // 偶尔添加新词汇
-        if (Math.random() < 0.002 && this.words.length < 20) {
+        // 增加新词汇出现频率，让效果更早更快显现
+        if (Math.random() < 0.005 && this.words.length < 25) {
             this.words.push(this.createWord());
         }
         
@@ -206,9 +206,12 @@ class TechFloatingWords {
     }
 }
 
-// 页面加载完成后初始化
+// 页面加载后立即初始化，不等待DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
     if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-        new TechFloatingWords();
+        // 立即启动，不延迟
+        setTimeout(() => {
+            new TechFloatingWords();
+        }, 100); // 只等待100ms确保基本DOM就绪
     }
 });

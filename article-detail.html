@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="/css/responsive.css">
     <link rel="stylesheet" href="/css/page-styles.css">
     <link rel="stylesheet" href="/css/article-detail.css">
+    <link rel="stylesheet" href="/css/toc-navigation.css">
+    <link rel="stylesheet" href="/css/article-toc-enhanced.css">
     
     <!-- 代码高亮 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
@@ -47,11 +49,13 @@
                 <h1 class="brand-text">CaiCaiXiong</h1>
             </div>
             <ul class="nav-menu" id="navMenu">
+            <ul class="nav-menu" id="navMenu">
                 <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="/articles" class="nav-link active">Articles</a></li>
+                <li class="nav-item"><a href="/articles" class="nav-link">Articles</a></li>
                 <li class="nav-item"><a href="/categories" class="nav-link">Categories</a></li>
-                <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="/leisure" class="nav-link">Leisure</a></li>
+                <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+            </ul>
             </ul>
             <div class="nav-toggle" id="navToggle">
                 <span></span>
@@ -100,10 +104,22 @@
                         </div>
                     </header>
                     
-                    <!-- 文章目录 -->
+                    <!-- 文章目录导航 -->
+                    <div class="toc-navigation" id="tocNavigation">
+                        <button class="toc-toggle" id="tocToggle" title="展开/收起目录">
+                            <span class="toc-icon">📋</span>
+                            <span class="toc-text">目录</span>
+                        </button>
+                        <nav class="toc-container" id="tocContainer">
+                            <h3 class="toc-title">文章目录</h3>
+                            <ul class="toc-list" id="tocList"></ul>
+                        </nav>
+                    </div>
+                    
+                    <!-- 原有的目录（保持兼容） -->
                     <aside class="table-of-contents" id="tableOfContents">
                         <h3>目录</h3>
-                        <ul id="tocList"></ul>
+                        <ul id="tocListOld"></ul>
                     </aside>
                     
                     <!-- 文章正文 -->
@@ -158,6 +174,7 @@
     <script src="/js/theme-switcher.js"></script>
     <script src="/js/mobile-nav.js"></script>
     <script src="/js/article-detail.js"></script>
+    <script src="/js/article-toc-navigator.js"></script>
     <script src="/js/mouse-trail.js"></script>
 </body>
 </html>

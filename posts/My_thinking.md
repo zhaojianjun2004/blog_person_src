@@ -1,6 +1,6 @@
 ---
 title: "【与ai对话】自我认识与对技术的思考"
-date: "2024-01-08"
+date: 
 category: "uncategorized"
 tags: ["思考", "AI", "个人成长"]
 excerpt: "与AI的对话中思考自我认识、技术发展和人生方向的一些感悟。"

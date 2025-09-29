@@ -98,20 +98,23 @@ body {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-#nav #nav-menu .nav-item {
+.navbar .nav-menu .nav-item .nav-link {
   color: var(--tech-text);
   transition: all 0.3s ease;
+  font-family: 'Courier New', monospace;
 }
 
-#nav #nav-menu .nav-item:hover {
+.navbar .nav-menu .nav-item .nav-link:hover,
+.navbar .nav-menu .nav-item .nav-link.active {
   color: var(--tech-primary);
   text-shadow: var(--tech-glow);
 }
 
-#nav #site-name {
+.navbar .nav-brand .brand-text {
   color: var(--tech-primary);
   font-family: 'Courier New', monospace;
   font-weight: bold;
+  text-shadow: var(--tech-glow);
 }
 
 /* 首页横幅优化 */

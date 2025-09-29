@@ -10,6 +10,7 @@ const articleManager = new ArticleManager();
 app.use('/css', express.static(path.join(__dirname, 'css')));
 app.use('/js', express.static(path.join(__dirname, 'js')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/data', express.static(path.join(__dirname, 'data')));
 
 // 解析JSON请求体
 app.use(express.json());
@@ -134,9 +135,9 @@ app.get('/categories', (req, res) => {
     res.sendFile(path.join(__dirname, 'categories.html'));
 });
 
-// Contact页面路由
-app.get('/contact', (req, res) => {
-    res.sendFile(path.join(__dirname, 'contact.html'));
+// Leisure页面路由
+app.get('/leisure', (req, res) => {
+    res.sendFile(path.join(__dirname, 'leisure.html'));
 });
 
 // 404页面
