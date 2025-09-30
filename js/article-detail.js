@@ -67,6 +67,9 @@ class ArticleDetailManager {
         // 更新文章内容
         document.getElementById('articleBody').innerHTML = this.article.htmlContent;
         
+        // 处理表格，添加横向滚动支持
+        this.setupTableScrolling();
+        
         // 更新页面标题
         document.title = `${this.article.title} - CaiCaiXiong`;
         
@@ -135,10 +138,31 @@ class ArticleDetailManager {
         return `${minutes} 分钟阅读`;
     }
     
+    setupTableScrolling() {
+        // 为所有表格添加滚动容器
+        const tables = document.querySelectorAll('#articleBody table');
+        tables.forEach(table => {
+            // 检查表格是否已经被包装
+            if (!table.parentElement.classList.contains('table-container')) {
+                const container = document.createElement('div');
+                container.className = 'table-container';
+                
+                // 将表格移动到容器中
+                table.parentNode.insertBefore(container, table);
+                container.appendChild(table);
+                
+                console.log('✅ 为表格添加横向滚动支持');
+            }
+        });
+    }
+    
     generateTableOfContents() {
         const headings = document.querySelectorAll('#articleBody h1, #articleBody h2, #articleBody h3, #articleBody h4');
         const tocList = document.getElementById('tocList');
         const tocContainer = document.getElementById('tableOfContents');
+        
+        // 生成左侧目录
+        this.generateLeftTOC(headings);
         
         if (headings.length === 0) {
             tocContainer.style.display = 'none';
@@ -170,18 +194,69 @@ class ArticleDetailManager {
         this.setupTOCHighlight();
     }
     
+    generateLeftTOC(headings) {
+        const leftTocList = document.getElementById('leftTocList');
+        const leftTocContainer = document.getElementById('articleLeftToc');
+        
+        if (headings.length === 0) {
+            leftTocContainer.style.display = 'none';
+            return;
+        }
+        
+        leftTocList.innerHTML = '';
+        
+        headings.forEach((heading, index) => {
+            const id = `heading-${index}`;
+            if (!heading.id) {
+                heading.id = id;
+            }
+            
+            const li = document.createElement('li');
+            li.className = 'left-toc-item';
+            
+            const a = document.createElement('a');
+            a.href = `#${id}`;
+            a.textContent = heading.textContent;
+            a.className = `left-toc-link level-${heading.tagName.substring(1)}`;
+            
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                heading.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+            
+            li.appendChild(a);
+            leftTocList.appendChild(li);
+        });
+        
+        // 显示左侧目录
+        leftTocContainer.classList.add('show');
+    }
+    
     setupTOCHighlight() {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const id = entry.target.id;
+                        // 右侧目录高亮
                         document.querySelectorAll('#tocList a').forEach(link => {
                             link.classList.remove('active');
                         });
                         const activeLink = document.querySelector(`#tocList a[href="#${id}"]`);
                         if (activeLink) {
                             activeLink.classList.add('active');
+                        }
+                        
+                        // 左侧目录高亮（如果存在）
+                        document.querySelectorAll('.left-toc-link').forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        const leftActiveLink = document.querySelector(`.left-toc-link[href="#${id}"]`);
+                        if (leftActiveLink) {
+                            leftActiveLink.classList.add('active');
                         }
                     }
                 });

@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/css/article-detail.css">
     <link rel="stylesheet" href="/css/toc-navigation.css">
     <link rel="stylesheet" href="/css/article-toc-enhanced.css">
+    <link rel="stylesheet" href="/css/left-toc.css">
     
     <!-- 代码高亮 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
@@ -78,6 +79,18 @@
             </nav>
             
             <div class="article-container">
+                <!-- 左侧小型目录导航 -->
+                <aside class="article-left-toc" id="articleLeftToc">
+                    <div class="left-toc-header">
+                        <span class="toc-title">目录</span>
+                    </div>
+                    <nav class="left-toc-nav">
+                        <ul class="left-toc-list" id="leftTocList">
+                            <!-- 目录项将通过JS动态生成 -->
+                        </ul>
+                    </nav>
+                </aside>
+                
                 <!-- 加载状态 -->
                 <div class="article-loading" id="articleLoading">
                     <div class="loading-spinner"></div>
@@ -165,7 +178,9 @@
     
     <!-- 回到顶部按钮 -->
     <button class="back-to-top" id="backToTop">
-        <span>↑</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 14L12 9L17 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
     </button>
     
     <!-- 引入脚本 -->
