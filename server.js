@@ -154,8 +154,8 @@ app.get('/categories', (req, res) => {
     res.sendFile(path.join(__dirname, 'categories.html'));
 });
 
-// Link页面路由（兼容多种访问方式）
-app.get(['/link', '/Link', '/link.html'], (req, res) => {
+// Link页面路由
+app.get('/link', (req, res) => {
     res.sendFile(path.join(__dirname, 'link.html'));
 });
 
