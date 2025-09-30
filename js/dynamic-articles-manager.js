@@ -5,6 +5,7 @@ class DynamicArticleManager {
         this.filteredArticles = [];
         this.currentPage = 1;
         this.articlesPerPage = 9; // 修改为9个一页
+        this.renderingPaused = false; // 添加渲染暂停标志
         
         this.init();
     }
@@ -109,6 +110,12 @@ class DynamicArticleManager {
     }
     
     renderArticles() {
+        // 如果渲染被暂停，不执行渲染
+        if (this.renderingPaused) {
+            console.log('📄 DynamicArticleManager 渲染已暂停，等待手动搜索完成');
+            return;
+        }
+        
         const articlesContainer = document.querySelector('.articles-grid');
         if (!articlesContainer) return;
         
@@ -122,6 +129,8 @@ class DynamicArticleManager {
                     <p>请尝试调整搜索条件</p>
                 </div>
             `;
+            // 更新统计信息显示0篇文章
+            this.updateResultsInfo();
             this.renderPagination(0, 0);
             return;
         }
@@ -213,6 +222,18 @@ class DynamicArticleManager {
     updateResultsInfo() {
         const resultsInfo = document.querySelector('.results-info');
         if (resultsInfo) {
+            // 处理文章数为0的情况
+            if (this.filteredArticles.length === 0) {
+                resultsInfo.innerHTML = `
+                    <div class="results-display">
+                        <span class="results-count">暂无文章</span>
+                        <span class="results-divider">·</span>
+                        <span class="results-total">共 0 篇文章</span>
+                    </div>
+                `;
+                return;
+            }
+            
             const startIndex = (this.currentPage - 1) * this.articlesPerPage + 1;
             const endIndex = Math.min(this.currentPage * this.articlesPerPage, this.filteredArticles.length);
             resultsInfo.innerHTML = `
@@ -277,9 +298,9 @@ class DynamicArticleManager {
     }
     
     bindEvents() {
-        // 搜索框事件 - 使用防抖
+        // 搜索框事件 - 检查是否已被EnhancedArticlesFilter接管
         const searchInput = document.querySelector('.search-input');
-        if (searchInput) {
+        if (searchInput && !searchInput.hasAttribute('data-enhanced-filter')) {
             let searchTimeout;
             searchInput.addEventListener('input', (e) => {
                 clearTimeout(searchTimeout);
@@ -296,15 +317,20 @@ class DynamicArticleManager {
         const filterTags = document.querySelectorAll('.filter-tag');
         filterTags.forEach(tag => {
             tag.addEventListener('click', (e) => {
-                // 清除搜索条件，避免冲突
+                // 清空搜索条件
                 this.filters.search = '';
                 this.filters.tags = '';
                 this.filters.category = e.target.dataset.category;
                 
-                // 重置搜索框
+                // 清空搜索框（包括EnhancedArticlesFilter的搜索框）
                 const searchInput = document.querySelector('.search-input');
                 if (searchInput) {
                     searchInput.value = '';
+                    // 如果是EnhancedArticlesFilter管理的搜索框，也要重置其状态
+                    if (searchInput.hasAttribute('data-enhanced-filter')) {
+                        // 触发input事件来清空EnhancedArticlesFilter的搜索状态
+                        searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    }
                 }
                 
                 this.applyFilters();
@@ -332,6 +358,18 @@ class DynamicArticleManager {
         
         const newURL = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
         window.history.replaceState({}, '', newURL);
+    }
+    
+    // 暂停渲染方法，供EnhancedArticlesFilter调用
+    pauseRendering() {
+        this.renderingPaused = true;
+        console.log('⏸️ DynamicArticleManager 渲染已暂停');
+    }
+    
+    // 恢复渲染方法
+    resumeRendering() {
+        this.renderingPaused = false;
+        console.log('▶️ DynamicArticleManager 渲染已恢复');
     }
 }
 

@@ -192,7 +192,7 @@ window.goToCategory = function(categoryId) {
 };
 
 window.goToTagSearch = function(tag) {
-    // 直接跳转到articles页面，使用tag参数进行后台筛选
+    // 跳转到articles页面，使用tag参数进行筛选
     window.location.href = `/articles?tag=${encodeURIComponent(tag)}`;
 };
 

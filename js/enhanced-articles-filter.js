@@ -7,25 +7,31 @@ class EnhancedArticlesFilter {
         this.activeCategory = 'all';
         this.activeSearchTerm = '';
         this.activeTag = null;
+        this.isManualSearch = false; // 标识是否为手动搜索
         
         this.init();
     }
     
     init() {
-        // 检查URL参数
+        // 检查URL参数（只处理分类参数，不处理搜索和标签参数）
         this.parseUrlParams();
         
         if (this.searchInput) {
-            // 搜索功能
+            // 为搜索框添加标识，避免与其他管理器冲突
+            this.searchInput.setAttribute('data-enhanced-filter', 'true');
+            
+            // 搜索功能 - 仅支持title搜索
             this.searchInput.addEventListener('input', (e) => {
+                this.isManualSearch = true;
                 this.activeSearchTerm = e.target.value;
-                this.filterArticles();
+                this.performTitleSearch();
             });
             
             // 搜索框回车事件
             this.searchInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
-                    this.performSearch(this.searchInput.value);
+                    this.isManualSearch = true;
+                    this.performTitleSearch();
                 }
             });
         }
@@ -34,13 +40,23 @@ class EnhancedArticlesFilter {
         this.filterTags.forEach(tag => {
             tag.addEventListener('click', (e) => {
                 const category = e.target.dataset.category;
+                
+                // 清空搜索栏
+                this.activeSearchTerm = '';
+                this.isManualSearch = false;
+                if (this.searchInput) {
+                    this.searchInput.value = '';
+                }
+                
+                // 恢复其他管理器的渲染
+                if (window.articleManager && typeof window.articleManager.resumeRendering === 'function') {
+                    window.articleManager.resumeRendering();
+                }
+                
                 this.setActiveCategory(category);
                 this.filterArticles();
             });
         });
-        
-        // 初始化标签点击事件（用于从其他页面跳转过来的标签过滤）
-        this.initializeTagFiltering();
         
         // 页面加载完成后更新初始统计
         setTimeout(() => {
@@ -61,32 +77,16 @@ class EnhancedArticlesFilter {
     parseUrlParams() {
         const urlParams = new URLSearchParams(window.location.search);
         
-        // 处理搜索参数
-        const searchParam = urlParams.get('search');
-        if (searchParam && this.searchInput) {
-            this.activeSearchTerm = searchParam;
-            this.searchInput.value = searchParam;
-        }
-        
-        // 处理分类参数
+        // 仅处理分类参数，避免与其他管理器冲突
         const categoryParam = urlParams.get('category');
         if (categoryParam) {
             this.activeCategory = categoryParam;
             this.setActiveCategory(categoryParam);
         }
         
-        // 处理标签参数
-        const tagParam = urlParams.get('tag');
-        if (tagParam) {
-            this.activeTag = tagParam;
-            this.activeSearchTerm = tagParam; // 将标签作为搜索词
-            if (this.searchInput) {
-                this.searchInput.value = tagParam;
-            }
-        }
-        
+        // 不处理标签和搜索参数，让DynamicArticleManager处理
         // 应用筛选
-        if (searchParam || categoryParam || tagParam) {
+        if (categoryParam) {
             setTimeout(() => {
                 this.filterArticles();
             }, 100);
@@ -112,6 +112,29 @@ class EnhancedArticlesFilter {
         this.activeSearchTerm = searchTerm;
         this.filterArticles();
         this.updateUrl();
+    }
+    
+    // 专门的title搜索方法
+    performTitleSearch() {
+        // 如果搜索词为空，恢复其他管理器的渲染
+        if (!this.activeSearchTerm.trim()) {
+            this.isManualSearch = false;
+            if (window.articleManager && typeof window.articleManager.resumeRendering === 'function') {
+                window.articleManager.resumeRendering();
+                // 让DynamicArticleManager重新渲染，不要自己干预
+                window.articleManager.renderArticles();
+            }
+            return;
+        }
+        
+        // 如果有其他管理器在运行，先停止它们的渲染
+        if (window.articleManager && typeof window.articleManager.pauseRendering === 'function') {
+            window.articleManager.pauseRendering();
+        }
+        
+        this.filterArticles();
+        
+        console.log(`🔍 手动title搜索: "${this.activeSearchTerm}"`);
     }
     
     filterArticles() {
@@ -150,26 +173,13 @@ class EnhancedArticlesFilter {
     shouldShowArticle(card) {
         // 获取文章信息
         const titleElement = card.querySelector('.article-title a');
-        const excerptElement = card.querySelector('.article-excerpt');
-        const tagsElement = card.querySelector('.article-tags');
-        
-        const title = titleElement ? titleElement.textContent.toLowerCase() : '';
-        const excerpt = excerptElement ? excerptElement.textContent.toLowerCase() : '';
         const cardCategory = card.dataset.category;
         
-        // 获取文章标签
-        let articleTags = [];
-        if (tagsElement) {
-            const tagElements = tagsElement.querySelectorAll('.tag-item, .article-tag');
-            articleTags = Array.from(tagElements).map(tag => tag.textContent.toLowerCase());
-        }
+        const title = titleElement ? titleElement.textContent.toLowerCase() : '';
         
-        // 检查搜索条件
+        // 检查搜索条件 - 仅支持title搜索
         const searchTerm = this.activeSearchTerm.toLowerCase();
-        const matchesSearch = !searchTerm || 
-            title.includes(searchTerm) || 
-            excerpt.includes(searchTerm) ||
-            articleTags.some(tag => tag.includes(searchTerm));
+        const matchesSearch = !searchTerm || title.includes(searchTerm);
         
         // 检查分类条件
         const matchesCategory = this.activeCategory === 'all' || cardCategory === this.activeCategory;
@@ -178,17 +188,13 @@ class EnhancedArticlesFilter {
     }
     
     highlightSearchTerms(card) {
-        if (!this.activeSearchTerm) return;
+        if (!this.activeSearchTerm || !this.isManualSearch) return;
         
+        // 仅高亮title中的搜索词
         const titleElement = card.querySelector('.article-title a');
-        const excerptElement = card.querySelector('.article-excerpt');
         
         if (titleElement) {
             this.highlightText(titleElement, this.activeSearchTerm);
-        }
-        
-        if (excerptElement) {
-            this.highlightText(excerptElement, this.activeSearchTerm);
         }
     }
     
@@ -209,122 +215,17 @@ class EnhancedArticlesFilter {
         element.innerHTML = highlightedText;
     }
     
-    initializeTagFiltering() {
-        // 监听页面上所有标签元素的点击
-        document.addEventListener('click', (e) => {
-            // 检查是否点击了标签
-            if (e.target.classList.contains('tag-item') || 
-                e.target.classList.contains('article-tag') ||
-                e.target.classList.contains('tag-cloud-item')) {
-                
-                const tagText = e.target.textContent.trim();
-                
-                // 防止默认行为
-                e.preventDefault();
-                e.stopPropagation();
-                
-                // 执行标签搜索
-                this.searchByTag(tagText);
-            }
-        });
-    }
-    
-    searchByTag(tagText) {
-        this.activeTag = tagText;
-        this.activeSearchTerm = tagText;
-        
-        if (this.searchInput) {
-            this.searchInput.value = tagText;
-        }
-        
-        this.filterArticles();
-        this.updateUrl();
-        
-        // 滚动到搜索结果区域
-        const articlesSection = document.querySelector('.articles-grid') || document.querySelector('.content');
-        if (articlesSection) {
-            articlesSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    }
-    
-    updateUrl() {
-        const urlParams = new URLSearchParams();
-        
-        if (this.activeSearchTerm) {
-            urlParams.set('search', this.activeSearchTerm);
-        }
-        
-        if (this.activeCategory && this.activeCategory !== 'all') {
-            urlParams.set('category', this.activeCategory);
-        }
-        
-        if (this.activeTag) {
-            urlParams.set('tag', this.activeTag);
-        }
-        
-        const newUrl = `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`;
-        history.replaceState(null, '', newUrl);
-    }
-    
     updateResultsInfo(count) {
         // 如果count未定义或为负数，重新计算
         if (count === undefined || count < 0) {
             count = this.countVisibleArticles();
         }
         
-        // 查找或创建结果信息显示元素
+        // 查找已存在的结果信息显示元素并隐藏
         let resultsInfo = document.querySelector('.search-results-info');
         
-        if (!resultsInfo) {
-            resultsInfo = document.createElement('div');
-            resultsInfo.className = 'search-results-info';
-            resultsInfo.style.cssText = `
-                margin: 1rem 0;
-                padding: 0.75rem 1rem;
-                background: rgba(0, 255, 255, 0.05);
-                border: 1px solid rgba(0, 255, 255, 0.2);
-                border-radius: 6px;
-                font-size: 0.9rem;
-                color: var(--text-secondary);
-                text-align: center;
-            `;
-            
-            // 尝试插入到更合适的位置
-            const articlesFilter = document.querySelector('.articles-filter');
-            const articlesGrid = document.querySelector('.articles-grid');
-            
-            if (articlesFilter && articlesGrid) {
-                articlesGrid.parentNode.insertBefore(resultsInfo, articlesGrid);
-            } else if (articlesGrid) {
-                articlesGrid.parentNode.insertBefore(resultsInfo, articlesGrid);
-            }
-        }
-        
         if (resultsInfo) {
-            let message = `找到 ${count} 篇文章`;
-            
-            if (this.activeSearchTerm) {
-                message += ` (搜索: \"${this.activeSearchTerm}\")`;
-            }
-            
-            if (this.activeCategory && this.activeCategory !== 'all') {
-                const categoryName = this.getCategoryDisplayName(this.activeCategory);
-                message += ` (分类: ${categoryName})`;
-            }
-            
-            if (this.activeTag) {
-                message += ` (标签: ${this.activeTag})`;
-            }
-            
-            resultsInfo.textContent = message;
-            
-            // 显示逻辑：当有筛选条件或搜索内容时显示
-            const shouldShow = count === 0 || 
-                              this.activeSearchTerm || 
-                              (this.activeCategory && this.activeCategory !== 'all') ||
-                              this.activeTag;
-            
-            resultsInfo.style.display = shouldShow ? 'block' : 'none';
+            resultsInfo.style.display = 'none';
         }
         
         console.log(`📊 文章统计更新: 显示 ${count} 篇文章`);
@@ -343,13 +244,36 @@ class EnhancedArticlesFilter {
         return categoryMap[category] || category;
     }
     
+    updateUrl() {
+        const urlParams = new URLSearchParams();
+        
+        // 更新分类参数到URL
+        if (this.activeCategory && this.activeCategory !== 'all') {
+            urlParams.set('category', this.activeCategory);
+        }
+        
+        // 更新标签参数到URL
+        if (this.activeTag) {
+            urlParams.set('tag', this.activeTag);
+        }
+        
+        const newUrl = `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`;
+        history.replaceState(null, '', newUrl);
+    }
+    
     clearSearch() {
         this.activeSearchTerm = '';
-        this.activeTag = null;
         this.activeCategory = 'all';
+        this.activeTag = null;
+        this.isManualSearch = false;
         
         if (this.searchInput) {
             this.searchInput.value = '';
+        }
+        
+        // 恢复其他管理器的渲染
+        if (window.articleManager && typeof window.articleManager.resumeRendering === 'function') {
+            window.articleManager.resumeRendering();
         }
         
         this.setActiveCategory('all');
