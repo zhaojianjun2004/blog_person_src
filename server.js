@@ -154,9 +154,9 @@ app.get('/categories', (req, res) => {
     res.sendFile(path.join(__dirname, 'categories.html'));
 });
 
-// Leisure页面路由
-app.get('/leisure', (req, res) => {
-    res.sendFile(path.join(__dirname, 'leisure.html'));
+// Link页面路由（兼容多种访问方式）
+app.get(['/link', '/Link', '/link.html'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'link.html'));
 });
 
 // 404页面

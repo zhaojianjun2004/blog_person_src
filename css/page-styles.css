@@ -713,8 +713,8 @@
   }
 }
 
-/* Leisure 页面样式 */
-.leisure-grid {
+/* Link 页面样式 */
+.link-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
@@ -722,7 +722,7 @@
   margin: 0 auto;
 }
 
-.leisure-card,
+.link-card,
 .friends-links-card,
 .life-thoughts-card {
   background: var(--card-bg);
@@ -732,7 +732,7 @@
   backdrop-filter: blur(10px);
 }
 
-.leisure-card h3,
+.link-card h3,
 .friends-links-card h3,
 .life-thoughts-card h3 {
   color: var(--tech-primary);
@@ -863,7 +863,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
   
-  .leisure-grid {
+  .link-grid {
     max-width: 800px;
   }
 }
@@ -883,7 +883,7 @@
     grid-template-columns: 1fr;
   }
   
-  .leisure-card,
+  .link-card,
   .friends-links-card,
   .life-thoughts-card {
     padding: 1.5rem;

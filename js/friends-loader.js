@@ -100,7 +100,7 @@ class FriendsLoader {
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
-    if (window.location.pathname === '/leisure' || window.location.pathname === '/leisure.html') {
+    if (window.location.pathname === '/link' || window.location.pathname === '/link.html') {
         new FriendsLoader();
     }
 });
