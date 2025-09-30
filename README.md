@@ -27,10 +27,13 @@ sudo firewall-cmd --permanent --add-port=8081/tcp
 sudo firewall-cmd --reload
 ```
 ##### 2. 部署博客
+前置条件：
+创建博客文件夹：`mkdir /blog`
+进入文件夹：`cd /blog`
 1. 克隆链接：
 ```shell
-git clone https://github.com/zhaojianjun2004/blog_person_src.git blog_person
-cd blog_person
+git clone https://github.com/zhaojianjun2004/blog_person_src.git
+cd blog_person_src
 ```
 2. 安装项目依赖
 ```shell
