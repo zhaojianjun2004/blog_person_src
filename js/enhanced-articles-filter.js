@@ -158,7 +158,7 @@ class EnhancedArticlesFilter {
             
             if (shouldShow) {
                 card.style.display = 'block';
-                card.style.animation = 'fadeInUp 0.3s ease forwards';
+                // 移除动画效果，提升性能
                 visibleCount++;
                 // 高亮搜索关键词
                 this.highlightSearchTerms(card);
@@ -200,7 +200,7 @@ class EnhancedArticlesFilter {
     highlightSearchTerms(card) {
         if (!this.activeSearchTerm || !this.isManualSearch) return;
         
-        // 仅高亮title中的搜索词
+        // 只高亮title中的搜索词，针对新的卡片结构
         const titleElement = card.querySelector('.article-title a');
         
         if (titleElement) {

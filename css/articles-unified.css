@@ -1,144 +1,306 @@
-/* Articles页面文章卡片统一样式 */
+/* Articles页面文章卡片统一样式 - 文章正文风格 */
 .articles-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
     margin-top: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .article-card {
-    background: var(--card-bg);
-    border: 1px solid var(--tech-border);
-    border-radius: 12px;
-    padding: 1.5rem;
+    background: #ffffff;
+    border: 1px solid #e1e4e8;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 
+        0 8px 16px rgba(0,0,0,0.1),
+        0 4px 8px rgba(0,0,0,0.06);
+    position: relative;
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
-    /* 统一高度设置 */
-    min-height: 280px;
-    max-height: 320px;
+    /* 固定高度确保一致性 */
+    height: 380px;
+}
+
+[data-theme="dark"] .article-card {
+    background: #0d1117;
+    border-color: #30363d;
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.4),
+        0 8px 24px rgba(0,0,0,0.3),
+        0 4px 8px rgba(0,0,0,0.2),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.article-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    pointer-events: none;
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.article-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.15),
+        0 8px 24px rgba(0,0,0,0.1);
+    border-color: var(--tech-primary);
+}
+
+.article-card:hover::before {
+    opacity: 1;
+}
+
+[data-theme="dark"] .article-card:hover {
+    box-shadow: 
+        0 25px 50px rgba(0,0,0,0.6),
+        0 12px 30px rgba(0,0,0,0.4),
+        0 6px 12px rgba(0,0,0,0.3);
+}
+
+/* 文章卡片头部 - 无背景简洁样式 */
+.article-card-header {
+    padding: 1.2rem 1.5rem 0.5rem; /*参数：上下内边距 1.2rem，左右内边距 1.5rem，底部内边距 0.6rem*/
+    background: transparent;
+    position: relative;
 }
 
 .article-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
     font-size: 0.85rem;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-weight: 500;
 }
 
 .article-date {
-    color: var(--text-secondary);
+    color: #656d76;
+    font-weight: 500;
+}
+
+[data-theme="dark"] .article-date {
+    color: #8b949e;
 }
 
 .article-category {
-    background: rgba(19, 160, 220, 0.1);
-    color: var(--tech-primary);
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
+    background: #0366d6;
+    color: #ffffff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
     font-weight: 500;
 }
 
 .article-title {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    line-height: 1.4;
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: 0;
     
-    /* 标题高度限制 */
-    height: 3.5rem;
+    /* 确保标题完整显示，最多2行 */
+    height: auto;
+    min-height: 2.4rem;
+    max-height: 3.2rem;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
+    word-wrap: break-word;
 }
 
 .article-title a {
-    color: var(--text-primary);
+    color: #24292f;
     text-decoration: none;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+[data-theme="dark"] .article-title a {
+    color: #f0f6fc;
 }
 
 .article-title a:hover {
     color: var(--tech-primary);
 }
 
-.article-excerpt {
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 1rem;
+/* 文章卡片主体内容区域 */
+.article-card-body {
+    padding: 1.0rem 1.5rem; /*参数：上下内边距 1.5rem，左右内边距 1.5rem*/
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+}
+
+.article-excerpt {
+    color: #656d76;
+    line-height: 1.6;
+    margin: 0.6rem 0 1rem;
+    flex-grow: 1;
+    font-size: 0.95rem;
     
     /* 摘要高度限制 */
-    height: 4.8rem;
+    height: auto;
+    min-height: 4.5rem;
+    max-height: 5.4rem;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
+}
+
+[data-theme="dark"] .article-excerpt {
+    color: #8b949e;
+}
+
+/* 文章卡片底部标签区域 */
+.article-card-footer {
+    padding: 0 1.5rem 1.2rem;
+    margin-top: auto;
 }
 
 .article-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: auto;
+    gap: 0.4rem;
     
     /* 标签区域高度限制 */
-    min-height: 2rem;
-    max-height: 3rem;
+    min-height: 1.8rem;
+    max-height: 2.4rem;
     overflow: hidden;
 }
 
 .article-tag {
-    background: rgba(0, 255, 255, 0.016);
-    color: var(--tech-primary);
+    background: #f3f4f6;
+    color: #374151;
     padding: 0.25rem 0.6rem;
-    border-radius: 10px;
-    font-size: 0.75rem;
-    border: 1px solid rgba(0, 255, 255, 0.2);
-    cursor: pointer;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
     white-space: nowrap;
+    border: none;
+}
+
+[data-theme="dark"] .article-tag {
+    background: #21262d;
+    color: #f0f6fc;
+}
+
+.article-tag:hover {
+    background: #e5e7eb;
+    transform: translateY(-1px);
+}
+
+[data-theme="dark"] .article-tag:hover {
+    background: #30363d;
 }
 
 
 
-/* 响应式调整 */
-@media (max-width: 768px) {
+/* 响应式设计 - 适配不同屏幕尺寸 */
+@media (max-width: 1200px) {
     .articles-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        max-width: 800px;
     }
     
     .article-card {
-        min-height: 260px;
-        max-height: 300px;
-        padding: 1.25rem;
+        height: 360px;
+    }
+}
+
+@media (max-width: 768px) {
+    .articles-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        max-width: 400px;
+    }
+    
+    .article-card {
+        height: 340px;
+    }
+    
+    .article-card-header {
+        padding: 1rem 1.2rem 0.5rem;
+    }
+    
+    .article-card-body {
+        padding: 0.3rem 1.2rem;
+    }
+    
+    .article-card-footer {
+        padding: 0 1.2rem 1rem;
     }
     
     .article-title {
-        font-size: 1.1rem;
-        height: 3rem;
+        font-size: 1.15rem;
+        min-height: 2.5rem;
+        max-height: 3.2rem;
     }
     
     .article-excerpt {
-        height: 4.2rem;
+        font-size: 0.9rem;
+        min-height: 4rem;
+        max-height: 4.8rem;
     }
 }
 
 @media (max-width: 480px) {
+    .articles-grid {
+        max-width: 350px;
+        gap: 1rem;
+    }
+    
     .article-card {
-        min-height: 240px;
-        max-height: 280px;
-        padding: 1rem;
+        height: 320px;
+    }
+    
+    .article-card-header {
+        padding: 0.8rem 1rem 0.4rem;
+    }
+    
+    .article-card-body {
+        padding: 0.2rem 1rem;
+    }
+    
+    .article-card-footer {
+        padding: 0 1rem 0.8rem;
     }
     
     .article-title {
-        font-size: 1rem;
-        height: 2.8rem;
+        font-size: 1.05rem;
+        min-height: 2.3rem;
+        max-height: 2.9rem;
     }
     
     .article-excerpt {
-        height: 3.6rem;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        min-height: 3.5rem;
+        max-height: 4.2rem;
+    }
+    
+    .article-tag {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.5rem;
     }
 }
 
@@ -152,4 +314,131 @@
     font-size: 0.9rem !important;
     color: var(--text-secondary) !important;
     text-align: center !important;
+}
+
+/* Articles页面上方固定内容区域样式 */
+.page-header {
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 2rem !important;
+}
+
+.articles-filter {
+    min-height: 80px;
+    margin-bottom: 2rem !important;
+    display: flex;
+    justify-content: flex-start; /* 改为左对齐，避免动态调整 */
+    align-items: center;
+    gap: 2rem; /* 固定间距 */
+    flex-wrap: wrap;
+    margin-right: auto;
+}
+
+/* 修复搜索框大小变化的问题 */
+.articles-filter .search-box {
+    flex: 0 0 400px; /* 固定宽度，不允许伸缩 */
+    max-width: 400px;
+    min-width: 300px; /* 设置最小宽度 */
+}
+
+.articles-filter .search-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--tech-border);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--tech-text);
+    font-size: 1rem;
+    box-sizing: border-box; /* 确保padding不影响总宽度 */
+}
+
+.articles-filter .filter-tags {
+    flex: 0 0 auto; /* 标签区域不伸缩，保持内容宽度 */
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-left: auto; /* 推到右侧，但不影响搜索框位置 */
+}
+
+/* 确保文章网格区域有固定的最小高度 */
+.articles-grid {
+    min-height: 400px;
+    position: relative;
+}
+
+/* 加载和无文章状态的样式优化 */
+.loading-articles,
+.no-articles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+}
+
+.no-articles {
+    padding: 2rem;
+    color: var(--tech-text-muted);
+}
+
+.no-articles h3 {
+    font-size: 1.5rem;
+    color: var(--tech-text);
+    margin-bottom: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.no-articles p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+    .page-header {
+        min-height: 100px;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .articles-filter {
+        min-height: 100px;
+        margin-bottom: 1.5rem !important;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    
+    .articles-filter .search-box {
+        flex: 0 0 auto;
+        max-width: 100%;
+        min-width: 280px;
+        width: 100%;
+    }
+    
+    .articles-filter .filter-tags {
+        justify-content: center;
+    }
+    
+    .articles-grid {
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        min-height: 80px;
+        margin-bottom: 1rem !important;
+    }
+    
+    .articles-filter {
+        min-height: 120px;
+        margin-bottom: 1rem !important;
+    }
+    
+    .articles-filter .search-box {
+        min-width: 250px;
+    }
 }

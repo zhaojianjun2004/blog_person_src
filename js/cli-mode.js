@@ -201,7 +201,7 @@ class BlogCLI {
                 this.printOutput(`Articles in category "${category}":`);
                 filteredArticles.forEach((article, index) => {
                     const articleUrl = `/articles/${article.slug}`;
-                    this.printOutput(`${index + 1}. <a href="${articleUrl}" target="_blank">${article.title}</a>`);
+                    this.printOutput(`${index + 1}. <a href="${articleUrl}">${article.title}</a>`);
                     this.printOutput(`   <span style="color: #888">Category: ${article.category} | Tags: ${(article.tags || []).join(', ')}</span>`);
                 });
             } else {
@@ -211,7 +211,7 @@ class BlogCLI {
                 articles.forEach((article, index) => {
                     // 使用正确的文章路径格式
                     const articleUrl = `/articles/${article.slug}`;
-                    this.printOutput(`${index + 1}. <a href="${articleUrl}" target="_blank">${article.title}</a>`);
+                    this.printOutput(`${index + 1}. <a href="${articleUrl}">${article.title}</a>`);
                     this.printOutput(`   <span style="color: #888">Category: ${article.category} | Date: ${article.date || 'N/A'}</span>`);
                 });
                 this.printOutput('');
@@ -264,7 +264,7 @@ class BlogCLI {
                 this.printOutput('');
                 results.forEach((article, index) => {
                     const articleUrl = `/articles/${article.slug}`;
-                    this.printOutput(`${index + 1}. <a href="${articleUrl}" target="_blank">${article.title}</a>`);
+                    this.printOutput(`${index + 1}. <a href="${articleUrl}">${article.title}</a>`);
                     this.printOutput(`   <span style="color: #888">Category: ${article.category} | Tags: ${(article.tags || []).join(', ')}</span>`);
                 });
             }
@@ -292,7 +292,7 @@ class BlogCLI {
                 this.printOutput('');
                 articles.forEach((article, index) => {
                     const articleUrl = `/articles/${article.slug}`;
-                    this.printOutput(`${index + 1}. <a href="${articleUrl}" target="_blank">${article.title}</a>`);
+                    this.printOutput(`${index + 1}. <a href="${articleUrl}">${article.title}</a>`);
                     this.printOutput(`   <span style="color: #888">Tags: ${(article.tags || []).join(', ')} | Date: ${article.date || 'N/A'}</span>`);
                 });
             }
@@ -389,7 +389,7 @@ class BlogCLI {
 
     showAbout() {
         this.printOutput('Navigating to the About page...');
-        window.open('/about.html', '_blank');
+        window.location.href = '/about.html';
     }
 
     clearScreen() {

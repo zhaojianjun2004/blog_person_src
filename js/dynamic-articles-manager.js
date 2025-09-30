@@ -187,21 +187,42 @@ class DynamicArticleManager {
         // 获取分类显示名称
         const categoryDisplayName = this.getCategoryDisplayName(article.category);
         
+        // 使用新的卡片结构，提升性能
         card.innerHTML = `
-            <div class="article-meta">
-                <time class="article-date">${this.formatDate(article.date)}</time>
-                <span class="article-category">${categoryDisplayName}</span>
+            <header class="article-card-header">
+                <div class="article-meta">
+                    <time class="article-date">${this.formatDate(article.date)}</time>
+                    <span class="article-category">${categoryDisplayName}</span>
+                </div>
+                <h2 class="article-title">
+                    <a href="/articles/${article.slug}" title="${article.title}">${article.title}</a>
+                </h2>
+            </header>
+            <div class="article-card-body">
+                <p class="article-excerpt">${article.excerpt}</p>
             </div>
-            <h2 class="article-title">
-                <a href="/articles/${article.slug}">${article.title}</a>
-            </h2>
-            <p class="article-excerpt">${article.excerpt}</p>
-            <div class="article-tags">
-                ${article.tags && article.tags.length > 0 ? article.tags.map(tag => 
-                    `<span class="article-tag" onclick="searchByTag('${tag}')">#${tag}</span>`
-                ).join('') : ''}
-            </div>
+            <footer class="article-card-footer">
+                <div class="article-tags">
+                    ${article.tags && article.tags.length > 0 ? article.tags.slice(0, 3).map(tag => 
+                        `<span class="article-tag" data-tag="${tag}">#${tag}</span>`
+                    ).join('') : ''}
+                </div>
+            </footer>
         `;
+        
+        // 为了性能，移除复杂的交互效果，只保留基本的点击功能
+        card.addEventListener('click', (e) => {
+            // 如果点击的是标签，则搜索标签
+            if (e.target.classList.contains('article-tag')) {
+                e.preventDefault();
+                e.stopPropagation();
+                const tag = e.target.dataset.tag;
+                this.searchByTag(tag);
+            } else if (!e.target.closest('a')) {
+                // 如果不是点击链接，则跳转到文章详情
+                window.location.href = `/articles/${article.slug}`;
+            }
+        }, { passive: true });
         
         return card;
     }
@@ -363,6 +384,36 @@ class DynamicArticleManager {
         });
     }
     
+    // 标签搜索功能
+    searchByTag(tag) {
+        // 清空其他搜索条件
+        this.filters.search = '';
+        this.filters.category = 'all';
+        this.filters.tags = tag;
+        this.currentPage = 1;
+        
+        // 清空搜索框
+        const searchInput = document.querySelector('.search-input');
+        if (searchInput) {
+            searchInput.value = '';
+        }
+        
+        // 重置分类过滤器
+        const filterTags = document.querySelectorAll('.filter-tag');
+        filterTags.forEach(filterTag => {
+            filterTag.classList.remove('active');
+            if (filterTag.dataset.category === 'all') {
+                filterTag.classList.add('active');
+            }
+        });
+        
+        console.log(`🏷️ 按标签搜索: ${tag}`);
+        
+        this.applyFilters();
+        this.renderArticles();
+        this.updateURL();
+    }
+
     updateURL() {
         const params = new URLSearchParams();
         
