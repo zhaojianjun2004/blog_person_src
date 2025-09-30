@@ -742,13 +742,6 @@
   text-shadow: var(--tech-glow);
 }
 
-/* 兴趣爱好标签 */
-.hobbies-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-}
-
 .hobby-tag {
   background: rgba(0, 255, 255, 0.1);
   color: var(--tech-primary);
@@ -896,7 +889,5 @@
     padding: 1.5rem;
   }
   
-  .hobbies-list {
-    justify-content: center;
-  }
+  
 }

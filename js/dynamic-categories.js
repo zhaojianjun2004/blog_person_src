@@ -150,8 +150,8 @@ class DynamicCategoriesManager {
     getRelatedTags(categoryId) {
         // 根据分类返回相关标签
         const tagMap = {
-            'java': ['Java', 'JVM', 'SpringBoot', 'Maven','JUC'],
-            'database': ['MySQL', 'Redis', 'MongoDB', 'SQL' , 'NoSQL' , 'PostgreSQL'],
+            'java': ['Java', 'JVM', 'JUC', 'Maven','springboot'],
+            'database': ['MySQL', 'Redis', 'PostgreSQL', 'SQL' , 'NoSQL' , 'MongoDB'],
             'daily': ['Daily Life', 'Thoughts', 'Experience', 'Growth','Thinking','daily','life'],
             'spring': ['SpringBoot', 'SpringCloud', 'Microservices', 'RESTAPI','Spring','security'],
             'devops': ['Docker', 'CI/CD', 'Kubernetes', 'Linux', 'Nginx','DevOps'],

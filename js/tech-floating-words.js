@@ -96,14 +96,11 @@ class TechFloatingWords {
             word: this.techWords[Math.floor(Math.random() * this.techWords.length)],
             x: Math.random() * window.innerWidth,
             y: Math.random() * window.innerHeight,
-            vx: (Math.random() - 0.5) * 2, // 水平速度
-            vy: (Math.random() - 0.5) * 2, // 垂直速度
-            fontSize: 12 + Math.random() * 20, // 字体大小
-            opacity: 0.3 + Math.random() * 0.7, // 透明度
-            rotation: 0,
-            rotationSpeed: (Math.random() - 0.5) * 0.02, // 旋转速度
-            life: 0.8 + Math.random() * 0.2, // 生命值
-            pulsePhase: Math.random() * Math.PI * 2 // 呼吸效果相位
+            vx: (Math.random() < 0.5 ? -1 : 1) * (0.5 + Math.random() * 1.5), // 只水平速度，方向随机
+            vy: 0, // 垂直速度为0
+            fontSize: 10 + Math.random() * 15, // 字体整体变小
+            opacity: 0.3 + Math.random() * 0.3, // 透明度
+            life: 0.8 + Math.random() * 1.9 // 生命值
         };
     }
     
@@ -116,41 +113,20 @@ class TechFloatingWords {
     }
     
     updateWords() {
-        // 增加新词汇出现频率，让效果更早更快显现
         if (Math.random() < 0.005 && this.words.length < 25) {
             this.words.push(this.createWord());
         }
-        
         this.words.forEach(word => {
-            // 更新位置
             word.x += word.vx;
-            word.y += word.vy;
-            
-            // 边界碰撞反弹
             if (word.x <= 0 || word.x >= window.innerWidth) {
                 word.vx *= -1;
                 word.x = Math.max(0, Math.min(window.innerWidth, word.x));
             }
-            if (word.y <= 0 || word.y >= window.innerHeight) {
-                word.vy *= -1;
-                word.y = Math.max(0, Math.min(window.innerHeight, word.y));
-            }
-            
-            // 旋转
-            word.rotation += word.rotationSpeed;
-            
-            // 呼吸效果
-            word.pulsePhase += 0.04; // 增加呼吸频率
-            
-            // 生命周期（稍微加快衰减）
+            // 取消呼吸效果，不再更新 pulsePhase
             word.life -= 0.001;
         });
-        
-        // 移除生命值耗尽的词汇，并添加新的
         const initialLength = this.words.length;
         this.words = this.words.filter(word => word.life > 0);
-        
-        // 如果有词汇消失，补充新的
         const removedCount = initialLength - this.words.length;
         for (let i = 0; i < removedCount; i++) {
             this.words.push(this.createWord());
@@ -159,42 +135,25 @@ class TechFloatingWords {
     
     drawWords() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        
         this.words.forEach(word => {
             this.ctx.save();
-            
-            // 移动到词汇位置
-            this.ctx.translate(word.x, word.y);
-            this.ctx.rotate(word.rotation);
-            
-            // 计算呼吸效果的透明度
-            const pulseOpacity = word.opacity * (0.7 + 0.3 * Math.sin(word.pulsePhase));
-            
-            // 根据主题动态设置颜色
+            // 直接在目标位置绘制，始终水平
+            // 透明度直接用 word.opacity * word.life，不再有呼吸效果
             let baseColor, shadowColor;
             if (this.currentTheme === 'dark') {
-                // 黑夜模式：使用青蓝色系，更亮更明显
-                baseColor = '0, 255, 255'; // 青色
+                baseColor = '0, 255, 255';
                 shadowColor = 'rgba(0, 255, 255, 0.5)';
             } else {
-                // 白天模式：使用深蓝色系
-                baseColor = '100, 149, 237'; // 深蓝色
+                baseColor = '100, 149, 237';
                 shadowColor = 'rgba(100, 149, 237, 0.3)';
             }
-            
-            // 设置字体和样式
             this.ctx.font = `${word.fontSize}px 'JetBrains Mono', monospace`;
-            this.ctx.fillStyle = `rgba(${baseColor}, ${pulseOpacity * word.life})`;
+            this.ctx.fillStyle = `rgba(${baseColor}, ${word.opacity * word.life})`;
             this.ctx.textAlign = 'center';
             this.ctx.textBaseline = 'middle';
-            
-            // 添加发光效果（黑夜模式更明显）
             this.ctx.shadowColor = shadowColor;
             this.ctx.shadowBlur = this.currentTheme === 'dark' ? 12 : 8;
-            
-            // 绘制文字
-            this.ctx.fillText(word.word, 0, 0);
-            
+            this.ctx.fillText(word.word, word.x, word.y);
             this.ctx.restore();
         });
     }

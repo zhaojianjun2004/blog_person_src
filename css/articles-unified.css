@@ -40,8 +40,8 @@
 }
 
 .article-category {
-    background: #31a5fe;
-    color: white;
+    background: rgba(0, 255, 255, 0.1);
+    color: var(--tech-primary);
     padding: 0.25rem 0.75rem;
     border-radius: 12px;
     font-weight: 500;
@@ -97,7 +97,7 @@
 }
 
 .article-tag {
-    background: rgba(251, 252, 252, 0);
+    background: rgba(0, 255, 255, 0.08);
     color: var(--tech-primary);
     padding: 0.25rem 0.6rem;
     border-radius: 10px;

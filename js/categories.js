@@ -299,7 +299,7 @@ class CategoriesPageManager {
                     break;
                 case 'recent':
                     // 模拟最近更新的分类（可以根据实际数据调整）
-                    const recentCategories = ['java', 'spring', 'database'];
+                    const recentCategories = ['java', 'spring', 'database', 'devops', 'architecture', 'tools', 'daily'];
                     shouldShow = recentCategories.includes(card.dataset.category);
                     break;
                 case 'all':

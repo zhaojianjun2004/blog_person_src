@@ -179,7 +179,7 @@ class DynamicArticleManager {
             'java': 'Java',
             'spring': 'Spring',
             'database': 'Database',
-            'uncategorized': '未分类'
+            'daily': 'Daily',
         };
         return categoryMap[category] || category;
     }
