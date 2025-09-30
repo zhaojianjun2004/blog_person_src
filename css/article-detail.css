@@ -58,7 +58,7 @@
 
 /* 文章容器 */
 .article-container {
-  max-width: 900px;
+  max-width: 940px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
@@ -143,7 +143,7 @@
 
 /* 文章头部 */
 .article-header {
-  padding: 2rem 2.5rem 1.5rem;
+  padding: 2.5rem 5rem 2rem;
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   border-bottom: 1px solid #e1e4e8;
   position: relative;
@@ -449,7 +449,7 @@
 
 /* 文章正文 */
 .article-body {
-  padding: 2.5rem;
+  padding: 2rem 5rem;
   font-size: 16px;
   line-height: 1.8;
   color: #24292f;
@@ -854,7 +854,7 @@
   position: fixed;
   bottom: 2rem;
   /* 计算位置：文章容器右侧 + 间距 */
-  right: calc((100vw - 900px) / 2 - 80px);
+  right: calc((100vw - 900px) / 2 - 100px);
   width: 56px;
   height: 56px;
   background: linear-gradient(135deg, #d2e4e600 100%rgba(73, 187, 199, 0));

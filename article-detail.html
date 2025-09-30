@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/css/toc-navigation.css">
     <link rel="stylesheet" href="/css/article-toc-enhanced.css">
     <link rel="stylesheet" href="/css/left-toc.css">
+    <link rel="stylesheet" href="/css/latest-articles.css">
     
     <!-- 代码高亮 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
@@ -87,6 +88,18 @@
                     <nav class="left-toc-nav">
                         <ul class="left-toc-list" id="leftTocList">
                             <!-- 目录项将通过JS动态生成 -->
+                        </ul>
+                    </nav>
+                </aside>
+                
+                <!-- 右侧最新文章列表 -->
+                <aside class="latest-articles-sidebar" id="latestArticlesSidebar">
+                    <div class="latest-articles-header">
+                        <span class="latest-articles-title">最新文章</span>
+                    </div>
+                    <nav class="latest-articles-content">
+                        <ul class="latest-articles-list" id="latestArticlesList">
+                            <!-- 最新文章将通过JS动态生成 -->
                         </ul>
                     </nav>
                 </aside>

@@ -75,7 +75,7 @@ class ArticleManager {
         const wordCount = this.calculateWordCount(content);
         const wordsPerMinute = 200; // 中文阅读速度
         const minutes = Math.ceil(wordCount / wordsPerMinute);
-        return `${minutes} 分钟阅读`;
+        return `${minutes} 分钟`;
     }
     
     getArticleBySlug(slug) {

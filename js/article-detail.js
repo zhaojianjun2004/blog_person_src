@@ -24,6 +24,7 @@ class ArticleDetailManager {
             this.renderArticle();
             this.setupInteractions();
             this.generateTableOfContents();
+            this.generateLatestArticles(); // 生成右侧最新文章
             this.setupBackToTop();
             this.highlightCode();
             this.initImageViewer(); // 添加图片查看器初始化
@@ -135,7 +136,7 @@ class ArticleDetailManager {
         const wordsPerMinute = 200;
         const words = content.split(/\s+/).length;
         const minutes = Math.ceil(words / wordsPerMinute);
-        return `${minutes} 分钟阅读`;
+        return `${minutes} 分钟`;
     }
     
     setupTableScrolling() {
@@ -233,6 +234,53 @@ class ArticleDetailManager {
         
         // 显示左侧目录
         leftTocContainer.classList.add('show');
+    }
+    
+    async generateLatestArticles() {
+        const listEl = document.getElementById('latestArticlesList');
+        const containerEl = document.getElementById('latestArticlesSidebar');
+
+        if (!listEl || !containerEl) return;
+
+        try {
+            // 获取全部文章并取最新的10篇
+            const resp = await fetch('/api/articles?limit=10&page=1');
+            if (!resp.ok) throw new Error('Failed to fetch latest articles');
+            const data = await resp.json();
+            const articles = (data.articles || []).filter(a => a.slug !== this.slug);
+
+            if (!articles.length) {
+                containerEl.style.display = 'none';
+                return;
+            }
+
+            listEl.innerHTML = '';
+            articles.slice(0, 10).forEach(article => {
+                const li = document.createElement('li');
+                li.className = 'latest-articles-item';
+
+                const a = document.createElement('a');
+                a.href = `/articles/${article.slug}`;
+                a.textContent = article.title;
+                a.className = 'latest-articles-link';
+                a.title = article.title;
+
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = a.href;
+                });
+
+                li.appendChild(a);
+                listEl.appendChild(li);
+            });
+
+            // 显示右侧最新文章栏
+            containerEl.classList.add('show');
+        } catch (error) {
+            console.error('Failed to load latest articles:', error);
+            const containerEl = document.getElementById('latestArticlesSidebar');
+            if (containerEl) containerEl.style.display = 'none';
+        }
     }
     
     setupTOCHighlight() {

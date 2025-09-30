@@ -76,6 +76,25 @@ app.get('/api/articles/:slug', (req, res) => {
     }
 });
 
+// API路由 - 按分类获取文章
+app.get('/api/articles/category/:category', (req, res) => {
+    try {
+        const { category } = req.params;
+        let articles = articleManager.getAllArticles();
+        
+        // 按分类筛选
+        articles = articles.filter(article => article.category === category);
+        
+        // 按日期排序（最新的在前）
+        articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        res.json(articles);
+    } catch (error) {
+        console.error('Error fetching articles by category:', error);
+        res.status(500).json({ error: 'Failed to fetch articles by category' });
+    }
+});
+
 // API路由 - 获取分类统计
 app.get('/api/categories', (req, res) => {
     try {
