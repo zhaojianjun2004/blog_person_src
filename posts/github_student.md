@@ -3,8 +3,6 @@ title: github学生认证常见问题解决方案（已Approved）
 date:
 updated:
 category: tools
-toc: true
-toc_number: false
 tags:
  - 'github'
  - '学生认证'

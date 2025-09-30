@@ -3,7 +3,7 @@ title: 深入理解 Java ThreadLocal：原理、内存泄漏与最佳实践
 date:
 updated:
 category: "java"
-tags: ["java","ThreadLocal","并发编程"]
+tags: ["java","ThreadLocal","JUC"]
 ---
 
 ### 1. 引言：为什么需要 ThreadLocal？
