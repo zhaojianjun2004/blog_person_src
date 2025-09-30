@@ -8,9 +8,30 @@ class ArticleDetailManager {
     }
     
     getSlugFromURL() {
+        // 尝试从路径获取slug: /articles/slug-name
         const path = window.location.pathname;
-        const segments = path.split('/');
-        return segments[segments.length - 1];
+        const segments = path.split('/').filter(segment => segment);
+        
+        // 如果路径是 /articles/slug-name 格式
+        if (segments.length >= 2 && segments[0] === 'articles') {
+            return segments[1];
+        }
+        
+        // 如果路径是 /slug-name.html 格式
+        if (segments.length >= 1) {
+            const lastSegment = segments[segments.length - 1];
+            // 移除.html后缀如果存在
+            return lastSegment.replace(/\.html$/, '');
+        }
+        
+        // 尝试从查询参数获取: ?article=slug-name
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleParam = urlParams.get('article');
+        if (articleParam) {
+            return articleParam.replace(/\.md$/, ''); // 移除.md后缀如果存在
+        }
+        
+        return null;
     }
     
     async init() {

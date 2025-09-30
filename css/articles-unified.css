@@ -89,7 +89,7 @@
 }
 
 .article-tag {
-    background: rgba(0, 255, 255, 0.08);
+    background: rgba(0, 255, 255, 0.016);
     color: var(--tech-primary);
     padding: 0.25rem 0.6rem;
     border-radius: 10px;

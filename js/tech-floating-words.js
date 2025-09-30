@@ -100,7 +100,7 @@ class TechFloatingWords {
             vy: 0, // 垂直速度为0
             fontSize: 10 + Math.random() * 15, // 字体整体变小
             opacity: 0.3 + Math.random() * 0.3, // 透明度
-            life: 0.8 + Math.random() * 1.9 // 生命值
+            life: 0.8 + Math.random() * 0.1 // 生命值
         };
     }
     

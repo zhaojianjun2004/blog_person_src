@@ -44,6 +44,29 @@
   align-items: center;
 }
 
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-logo {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 0 8px var(--tech-primary));
+  animation: gentle-pulse 3s ease-in-out infinite;
+}
+
+@keyframes gentle-pulse {
+  0%, 100% { 
+    transform: scale(1); 
+    filter: drop-shadow(0 0 8px var(--tech-primary));
+  }
+  50% { 
+    transform: scale(1.1); 
+    filter: drop-shadow(0 0 12px var(--tech-secondary));
+  }
+}
+
 .nav-brand .brand-text {
   font-size: 1.5rem !important;
   font-weight: 700 !important;

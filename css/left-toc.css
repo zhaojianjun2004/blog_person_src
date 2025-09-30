@@ -2,7 +2,7 @@
 .article-left-toc {
     position: fixed;
     left: max(10px, calc((100vw - 1000px) / 2 - 250px)); /* 调整左侧定位，防止与文章重叠 */
-    top: 25%;
+    top: 24%;
     transform: translateY(-50%);
     width: 220px;
     height: 400px;
