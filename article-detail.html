@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/css/article-toc-enhanced.css">
     <link rel="stylesheet" href="/css/left-toc.css">
     <link rel="stylesheet" href="/css/latest-articles.css">
+    <link rel="stylesheet" href="/css/article-performance.css">
     
     <!-- 代码高亮 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
@@ -79,31 +80,31 @@
                 <span class="current" id="breadcrumbTitle">Loading...</span>
             </nav>
             
+            <!-- 左侧小型目录导航 -->
+            <aside class="article-left-toc" id="articleLeftToc">
+                <div class="left-toc-header">
+                    <span class="toc-title">目录</span>
+                </div>
+                <nav class="left-toc-nav">
+                    <ul class="left-toc-list" id="leftTocList">
+                        <!-- 目录项将通过JS动态生成 -->
+                    </ul>
+                </nav>
+            </aside>
+            
+            <!-- 右侧最新文章列表 -->
+            <aside class="latest-articles-sidebar" id="latestArticlesSidebar">
+                <div class="latest-articles-header">
+                    <span class="latest-articles-title">最新文章</span>
+                </div>
+                <nav class="latest-articles-content">
+                    <ul class="latest-articles-list" id="latestArticlesList">
+                        <!-- 最新文章将通过JS动态生成 -->
+                    </ul>
+                </nav>
+            </aside>
+            
             <div class="article-container">
-                <!-- 左侧小型目录导航 -->
-                <aside class="article-left-toc" id="articleLeftToc">
-                    <div class="left-toc-header">
-                        <span class="toc-title">目录</span>
-                    </div>
-                    <nav class="left-toc-nav">
-                        <ul class="left-toc-list" id="leftTocList">
-                            <!-- 目录项将通过JS动态生成 -->
-                        </ul>
-                    </nav>
-                </aside>
-                
-                <!-- 右侧最新文章列表 -->
-                <aside class="latest-articles-sidebar" id="latestArticlesSidebar">
-                    <div class="latest-articles-header">
-                        <span class="latest-articles-title">最新文章</span>
-                    </div>
-                    <nav class="latest-articles-content">
-                        <ul class="latest-articles-list" id="latestArticlesList">
-                            <!-- 最新文章将通过JS动态生成 -->
-                        </ul>
-                    </nav>
-                </aside>
-                
                 <!-- 加载状态 -->
                 <div class="article-loading" id="articleLoading">
                     <div class="loading-spinner"></div>
@@ -197,12 +198,13 @@
     </button>
     
     <!-- 引入脚本 -->
+    <script src="/js/cache-manager.js"></script>
+    <script src="/js/performance-monitor.js"></script>
     <script src="/js/init.js"></script>
     <script src="/js/enhanced-navbar-autohide.js"></script>
     <script src="/js/theme-switcher.js"></script>
     <script src="/js/mobile-nav.js"></script>
     <script src="/js/article-detail.js"></script>
     <script src="/js/article-toc-navigator.js"></script>
-    <script src="/js/mouse-trail.js"></script>
 </body>
 </html>

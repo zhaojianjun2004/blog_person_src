@@ -1,0 +1,105 @@
+/* 文章详情页性能优化CSS（布局优化版） */
+
+/* 优化GPU加速和硬件加速 */
+.article-detail,
+.article-left-toc,
+.latest-articles-sidebar,
+.image-viewer-modal {
+    will-change: auto; /* 避免过度使用 will-change */
+}
+
+/* 固定定位元素的性能优化 */
+.article-left-toc,
+.latest-articles-sidebar {
+    contain: layout style; /* 限制重绘范围 */
+    transform: translateZ(0); /* 开启硬件加速 */
+}
+
+/* 减少重绘的优化 */
+.article-body img,
+.article-tag,
+.left-toc-link,
+.latest-articles-link {
+    contain: layout style; /* 限制重绘范围 */
+}
+
+/* 滚动性能优化 */
+.left-toc-nav,
+.latest-articles-content,
+.article-body {
+    contain: layout;
+    overflow-anchor: auto; /* 防止滚动锚定问题 */
+}
+
+/* 字体渲染优化 */
+body,
+.article-body {
+    text-rendering: optimizeSpeed; /* 优化渲染速度而非质量 */
+    font-display: swap; /* 字体加载优化 */
+}
+
+/* 减少合成层的创建 */
+.article-card,
+.article-body p,
+.article-body h1,
+.article-body h2,
+.article-body h3,
+.article-body h4 {
+    transform: none; /* 避免不必要的合成层 */
+}
+
+/* 优化IntersectionObserver目标元素 */
+.article-body h1,
+.article-body h2,
+.article-body h3,
+.article-body h4 {
+    contain: layout;
+}
+
+/* 移除不必要的阴影和模糊效果 */
+.loading-screen,
+.article-loading {
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+/* 优化表格渲染 */
+.article-body table {
+    table-layout: fixed; /* 固定表格布局提升性能 */
+}
+
+/* 代码块优化 */
+.article-body pre,
+.article-body code {
+    contain: layout style;
+    white-space: pre; /* 避免复杂的文本换行计算 */
+}
+
+/* 图片懒加载优化 */
+.article-body img {
+    loading: lazy; /* 原生懒加载 */
+    decoding: async; /* 异步解码 */
+}
+
+/* 减少重排的优化 */
+.article-container {
+    contain: layout;
+}
+
+/* 媒体查询优化 - 减少响应式断点 */
+@media (max-width: 1200px) {
+    .article-left-toc,
+    .latest-articles-sidebar {
+        display: none !important; /* 直接隐藏，避免复杂计算 */
+    }
+}
+
+/* 避免动画期间的重绘 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

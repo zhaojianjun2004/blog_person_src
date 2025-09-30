@@ -1,25 +1,21 @@
-/* 左侧小型目录导航样式 */
+/* 左侧小型目录导航样式（优化版） */
 .article-left-toc {
     position: fixed;
-    /* 固定位置：向左移动，减少与左边界的距离 */
-    left: max(15px, calc((100vw - 940px) / 6));
-    top: 50%;
+    left: max(10px, calc((100vw - 1000px) / 2 - 250px)); /* 调整左侧定位，防止与文章重叠 */
+    top: 25%;
     transform: translateY(-50%);
     width: 220px;
-    /* 固定高度，不随内容变化 */
     height: 400px;
     max-height: 400px;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-    backdrop-filter: none;
+    background: rgba(255, 255, 255, 0); /* 添加半透明背景，提高可读性 */
+    
+
     z-index: 100;
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
     font-family: 'Inter', 'Segoe UI', sans-serif;
+    padding: 12px;
 }
 
 .article-left-toc.show {
@@ -28,24 +24,23 @@
 }
 
 [data-theme="dark"] .article-left-toc {
-    background: transparent;
-    border: none;
-    box-shadow: none;
+    background: rgba(13, 17, 23, 0.95);
+    border-color: rgba(48, 54, 61, 0.8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* 目录头部 */
 .left-toc-header {
-    padding: 0 0 8px 0;
-    background: transparent;
-    border-bottom: none;
+    padding: 0 0 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 8px;
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* 左对齐 */
+    justify-content: flex-start;
 }
 
 [data-theme="dark"] .left-toc-header {
-    background: transparent;
-    border-bottom: none;
+    border-bottom-color: rgba(48, 54, 61, 0.8);
 }
 
 .left-toc-header .toc-title {
@@ -105,7 +100,6 @@
     text-decoration: none;
     font-size: 0.8rem;
     line-height: 1.4;
-    transition: all 0.2s ease;
     border-left: 2px solid transparent;
     position: relative;
 }
@@ -116,26 +110,22 @@
 
 .left-toc-link:hover {
     color: var(--primary-color, #0366d6);
-    background: rgba(3, 102, 214, 0.05);
     border-left-color: var(--primary-color, #0366d6);
 }
 
 [data-theme="dark"] .left-toc-link:hover {
     color: #58a6ff;
-    background: rgba(88, 166, 255, 0.1);
     border-left-color: #58a6ff;
 }
 
 .left-toc-link.active {
     color: var(--primary-color, #0366d6);
-    background: rgba(3, 102, 214, 0.08);
     border-left-color: var(--primary-color, #0366d6);
     font-weight: 500;
 }
 
 [data-theme="dark"] .left-toc-link.active {
     color: #58a6ff;
-    background: rgba(88, 166, 255, 0.15);
     border-left-color: #58a6ff;
 }
 
@@ -162,24 +152,24 @@
     opacity: 0.7;
 }
 
-/* 响应式设计 */
+/* 响应式设计（优化版） */
 @media (max-width: 1500px) {
     .article-left-toc {
-        left: max(10px, calc((100vw - 940px) / 8));
+        left: max(15px, calc((100vw - 1100px) / 2 - 230px));
         width: 200px;
     }
 }
 
 @media (max-width: 1300px) {
     .article-left-toc {
-        left: 10px;
-        width: 200px;
+        left: 15px;
+        width: 180px;
     }
 }
 
 @media (max-width: 1200px) {
     .article-left-toc {
-        display: none;
+        display: none !important;
     }
 }
 
@@ -188,11 +178,5 @@
     .article-container {
         max-width: 940px;
         margin: 0 auto;
-        /* 移除padding-left，保持居中 */
-    }
-    
-    /* 确保左侧目录不会与文章内容重叠 */
-    .article-left-toc {
-        max-width: min(220px, calc((100vw - 940px) / 2 - 40px));
     }
 }

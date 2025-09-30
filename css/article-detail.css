@@ -38,7 +38,7 @@
   position: relative;
 }
 
-/* 文章页面背景遮罩 */
+/* 文章页面背景遮罩（简化版） */
 .main-content.page-content::before {
   content: '';
   position: fixed;
@@ -47,9 +47,7 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(1px);
   z-index: -1;
-  transition: all 0.3s ease;
 }
 
 [data-theme="dark"] .main-content.page-content::before {
@@ -92,13 +90,9 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 
-    0 20px 40px rgba(0,0,0,0.15),
-    0 8px 24px rgba(0,0,0,0.12),
-    0 4px 8px rgba(0,0,0,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.1);
+    0 8px 16px rgba(0,0,0,0.1),
+    0 4px 8px rgba(0,0,0,0.06);
   position: relative;
-  transform: translateY(0);
-  transition: all 0.3s ease;
 }
 
 .article-detail::before {
@@ -113,15 +107,7 @@
   border-radius: 16px;
 }
 
-/* 鼠标悬停效果 */
-.article-detail:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 25px 50px rgba(0,0,0,0.18),
-    0 12px 30px rgba(0,0,0,0.15),
-    0 6px 12px rgba(0,0,0,0.1),
-    inset 0 1px 0 rgba(255,255,255,0.15);
-}
+
 
 [data-theme="dark"] .article-detail {
   background: #0d1117;
@@ -133,13 +119,7 @@
     inset 0 1px 0 rgba(255,255,255,0.05);
 }
 
-[data-theme="dark"] .article-detail:hover {
-  box-shadow: 
-    0 25px 50px rgba(0,0,0,0.5),
-    0 12px 30px rgba(0,0,0,0.4),
-    0 6px 12px rgba(0,0,0,0.3),
-    inset 0 1px 0 rgba(255,255,255,0.08);
-}
+
 
 /* 文章头部 */
 .article-header {
@@ -585,21 +565,11 @@
   margin: 1rem auto;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
-}
-
-.article-body img:hover {
-  transform: scale(1.02);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 }
 
 [data-theme="dark"] .article-body img {
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-[data-theme="dark"] .article-body img:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
 }
 
 /* 图片查看器模态框 */
@@ -666,53 +636,8 @@
   background: rgba(0,0,0,0.8);
 }
 
-/* 图片缩放控制按钮 */
-.image-zoom-controls {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-  background: rgba(0,0,0,0.7);
-  padding: 10px;
-  border-radius: 25px;
-}
-
-.zoom-btn {
-  background: rgba(255,255,255,0.2);
-  border: none;
-  color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  transition: background-color 0.3s ease;
-}
-
-.zoom-btn:hover {
-  background: rgba(255,255,255,0.3);
-}
-
-.zoom-btn:active {
-  transform: scale(0.95);
-}
-
 [data-theme="dark"] .article-body img {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.article-body img:hover {
-  transform: scale(1.02);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-}
-
-[data-theme="dark"] .article-body img:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 /* 确保图片容器不会溢出 */

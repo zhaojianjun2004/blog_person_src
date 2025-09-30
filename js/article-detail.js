@@ -18,65 +18,96 @@ class ArticleDetailManager {
             this.showError();
             return;
         }
-        
+
         try {
+            // 首先加载文章内容
             await this.loadArticle();
             this.renderArticle();
-            this.setupInteractions();
-            this.generateTableOfContents();
-            this.generateLatestArticles(); // 生成右侧最新文章
-            this.setupBackToTop();
-            this.highlightCode();
-            this.initImageViewer(); // 添加图片查看器初始化
+            
+            // 使用 requestIdleCallback 延迟执行非关键功能
+            this.scheduleNonCriticalTasks();
+            
         } catch (error) {
             console.error('❌ 加载文章失败:', error);
             this.showError();
         }
     }
     
-    async loadArticle() {
+    scheduleNonCriticalTasks() {
+        // 使用 requestIdleCallback 或 setTimeout 延迟执行
+        const scheduleTask = (task, delay = 0) => {
+            if (window.requestIdleCallback) {
+                requestIdleCallback(task, { timeout: 1000 });
+            } else {
+                setTimeout(task, delay);
+            }
+        };
+        
+        // 分批执行任务，减少阻塞
+        scheduleTask(() => this.setupInteractions(), 100);
+        scheduleTask(() => this.generateTableOfContents(), 200);
+        scheduleTask(() => this.generateLatestArticles(), 300);
+        scheduleTask(() => this.setupBackToTop(), 400);
+        scheduleTask(() => this.highlightCode(), 500);
+        scheduleTask(() => this.initImageViewer(), 600);
+    }    async loadArticle() {
+        // 检查缓存
+        const cacheKey = `article_${this.slug}`;
+        if (window.cacheManager && window.cacheManager.has(cacheKey)) {
+            this.article = window.cacheManager.get(cacheKey);
+            console.log('✅ 从缓存加载文章:', this.article.title);
+            return;
+        }
+        
         const response = await fetch(`/api/articles/${this.slug}`);
         if (!response.ok) {
             throw new Error('文章未找到');
         }
         this.article = await response.json();
+        
+        // 存入缓存
+        if (window.cacheManager) {
+            window.cacheManager.set(cacheKey, this.article);
+        }
+        
         console.log('✅ 文章加载成功:', this.article.title);
     }
     
     renderArticle() {
-        // 更新面包屑
+        // 优先渲染关键内容，提升感知性能
+        
+        // 1. 首先更新页面标题和面包屑（最重要）
+        document.title = `${this.article.title} - CaiCaiXiong`;
         document.getElementById('breadcrumbTitle').textContent = this.article.title;
         
-        // 更新文章头部
+        // 2. 更新文章头部信息（用户最先看到的内容）
         document.getElementById('articleTitle').textContent = this.article.title;
         document.getElementById('articleExcerpt').textContent = this.article.excerpt;
         
-        // 添加文章信息（创建时间、更新时间、字数、阅读时长）
-        this.renderArticleInfo();
-        
-        // 更新分类
-        document.getElementById('articleCategory').textContent = this.getCategoryDisplayName(this.article.category);
-        
-        // 更新标签
-        const tagsContainer = document.getElementById('articleTags');
-        if (this.article.tags && this.article.tags.length > 0) {
-            tagsContainer.innerHTML = this.article.tags
-                .map(tag => `<span class="tag">#${tag}</span>`)
-                .join('');
-        }
-        
-        // 更新文章内容
-        document.getElementById('articleBody').innerHTML = this.article.htmlContent;
-        
-        // 处理表格，添加横向滚动支持
-        this.setupTableScrolling();
-        
-        // 更新页面标题
-        document.title = `${this.article.title} - CaiCaiXiong`;
-        
-        // 显示文章内容
+        // 3. 立即显示文章内容区域（提升感知速度）
         document.getElementById('articleLoading').style.display = 'none';
         document.getElementById('articleContent').style.display = 'block';
+        
+        // 4. 使用 requestAnimationFrame 异步填充其他内容
+        requestAnimationFrame(() => {
+            // 填充文章正文
+            document.getElementById('articleBody').innerHTML = this.article.htmlContent;
+            
+            // 填充其他信息
+            this.renderArticleInfo();
+            document.getElementById('articleCategory').textContent = this.getCategoryDisplayName(this.article.category);
+            
+            // 填充标签
+            const tagsContainer = document.getElementById('articleTags');
+            if (this.article.tags && this.article.tags.length > 0) {
+                tagsContainer.innerHTML = this.article.tags
+                    .map(tag => `<span class="tag">#${tag}</span>`)
+                    .join('');
+            }
+            
+            // 处理表格，添加横向滚动支持
+            this.setupTableScrolling();
+        });
     }
     
     getCategoryDisplayName(category) {
@@ -243,19 +274,37 @@ class ArticleDetailManager {
         if (!listEl || !containerEl) return;
 
         try {
-            // 获取全部文章并取最新的10篇
-            const resp = await fetch('/api/articles?limit=10&page=1');
-            if (!resp.ok) throw new Error('Failed to fetch latest articles');
-            const data = await resp.json();
-            const articles = (data.articles || []).filter(a => a.slug !== this.slug);
+            // 检查缓存
+            const cacheKey = 'latest_articles_10';
+            let articles;
+            
+            if (window.cacheManager && window.cacheManager.has(cacheKey)) {
+                articles = window.cacheManager.get(cacheKey);
+                console.log('✅ 从缓存加载最新文章列表');
+            } else {
+                // 获取全部文章并取最新的10篇
+                const resp = await fetch('/api/articles?limit=10&page=1');
+                if (!resp.ok) throw new Error('Failed to fetch latest articles');
+                const data = await resp.json();
+                articles = data.articles || [];
+                
+                // 存入缓存
+                if (window.cacheManager) {
+                    window.cacheManager.set(cacheKey, articles);
+                }
+            }
+            
+            // 过滤掉当前文章
+            const filteredArticles = articles.filter(a => a.slug !== this.slug);
 
-            if (!articles.length) {
+            if (!filteredArticles.length) {
                 containerEl.style.display = 'none';
                 return;
             }
 
-            listEl.innerHTML = '';
-            articles.slice(0, 10).forEach(article => {
+            // 使用DocumentFragment提高性能
+            const fragment = document.createDocumentFragment();
+            filteredArticles.slice(0, 10).forEach(article => {
                 const li = document.createElement('li');
                 li.className = 'latest-articles-item';
 
@@ -271,8 +320,12 @@ class ArticleDetailManager {
                 });
 
                 li.appendChild(a);
-                listEl.appendChild(li);
+                fragment.appendChild(li);
             });
+
+            // 一次性更新DOM
+            listEl.innerHTML = '';
+            listEl.appendChild(fragment);
 
             // 显示右侧最新文章栏
             containerEl.classList.add('show');
@@ -284,37 +337,63 @@ class ArticleDetailManager {
     }
     
     setupTOCHighlight() {
+        // 缓存DOM元素，避免重复查询
+        const tocLinks = document.querySelectorAll('#tocList a');
+        const leftTocLinks = document.querySelectorAll('.left-toc-link');
+        
+        // 如果没有目录链接，直接返回
+        if (tocLinks.length === 0 && leftTocLinks.length === 0) return;
+        
+        let currentActiveId = null;
+        let updateTimeout = null;
+        
         const observer = new IntersectionObserver(
             (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.id;
-                        // 右侧目录高亮
-                        document.querySelectorAll('#tocList a').forEach(link => {
-                            link.classList.remove('active');
-                        });
-                        const activeLink = document.querySelector(`#tocList a[href="#${id}"]`);
-                        if (activeLink) {
-                            activeLink.classList.add('active');
-                        }
-                        
-                        // 左侧目录高亮（如果存在）
-                        document.querySelectorAll('.left-toc-link').forEach(link => {
-                            link.classList.remove('active');
-                        });
-                        const leftActiveLink = document.querySelector(`.left-toc-link[href="#${id}"]`);
-                        if (leftActiveLink) {
-                            leftActiveLink.classList.add('active');
-                        }
-                    }
-                });
+                // 只处理进入视口的元素
+                const intersectingEntries = entries.filter(entry => entry.isIntersecting);
+                if (intersectingEntries.length === 0) return;
+                
+                // 获取第一个进入视口的元素
+                const entry = intersectingEntries[0];
+                const id = entry.target.id;
+                
+                // 避免重复更新相同的元素
+                if (currentActiveId === id) return;
+                currentActiveId = id;
+                
+                // 防抖更新，避免频繁操作
+                if (updateTimeout) {
+                    clearTimeout(updateTimeout);
+                }
+                
+                updateTimeout = setTimeout(() => {
+                    // 使用更高效的方式更新高亮状态
+                    const activeSelector = `[href="#${id}"]`;
+                    
+                    // 批量移除高亮
+                    tocLinks.forEach(link => link.classList.remove('active'));
+                    leftTocLinks.forEach(link => link.classList.remove('active'));
+                    
+                    // 添加新的高亮
+                    const activeLink = document.querySelector(`#tocList a${activeSelector}`);
+                    const leftActiveLink = document.querySelector(`.left-toc-link${activeSelector}`);
+                    
+                    if (activeLink) activeLink.classList.add('active');
+                    if (leftActiveLink) leftActiveLink.classList.add('active');
+                }, 50); // 50ms防抖
             },
-            { rootMargin: '-100px 0px -50% 0px' }
+            { 
+                rootMargin: '-100px 0px -50% 0px',
+                threshold: 0.1
+            }
         );
         
-        document.querySelectorAll('#articleBody h1, #articleBody h2, #articleBody h3, #articleBody h4').forEach(heading => {
-            observer.observe(heading);
-        });
+        const headings = document.querySelectorAll('#articleBody h1, #articleBody h2, #articleBody h3, #articleBody h4');
+        if (headings.length > 0) {
+            headings.forEach(heading => {
+                observer.observe(heading);
+            });
+        }
     }
     
     setupInteractions() {
@@ -368,14 +447,23 @@ class ArticleDetailManager {
     
     setupBackToTop() {
         const backToTopBtn = document.getElementById('backToTop');
+        let scrollTimeout = null;
         
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopBtn.classList.add('show');
-            } else {
-                backToTopBtn.classList.remove('show');
-            }
-        });
+        // 节流滚动事件监听
+        const handleScroll = () => {
+            if (scrollTimeout) return;
+            
+            scrollTimeout = setTimeout(() => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+                scrollTimeout = null;
+            }, 100); // 100ms节流
+        };
+        
+        window.addEventListener('scroll', handleScroll, { passive: true });
         
         backToTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -434,140 +522,63 @@ class ArticleDetailManager {
         }
     }
     
-    // 初始化图片查看器功能
+    // 简化的图片查看器功能（优化版）
     initImageViewer() {
-        // 创建图片查看器模态框
-        if (!document.querySelector('.image-viewer-modal')) {
-            const modal = document.createElement('div');
-            modal.className = 'image-viewer-modal';
-            modal.innerHTML = `
-                <span class="image-viewer-close">&times;</span>
-                <img class="image-viewer-content" src="" alt="">
-                <div class="image-zoom-controls">
-                    <button class="zoom-btn" id="zoomOut" title="缩小">-</button>
-                    <button class="zoom-btn" id="resetZoom" title="重置">⌂</button>
-                    <button class="zoom-btn" id="zoomIn" title="放大">+</button>
-                </div>
-            `;
-            document.body.appendChild(modal);
+        // 创建简单的图片查看器模态框
+        if (document.querySelector('.image-viewer-modal')) return; // 避免重复创建
+        
+        const modal = document.createElement('div');
+        modal.className = 'image-viewer-modal';
+        modal.innerHTML = `
+            <span class="image-viewer-close">&times;</span>
+            <img class="image-viewer-content" src="" alt="">
+        `;
+        document.body.appendChild(modal);
+        
+        // 使用事件委托，减少事件监听器数量
+        const articleBody = document.querySelector('.article-body');
+        if (articleBody) {
+            articleBody.addEventListener('click', (e) => {
+                if (e.target.tagName === 'IMG') {
+                    const modalImg = modal.querySelector('.image-viewer-content');
+                    modal.classList.add('show');
+                    modalImg.src = e.target.src;
+                    modalImg.alt = e.target.alt;
+                    document.body.style.overflow = 'hidden';
+                }
+            });
         }
         
-        let currentScale = 1;
-        let isDragging = false;
-        let startX = 0, startY = 0;
-        let translateX = 0, translateY = 0;
+        // 统一的关闭事件处理
+        const closeModal = () => {
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        };
         
-        // 点击文章中的图片打开查看器
-        document.addEventListener('click', (e) => {
-            if (e.target.tagName === 'IMG' && e.target.closest('.article-body')) {
-                const img = e.target;
-                const modal = document.querySelector('.image-viewer-modal');
-                const modalImg = modal.querySelector('.image-viewer-content');
-                
-                modal.classList.add('show');
-                modalImg.src = img.src;
-                modalImg.alt = img.alt;
-                document.body.style.overflow = 'hidden';
-                
-                // 重置缩放和位置
-                currentScale = 1;
-                translateX = 0;
-                translateY = 0;
-                updateImageTransform(modalImg);
+        // 点击模态框关闭
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal || 
+                e.target.classList.contains('image-viewer-close') ||
+                e.target.classList.contains('image-viewer-content')) {
+                closeModal();
             }
         });
         
-        // 缩放功能
-        function updateImageTransform(img) {
-            img.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
-        }
+        // ESC键关闭（仅在模态框显示时监听）
+        const handleEscape = (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('show')) {
+                closeModal();
+            }
+        };
         
-        // 缩放按钮事件
-        document.addEventListener('click', (e) => {
-            const modalImg = document.querySelector('.image-viewer-content');
-            
-            if (e.target.id === 'zoomIn') {
-                e.stopPropagation();
-                currentScale = Math.min(currentScale * 1.2, 3); // 最大3倍
-                updateImageTransform(modalImg);
-            } else if (e.target.id === 'zoomOut') {
-                e.stopPropagation();
-                currentScale = Math.max(currentScale / 1.2, 0.5); // 最小0.5倍
-                updateImageTransform(modalImg);
-            } else if (e.target.id === 'resetZoom') {
-                e.stopPropagation();
-                currentScale = 1;
-                translateX = 0;
-                translateY = 0;
-                updateImageTransform(modalImg);
+        // 动态添加/移除ESC监听器
+        modal.addEventListener('transitionend', () => {
+            if (modal.classList.contains('show')) {
+                document.addEventListener('keydown', handleEscape);
+            } else {
+                document.removeEventListener('keydown', handleEscape);
             }
         });
-        
-        // 鼠标拖拽功能（当图片放大时）
-        document.addEventListener('mousedown', (e) => {
-            if (e.target.classList.contains('image-viewer-content') && currentScale > 1) {
-                isDragging = true;
-                startX = e.clientX - translateX;
-                startY = e.clientY - translateY;
-                e.target.style.cursor = 'grabbing';
-                e.preventDefault();
-            }
-        });
-        
-        document.addEventListener('mousemove', (e) => {
-            if (isDragging && currentScale > 1) {
-                translateX = e.clientX - startX;
-                translateY = e.clientY - startY;
-                const modalImg = document.querySelector('.image-viewer-content');
-                updateImageTransform(modalImg);
-            }
-        });
-        
-        document.addEventListener('mouseup', () => {
-            if (isDragging) {
-                isDragging = false;
-                const modalImg = document.querySelector('.image-viewer-content');
-                modalImg.style.cursor = 'zoom-out';
-            }
-        });
-        
-        // 滚轮缩放
-        document.addEventListener('wheel', (e) => {
-            if (document.querySelector('.image-viewer-modal.show')) {
-                e.preventDefault();
-                const modalImg = document.querySelector('.image-viewer-content');
-                const delta = e.deltaY > 0 ? 0.9 : 1.1;
-                currentScale = Math.max(0.5, Math.min(3, currentScale * delta));
-                updateImageTransform(modalImg);
-            }
-        }, { passive: false });
-        
-        // 点击关闭按钮或背景关闭查看器
-        document.addEventListener('click', (e) => {
-            const modal = document.querySelector('.image-viewer-modal');
-            if (e.target.classList.contains('image-viewer-close') || 
-                e.target.classList.contains('image-viewer-modal')) {
-                modal.classList.remove('show');
-                document.body.style.overflow = 'auto';
-                currentScale = 1;
-                translateX = 0;
-                translateY = 0;
-            }
-        });
-        
-        // ESC键关闭查看器
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                const modal = document.querySelector('.image-viewer-modal');
-                modal.classList.remove('show');
-                document.body.style.overflow = 'auto';
-                currentScale = 1;
-                translateX = 0;
-                translateY = 0;
-            }
-        });
-        
-        console.log('🖼️ 增强图片查看器初始化完成');
     }
     
     showError() {

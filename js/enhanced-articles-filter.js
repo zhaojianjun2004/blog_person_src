@@ -1,4 +1,4 @@
-// 增强的文章筛选和搜索功能
+// 增强的文章筛选和搜索功能（性能优化版）
 class EnhancedArticlesFilter {
     constructor() {
         this.searchInput = document.querySelector('.search-input');
@@ -7,7 +7,8 @@ class EnhancedArticlesFilter {
         this.activeCategory = 'all';
         this.activeSearchTerm = '';
         this.activeTag = null;
-        this.isManualSearch = false; // 标识是否为手动搜索
+        this.isManualSearch = false;
+        this.searchTimeout = null; // 搜索防抖
         
         this.init();
     }
@@ -20,11 +21,20 @@ class EnhancedArticlesFilter {
             // 为搜索框添加标识，避免与其他管理器冲突
             this.searchInput.setAttribute('data-enhanced-filter', 'true');
             
-            // 搜索功能 - 仅支持title搜索
+            // 搜索功能 - 添加防抖机制
             this.searchInput.addEventListener('input', (e) => {
                 this.isManualSearch = true;
                 this.activeSearchTerm = e.target.value;
-                this.performTitleSearch();
+                
+                // 清除之前的搜索防抖
+                if (this.searchTimeout) {
+                    clearTimeout(this.searchTimeout);
+                }
+                
+                // 设置防抖延迟
+                this.searchTimeout = setTimeout(() => {
+                    this.performTitleSearch();
+                }, 300); // 300ms防抖
             });
             
             // 搜索框回车事件

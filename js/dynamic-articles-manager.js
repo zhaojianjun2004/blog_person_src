@@ -1,11 +1,13 @@
-// 动态文章管理器 - 处理URL参数和实时过滤
+// 动态文章管理器 - 处理URL参数和实时过滤（性能优化版）
 class DynamicArticleManager {
     constructor() {
         this.articles = [];
         this.filteredArticles = [];
         this.currentPage = 1;
-        this.articlesPerPage = 9; // 修改为9个一页
-        this.renderingPaused = false; // 添加渲染暂停标志
+        this.articlesPerPage = 9;
+        this.renderingPaused = false;
+        this.lastRenderTime = 0;
+        this.renderThrottle = 100; // 渲染节流时间（毫秒）
         
         this.init();
     }
@@ -14,7 +16,7 @@ class DynamicArticleManager {
         // 解析URL参数
         this.parseUrlParams();
         
-        // 加载文章数据
+        // 加载文章数据（带缓存）
         await this.loadArticles();
         
         // 应用过滤器
@@ -45,15 +47,27 @@ class DynamicArticleManager {
     
     async loadArticles() {
         try {
-            const response = await fetch('/api/articles?limit=100'); // 加载所有文章
+            // 检查缓存
+            const cacheKey = 'articles_all';
+            if (window.cacheManager && window.cacheManager.has(cacheKey)) {
+                this.articles = window.cacheManager.get(cacheKey);
+                console.log('✅ 从缓存加载文章:', this.articles.length + ' 篇');
+                return;
+            }
+            
+            const response = await fetch('/api/articles?limit=100');
             const data = await response.json();
             this.articles = data.articles.map(article => ({
                 ...article,
-                // 生成摘要：取正文前150个字符
                 excerpt: this.generateExcerpt(article.content || article.htmlContent),
-                // 修复category为undefined的问题
                 category: article.category || 'uncategorized'
             }));
+            
+            // 存入缓存
+            if (window.cacheManager) {
+                window.cacheManager.set(cacheKey, this.articles);
+            }
+            
             console.log('✅ 文章加载成功:', this.articles.length + ' 篇');
         } catch (error) {
             console.error('❌ 加载文章失败:', error);
@@ -110,6 +124,13 @@ class DynamicArticleManager {
     }
     
     renderArticles() {
+        // 防抖渲染
+        const now = Date.now();
+        if (now - this.lastRenderTime < this.renderThrottle) {
+            return;
+        }
+        this.lastRenderTime = now;
+        
         // 如果渲染被暂停，不执行渲染
         if (this.renderingPaused) {
             console.log('📄 DynamicArticleManager 渲染已暂停，等待手动搜索完成');
@@ -119,9 +140,6 @@ class DynamicArticleManager {
         const articlesContainer = document.querySelector('.articles-grid');
         if (!articlesContainer) return;
         
-        // 清空容器
-        articlesContainer.innerHTML = '';
-        
         if (this.filteredArticles.length === 0) {
             articlesContainer.innerHTML = `
                 <div class="no-articles">
@@ -129,7 +147,6 @@ class DynamicArticleManager {
                     <p>请尝试调整搜索条件</p>
                 </div>
             `;
-            // 更新统计信息显示0篇文章
             this.updateResultsInfo();
             this.renderPagination(0, 0);
             return;
@@ -141,12 +158,18 @@ class DynamicArticleManager {
         const endIndex = startIndex + this.articlesPerPage;
         const currentPageArticles = this.filteredArticles.slice(startIndex, endIndex);
         
-        // 渲染当前页的文章
-        currentPageArticles.forEach((article, index) => {
+        // 使用DocumentFragment提高性能
+        const fragment = document.createDocumentFragment();
+        
+        // 批量创建文章卡片
+        currentPageArticles.forEach((article) => {
             const articleCard = this.createArticleCard(article);
-            articleCard.style.animationDelay = `${index * 0.1}s`;
-            articlesContainer.appendChild(articleCard);
+            fragment.appendChild(articleCard);
         });
+        
+        // 一次性更新DOM
+        articlesContainer.innerHTML = '';
+        articlesContainer.appendChild(fragment);
         
         // 更新搜索框和过滤器状态
         this.updateFilterUI();
@@ -158,7 +181,7 @@ class DynamicArticleManager {
     
     createArticleCard(article) {
         const card = document.createElement('article');
-        card.className = 'article-card fade-in-up';
+        card.className = 'article-card';
         card.dataset.category = article.category;
         
         // 获取分类显示名称
