@@ -5,6 +5,60 @@
 ## 🚀 快速部署
 
 ### 方式 1：Vercel 部署（推荐）⭐
+**常规部署方式**
+
+1. 🚀 现在开始部署（3个步骤）
+- 第 1 步：提交代码到 GitHub
+在你的项目目录打开终端（PowerShell 或 CMD），运行：
+```shell
+# 手动执行
+git add .
+git commit -m "准备部署到 Vercel"
+git push origin main
+```
+- 第 2 步：在 Vercel 部署
+方式 A：通过网页（最简单）
+
+ 访问：https://vercel.com/new
+ 用 GitHub 账号登录
+ 找到 blog_person_src 仓库，点击 Import
+ 保持默认设置（可以修改域名，不使用默认的blog_person_src,改为你自己的名字之类的），点击 Deploy
+ 等待 2-3 分钟完成部署
+
+方式 B：通过命令行
+```shell
+# 安装 Vercel CLI
+npm i -g vercel
+
+# 登录并部署
+vercel
+```
+第 3 步：获取你的博客地址
+部署成功后，你会获得一个域名：
+```shell
+https://zhaojianjun.vercel.app
+```
+**📚 参考文档**
+
+快速开始：打开 QUICK_START.md
+完整教程：打开 VERCEL_DEPLOY_GUIDE.md
+检查清单：打开 DEPLOYMENT_CHECKLIST.md
+
+**❓ 常见问题**
+
+Q: 部署需要付费吗？
+A: 个人项目免费！Vercel 的 Hobby 计划对个人开发者完全免费。
+
+Q: 部署后如何更新？
+A: 只需 git push，Vercel 会自动检测并重新部署。
+
+Q: 域名备案前能访问吗？
+A: 能！Vercel 提供的 .vercel.app 域名国内外都能访问（速度可能稍慢）。
+
+🎯 现在就开始吧！
+运行 deploy.bat 提交代码
+访问 https://vercel.com/new 开始部署
+
 
 **最简单的部署方式，3 步完成：**
 
