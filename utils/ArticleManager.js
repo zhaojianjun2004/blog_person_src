@@ -32,13 +32,15 @@ class ArticleManager {
                 const stats = fs.statSync(filePath);
                 
                 // 自动处理时间信息，优先使用 front-matter 中的 updated
-                const createdTime = parsed.attributes.date || stats.birthtime.toISOString().split('T')[0];
+                // 文件修改时间
                 const fileMTime = stats.mtime.toISOString().split('T')[0];
+                // 创建时间：优先 front-matter date，否则使用文件修改时间
+                const createdTime = parsed.attributes.date || fileMTime;
                 const userUpdated = parsed.attributes.updated;
                 // 如果 front-matter 指定了 updated，则使用用户提供的值；否则使用文件修改时间（与创建时间不同时）
                 const finalUpdated = userUpdated
                     ? userUpdated
-                    : (fileMTime !== createdTime ? fileMTime : null);
+                    : (new Date(fileMTime) > new Date(createdTime) ? fileMTime : null);
 
                 return {
                     slug: file.replace('.md', ''),
@@ -95,12 +97,14 @@ class ArticleManager {
             const stats = fs.statSync(filePath);
             
             // 自动处理时间信息，优先使用 front-matter 中的 updated
-            const createdTime = parsed.attributes.date || stats.birthtime.toISOString().split('T')[0];
+            // 文件修改时间
             const fileMTime = stats.mtime.toISOString().split('T')[0];
+            // 创建时间：优先 front-matter date，否则使用文件修改时间
+            const createdTime = parsed.attributes.date || fileMTime;
             const userUpdated = parsed.attributes.updated;
             const finalUpdated = userUpdated
                 ? userUpdated
-                : (fileMTime !== createdTime ? fileMTime : null);
+                : (new Date(fileMTime) > new Date(createdTime) ? fileMTime : null);
 
             return {
                 slug,
