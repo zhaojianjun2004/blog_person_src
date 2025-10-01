@@ -189,20 +189,25 @@ app.get('*', (req, res) => {
     `);
 });
 
-// 启动服务器
-app.listen(PORT, () => {
-    console.log(`🚀 Tech Blog server running at http://localhost:${PORT}`);
-    console.log(`📝 Blog created by CaiCaiXiong`);
-    console.log(`📄 Available pages:`);
-    console.log(`   - Home: http://localhost:${PORT}/`);
-    console.log(`   - About: http://localhost:${PORT}/about`);
-    console.log(`   - Articles: http://localhost:${PORT}/articles`);
-    console.log(`   - Categories: http://localhost:${PORT}/categories`);
-    console.log(`   - Contact: http://localhost:${PORT}/contact`);
-    console.log(`🔌 API Endpoints:`);
-    console.log(`   - GET /api/articles - Get all articles`);
-    console.log(`   - GET /api/articles/:slug - Get article by slug`);
-    console.log(`   - GET /api/categories - Get category stats`);
-    console.log(`   - GET /api/tags - Get tag stats`);
-    console.log(`   - GET /api/stats - Get blog stats`);
-});
+// 启动服务器（仅在本地开发时）
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`🚀 Tech Blog server running at http://localhost:${PORT}`);
+        console.log(`📝 Blog created by CaiCaiXiong`);
+        console.log(`📄 Available pages:`);
+        console.log(`   - Home: http://localhost:${PORT}/`);
+        console.log(`   - About: http://localhost:${PORT}/about`);
+        console.log(`   - Articles: http://localhost:${PORT}/articles`);
+        console.log(`   - Categories: http://localhost:${PORT}/categories`);
+        console.log(`   - Contact: http://localhost:${PORT}/contact`);
+        console.log(`🔌 API Endpoints:`);
+        console.log(`   - GET /api/articles - Get all articles`);
+        console.log(`   - GET /api/articles/:slug - Get article by slug`);
+        console.log(`   - GET /api/categories - Get category stats`);
+        console.log(`   - GET /api/tags - Get tag stats`);
+        console.log(`   - GET /api/stats - Get blog stats`);
+    });
+}
+
+// 导出 app 供 Vercel 使用
+module.exports = app;

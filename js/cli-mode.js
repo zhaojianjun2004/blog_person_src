@@ -74,7 +74,7 @@ class BlogCLI {
                 </div>
                 <div class="cli-output"></div>
                 <div class="cli-input-container">
-                    <span class="cli-prompt">guest@caicaixiong.space:~$</span>
+                    <span class="cli-prompt" style="color: white;">guest@caicaixiong.space:~$</span>
                     <input type="text" class="cli-input" autofocus />
                 </div>
             </div>
