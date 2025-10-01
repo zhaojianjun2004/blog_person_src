@@ -1,7 +1,7 @@
 ---
 title: 面试必考！Java实现归并、快排、堆排，彻底搞懂NlogN算法
 date: 2025-09-04
-updated:
+updated: 2025-09-10
 category: java
 tags:
   - "java"

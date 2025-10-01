@@ -31,15 +31,20 @@ class ArticleManager {
                 const parsed = frontMatter(content);
                 const stats = fs.statSync(filePath);
                 
-                // 自动处理时间信息
+                // 自动处理时间信息，优先使用 front-matter 中的 updated
                 const createdTime = parsed.attributes.date || stats.birthtime.toISOString().split('T')[0];
-                const updatedTime = stats.mtime.toISOString().split('T')[0];
-                
+                const fileMTime = stats.mtime.toISOString().split('T')[0];
+                const userUpdated = parsed.attributes.updated;
+                // 如果 front-matter 指定了 updated，则使用用户提供的值；否则使用文件修改时间（与创建时间不同时）
+                const finalUpdated = userUpdated
+                    ? userUpdated
+                    : (fileMTime !== createdTime ? fileMTime : null);
+
                 return {
                     slug: file.replace('.md', ''),
                     ...parsed.attributes,
                     date: createdTime, // 创建时间
-                    updated: updatedTime !== createdTime ? updatedTime : null, // 更新时间（如果不同）
+                    updated: finalUpdated, // 更新时间
                     content: parsed.body,
                     htmlContent: this.md.render(parsed.body),
                     wordCount: this.calculateWordCount(parsed.body),
@@ -89,15 +94,19 @@ class ArticleManager {
             const parsed = frontMatter(content);
             const stats = fs.statSync(filePath);
             
-            // 自动处理时间信息
+            // 自动处理时间信息，优先使用 front-matter 中的 updated
             const createdTime = parsed.attributes.date || stats.birthtime.toISOString().split('T')[0];
-            const updatedTime = stats.mtime.toISOString().split('T')[0];
-            
+            const fileMTime = stats.mtime.toISOString().split('T')[0];
+            const userUpdated = parsed.attributes.updated;
+            const finalUpdated = userUpdated
+                ? userUpdated
+                : (fileMTime !== createdTime ? fileMTime : null);
+
             return {
                 slug,
                 ...parsed.attributes,
                 date: createdTime,
-                updated: updatedTime !== createdTime ? updatedTime : null,
+                updated: finalUpdated,
                 content: parsed.body,
                 htmlContent: this.md.render(parsed.body),
                 wordCount: this.calculateWordCount(parsed.body),
