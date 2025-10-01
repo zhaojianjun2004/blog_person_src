@@ -845,6 +845,218 @@
   text-shadow: var(--tech-glow);
 }
 
+/* 推荐网站样式 */
+.recommended-sites-card {
+  background: var(--card-bg);
+  border: 1px solid var(--tech-border);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.recommended-sites-card h3 {
+  color: var(--tech-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  font-family: 'Courier New', monospace;
+  text-shadow: var(--tech-glow);
+}
+
+.recommended-description {
+  color: var(--tech-text-muted);
+  margin-bottom: 1.5rem;
+  font-family: 'Courier New', monospace;
+}
+
+.recommended-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.recommended-link {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem;
+  background: rgba(161, 217, 224, 0.055);
+  border: 2px solid var(--tech-border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--tech-text);
+  transition: all 0.3s ease;
+}
+
+.recommended-link:hover {
+  border-color: var(--tech-primary);
+  background: rgba(0, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.recommended-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--tech-primary);
+}
+
+.recommended-info {
+  flex: 1;
+}
+
+.recommended-name {
+  font-weight: 600;
+  color: var(--tech-text);
+  font-size: 0.95rem;
+  font-family: 'Courier New', monospace;
+}
+
+.recommended-description-text {
+  font-size: 0.8rem;
+  color: var(--tech-text-muted);
+  margin-top: 0.2rem;
+}
+
+.loading-recommended {
+  text-align: center;
+  color: var(--tech-text-muted);
+  font-style: italic;
+  padding: 2rem;
+}
+
+/* 优质博客样式 */
+.quality-blogs-card {
+  background: var(--card-bg);
+  border: 1px solid var(--tech-border);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.quality-blogs-card h3 {
+  color: var(--tech-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  font-family: 'Courier New', monospace;
+  text-shadow: var(--tech-glow);
+}
+
+.blogs-description {
+  color: var(--tech-text-muted);
+  margin-bottom: 1.5rem;
+  font-family: 'Courier New', monospace;
+}
+
+.blogs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.blog-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(161, 217, 224, 0.055);
+  border: 2px solid var(--tech-border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--tech-text);
+  transition: all 0.3s ease;
+  min-height: 80px;
+}
+
+.blog-link:hover {
+  border-color: var(--tech-primary);
+  background: rgba(0, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.1);
+}
+
+.blog-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--tech-primary);
+  flex-shrink: 0;
+}
+
+.blog-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.blog-name {
+  font-weight: 600;
+  color: var(--tech-text);
+  font-size: 1rem;
+  font-family: 'Courier New', monospace;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.blog-description-text {
+  font-size: 0.85rem;
+  color: var(--tech-text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.blog-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.blog-tag {
+  background: rgba(0, 255, 255, 0.15);
+  color: var(--tech-primary);
+  padding: 0.2rem 0.6rem;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  font-weight: 500;
+}
+
+.loading-blogs {
+  text-align: center;
+  color: var(--tech-text-muted);
+  font-style: italic;
+  padding: 2rem;
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+  .blogs-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .blog-link {
+    padding: 1rem;
+    min-height: 70px;
+  }
+  
+  .blog-avatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .blog-name {
+    font-size: 0.9rem;
+  }
+  
+  .blog-description-text {
+    font-size: 0.8rem;
+  }
+}
+
 /* 生活随想 */
 .thoughts-list blockquote {
   background: rgba(0, 255, 255, 0.05);

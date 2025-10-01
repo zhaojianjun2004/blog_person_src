@@ -527,10 +527,10 @@ body.reading-mode .latest-articles-sidebar {
 /* 文章正文 */
 .article-body {
   padding: 2rem 5rem 0rem 5rem; 
-  font-size: 16px;
-  line-height: 1.8;
+  font-size: 15px;
+  line-height: 1.6;
   color: #24292f;
-  font-family: 'Times New Roman', 'Source Han Serif SC', 'Noto Serif CJK SC', 'Source Han Serif', 'Noto Serif SC', 'LXGW WenKai', '霞鹜文楷', 'PingFang SC', 'Microsoft YaHei', '微软雅黑', serif;
+  font-family: 'Source Han Serif SC', 'Noto Serif CJK SC', 'LXGW WenKai', '霞鹜文楷', 'Times New Roman', 'Source Han Serif', 'Noto Serif SC', 'PingFang SC', 'Microsoft YaHei', '微软雅黑', serif;
   letter-spacing: 0.3px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -606,7 +606,7 @@ body.reading-mode .latest-articles-sidebar {
 .article-body h4 { font-size: 1rem; }
 
 .article-body p {
-  margin-bottom: 1rem;
+  margin: 0.3rem;
   /* 为英文文本优化字体 */
   font-variant-numeric: oldstyle-nums;
   text-rendering: optimizeLegibility;

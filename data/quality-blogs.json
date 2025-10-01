@@ -1,0 +1,42 @@
+[
+  {
+    "name": "阮一峰的网络日志",
+    "url": "https://www.ruanyifeng.com/blog/",
+    "avatar": "https://www.ruanyifeng.com/favicon.ico",
+    "description": "技术科普大师，每周科技爱好者",
+    "category": "blog",
+    "tags": ["前端", "科技", "周刊"]
+  },
+  {
+    "name": "酷壳 CoolShell",
+    "url": "https://coolshell.cn/",
+    "avatar": "https://coolshell.cn/favicon.ico", 
+    "description": "陈皓的技术博客，深度技术文章",
+    "category": "blog",
+    "tags": ["技术", "深度", "思考"]
+  },
+  {
+    "name": "廖雪峰的官方网站",
+    "url": "https://www.liaoxuefeng.com/",
+    "avatar": "https://www.liaoxuefeng.com/favicon.ico",
+    "description": "编程教程专家",
+    "category": "blog", 
+    "tags": ["教程", "Python", "Java"]
+  },
+    {
+        "name": "labuladong的算法小抄",
+        "url": "https://labuladong.online/algo/",
+        "avatar": "https://labuladong.github.io/favicon.ico",
+        "description": "算法与数据结构的深入浅出",
+        "category": ["blog"],
+        "tags": ["算法", "数据结构", "编程"]
+    },
+    {
+        "name": "张鑫旭-鑫空间-鑫生活",
+        "url": "https://www.zhangxinxu.com/wordpress/",
+        "avatar": "https://www.zhangxinxu.com/wordpress/favicon.ico",
+        "description": "前端技术与生活随笔",
+        "category": "blog",
+        "tags": ["前端", "技术", "随笔"]
+    }
+]

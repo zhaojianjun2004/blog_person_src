@@ -1,0 +1,44 @@
+[
+  {
+    "name": "GitHub",
+    "url": "https://github.com",
+    "avatar": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+    "description": "全球最大的代码托管平台",
+    "category": "tool"
+  },
+  {
+    "name": "Stack Overflow",
+    "url": "https://stackoverflow.com",
+    "avatar": "https://cdn.sstatic.net/Sites/stackoverflow/Img/apple-touch-icon.png",
+    "description": "程序员问答社区",
+    "category": "tool"
+  },
+  {
+    "name": "MDN Web Docs",
+    "url": "https://developer.mozilla.org",
+    "avatar": "https://developer.mozilla.org/favicon-48x48.97046865.png",
+    "description": "Web开发权威文档",
+    "category": "tool"
+  },
+  {
+    "name": "LeetCode",
+    "url": "https://leetcode.com",
+    "avatar": "https://leetcode.com/favicon.ico",
+    "description": "算法练习平台",
+    "category": "tool"
+  },
+  {
+    "name": "Can I Use",
+    "url": "https://caniuse.com",
+    "avatar": "https://caniuse.com/img/favicon-128.png",
+    "description": "浏览器兼容性查询",
+    "category": "tool"
+  },
+  {
+    "name": "regex101",
+    "url": "https://regex101.com",
+    "avatar": "https://regex101.com/favicon.ico",
+    "description": "正则表达式测试工具",
+    "category": "tool"
+  }
+]
