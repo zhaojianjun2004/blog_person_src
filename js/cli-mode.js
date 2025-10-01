@@ -66,6 +66,7 @@ class BlogCLI {
         // CLI Container
         this.container = document.createElement('div');
         this.container.className = 'cli-container';
+        // 修改颜色
         this.container.innerHTML = `
             <div class="cli-window">
                 <div class="cli-header">
@@ -74,7 +75,7 @@ class BlogCLI {
                 </div>
                 <div class="cli-output"></div>
                 <div class="cli-input-container">
-                    <span class="cli-prompt">guest@caicaixiong.space:~$</span>
+                    <span class="cli-prompt" style="color: white;">guest@caicaixiong.space:~$</span>
                     <input type="text" class="cli-input" autofocus />
                 </div>
             </div>
