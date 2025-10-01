@@ -526,7 +526,7 @@ body.reading-mode .latest-articles-sidebar {
 
 /* 文章正文 */
 .article-body {
-  padding: 2rem 5rem;
+  padding: 2rem 5rem 0rem 5rem; 
   font-size: 16px;
   line-height: 1.8;
   color: #24292f;
@@ -788,49 +788,49 @@ body.reading-mode .latest-articles-sidebar {
 }
 
 /* 文章底部 */
+
 .article-footer {
-  padding: 2rem 3rem 3rem;
-  border-top: 1px solid var(--tech-border);
+  padding: 1rem  5rem; /*参数代表：1.2rem：上下内边距，0.5rem：左右内边距*/
+  border: none;
 }
 
-.article-actions {
+
+.article-actions-horizontal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.actions-right {
   display: flex;
   gap: 1rem;
-  margin-bottom: 2rem;
-  justify-content: center;
+  align-items: center;
 }
 
-.share-btn,
-.like-btn {
+.share-btn {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
   background: transparent;
   border: 1px solid var(--tech-border);
-  border-radius: 25px;
+  border-radius: 6px;
   color: var(--tech-text);
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: inherit;
 }
 
-.share-btn:hover,
-.like-btn:hover {
+.share-btn:hover {
   border-color: var(--tech-primary);
   color: var(--tech-primary);
   transform: translateY(-2px);
 }
 
-.like-btn.liked {
-  background: var(--tech-primary);
-  color: var(--tech-bg);
-  border-color: var(--tech-primary);
-}
 
-.article-nav {
-  text-align: center;
-}
+/* 移除原有 .article-nav 样式 */
+
 
 .back-to-articles {
   display: inline-flex;
