@@ -1,25 +1,105 @@
 /* 文章详情页样式 - GitHub主题风格 */
 
+/* 阅读模式切换按钮 */
+.reading-mode-toggle {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.reading-mode-toggle:hover {
+  background: rgba(0, 0, 0, 0.8);
+  border-color: rgba(0, 255, 153, 0.5);
+  transform: scale(1.1);
+}
+
+.reading-mode-toggle .reading-icon {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.reading-mode-toggle:hover .reading-icon {
+  transform: scale(1.1);
+}
+
+/* 浅色模式下的阅读按钮 */
+[data-theme="light"] .reading-mode-toggle {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .reading-mode-toggle:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(99, 102, 241, 0.5);
+}
+
+/* 阅读模式激活状态 */
+.reading-mode-toggle.active {
+  background: linear-gradient(135deg, #3fb6fc6c 100%);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.reading-mode-toggle.active .reading-icon {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* 阅读模式下隐藏侧边栏 */
+body.reading-mode .article-left-toc,
+body.reading-mode .latest-articles-sidebar {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-100%);
+  transition: all 0.3s ease;
+}
+
+body.reading-mode .latest-articles-sidebar {
+  transform: translateX(100%);
+}
+
+/* 阅读模式下不改变正文容器大小，保持原有布局 */
+
 /* 面包屑导航 */
 .breadcrumb {
   display: flex;
   align-items: center;
   margin-bottom: 2rem;
   font-size: 0.9rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.7); /* 深色模式默认颜色 */
   font-family: 'JetBrains Mono', 'Fira Code', monospace !important; /* 使用主题字体 */
   font-weight: 500;
 }
 
 .breadcrumb a {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.7); /* 深色模式默认颜色 */
   text-decoration: none;
   transition: color 0.3s ease;
   font-family: inherit;
 }
 
 .breadcrumb a:hover {
-  color: var(--primary-color);
+  color: #00d9ff; /* 主题高亮色 */
 }
 
 .breadcrumb .separator {
@@ -28,9 +108,26 @@
 }
 
 .breadcrumb .current {
-  color: var(--text-color);
+  color: #ffffff; /* 深色模式当前页面颜色 */
   font-weight: 600;
   font-family: inherit;
+}
+
+/* 浅色模式下的面包屑颜色 */
+[data-theme="light"] .breadcrumb {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="light"] .breadcrumb a {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="light"] .breadcrumb a:hover {
+  color: #0066cc; /* 浅色模式高亮色 */
+}
+
+[data-theme="light"] .breadcrumb .current {
+  color: #000000;
 }
 
 /* 文章详情页面立体效果 */
@@ -933,6 +1030,37 @@
 .article-body .table-container::-webkit-scrollbar-track {
   background: #f1f3f4;
   border-radius: 4px;
+}
+
+/* 移动端响应式 - 阅读模式按钮 */
+@media (max-width: 768px) {
+  .reading-mode-toggle {
+    top: 80px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+  }
+  
+  .reading-mode-toggle .reading-icon {
+    font-size: 1.3rem;
+  }
+  
+  /* 移动端阅读模式下完全隐藏侧边栏，不改变容器大小 */
+  body.reading-mode .article-left-toc,
+  body.reading-mode .latest-articles-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .reading-mode-toggle {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .reading-mode-toggle .reading-icon {
+    font-size: 1.2rem;
+  }
 }
 
 .article-body .table-container::-webkit-scrollbar-thumb {

@@ -1,22 +1,15 @@
 // 基础功能 - 解决加载动画和初始化
 document.addEventListener('DOMContentLoaded', function() {
-    // 隐藏加载屏幕
+    // 隐藏加载屏幕 - 缩短时间避免闪烁
     setTimeout(() => {
         const loadingScreen = document.getElementById('loadingScreen');
         if (loadingScreen) {
             loadingScreen.classList.add('fade-out');
             setTimeout(() => {
                 loadingScreen.style.display = 'none';
-            }, 500);
+            }, 300);
         }
-    }, 1000); // 1秒后隐藏加载动画
-    
-    // 添加页面加载完成的淡入效果
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    }, 100);
+    }, 300); // 缩短到300ms避免与页面渲染冲突
     
     // 初始化基础功能
     initializeBasicFeatures();

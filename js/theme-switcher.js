@@ -1,7 +1,8 @@
 // 主题切换功能
 class ThemeManager {
     constructor() {
-        this.currentTheme = localStorage.getItem('blog-theme') || 'dark';
+        // 从localStorage读取主题，优先使用blog-theme，保持向后兼容
+        this.currentTheme = localStorage.getItem('blog-theme') || localStorage.getItem('theme') || 'dark';
         this.themeToggle = document.getElementById('themeToggle');
         this.body = document.body;
         
@@ -9,8 +10,8 @@ class ThemeManager {
     }
     
     init() {
-        // 设置初始主题
-        this.applyTheme(this.currentTheme);
+        // 确保主题已应用（虽然预加载脚本已经处理了，但这里再次确认）
+        this.applyTheme(this.currentTheme, false);
         
         // 绑定切换事件
         if (this.themeToggle) {
@@ -24,33 +25,46 @@ class ThemeManager {
     
     toggleTheme() {
         this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
-        this.applyTheme(this.currentTheme);
+        this.applyTheme(this.currentTheme, true);
         
-        // 保存到本地存储
+        // 同时保存到两个key，保持兼容性
         localStorage.setItem('blog-theme', this.currentTheme);
+        localStorage.setItem('theme', this.currentTheme);
         
         // 添加切换动画
         this.addSwitchAnimation();
     }
     
-    applyTheme(theme) {
+    applyTheme(theme, withTransition = true) {
+        // 如果不需要过渡效果，暂时禁用
+        if (!withTransition) {
+            this.body.style.transition = 'none';
+        }
+        
         this.body.setAttribute('data-theme', theme);
+        document.documentElement.setAttribute('data-theme', theme);
+        
+        // 恢复过渡效果
+        if (!withTransition) {
+            // 强制重排，然后恢复过渡
+            this.body.offsetHeight;
+            this.body.style.transition = '';
+        }
         
         // 更新主题切换按钮图标
         if (this.themeToggle) {
             const icon = this.themeToggle.querySelector('.toggle-icon');
             if (icon) {
-                icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+                icon.textContent = theme === 'dark' ? '🌓' : '☀️';
             }
         }
         
-        console.log(`🎨 主题已切换到: ${theme}`);
+        if (withTransition) {
+            console.log(`🎨 主题已切换到: ${theme}`);
+        }
     }
     
     addSwitchAnimation() {
-        // 添加主题切换的视觉反馈
-        this.body.style.transition = 'all 0.3s ease';
-        
         // 按钮旋转动画
         if (this.themeToggle) {
             this.themeToggle.style.transform = 'scale(0.9) rotate(180deg)';

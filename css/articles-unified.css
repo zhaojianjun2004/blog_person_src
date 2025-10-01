@@ -72,7 +72,7 @@
 
 /* 文章卡片头部 - 无背景简洁样式 */
 .article-card-header {
-    padding: 1.2rem 1.5rem 0.5rem; /*参数：上下内边距 1.2rem，左右内边距 1.5rem，底部内边距 0.6rem*/
+    padding: 1.2rem 1.5rem 0.6rem; /*参数：上下内边距 1.2rem，左右内边距 1.5rem，底部内边距 0.6rem*/
     background: transparent;
     position: relative;
 }
@@ -113,8 +113,8 @@
     
     /* 确保标题完整显示，最多2行 */
     height: auto;
-    min-height: 2.4rem;
-    max-height: 3.2rem;
+    min-height: 3.0rem;
+    max-height: 3.5rem;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;

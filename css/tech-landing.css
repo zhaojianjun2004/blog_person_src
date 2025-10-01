@@ -6,27 +6,10 @@
   box-sizing: border-box;
 }
 
-:root {
-  --tech-primary: #00ffff;
-  --tech-secondary: #0099ff;
-  --tech-accent: #00ff99;
-  --tech-dark: #0a0a0a;
-  --tech-darker: #050505;
-  --tech-light: #1a1a1a;
-  --tech-text: #ffffff;
-  --tech-text-muted: #888888;
-  --tech-border: rgba(0, 255, 255, 0.3);
-  --tech-glow: 0 0 20px rgba(0, 255, 255, 0.5);
-  --font-code: 'Fira Code', 'Courier New', monospace;
-}
+/* 移除重复的:root变量定义，使用custom.css中的全局变量 */
 
-body {
-  font-family: var(--font-code);
-  background: var(--tech-darker);
-  color: var(--tech-text);
-  overflow-x: hidden;
-  line-height: 1.6;
-}
+/* 移除body背景设置，使用custom.css中的全局body样式 */
+/* body样式已在custom.css中定义，这里不再重复设置避免冲突 */
 
 /* 科技背景动画 */
 .tech-background {
@@ -227,13 +210,35 @@ body {
 
 .typing-text {
   font-size: 1.5rem;
-  color: var(--tech-text-muted);
+  color: #333333; /* 默认深色文字（浅色模式） */
   min-height: 2rem;
+  transition: color 0.3s ease; /* 添加过渡效果 */
+}
+
+/* 黑夜模式下打字机效果为白色 */
+[data-theme="dark"] .typing-text {
+  color: #ffffff;
+}
+
+/* 浅色模式明确指定 */
+[data-theme="light"] .typing-text {
+  color: #333333;
 }
 
 #typing-element {
   border-right: 2px solid var(--tech-primary);
   animation: blink 1s infinite;
+  transition: border-color 0.3s ease; /* 添加过渡效果 */
+}
+
+/* 黑夜模式下光标颜色 */
+[data-theme="dark"] #typing-element {
+  border-right-color: #00d9ff;
+}
+
+/* 浅色模式下光标颜色 */
+[data-theme="light"] #typing-element {
+  border-right-color: #0066cc;
 }
 
 /* 技术统计 */

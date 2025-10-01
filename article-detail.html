@@ -1,6 +1,36 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <!-- 主题预加载脚本 - 防止闪烁，必须放在最前面 -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('blog-theme') || localStorage.getItem('theme') || 'dark';
+            const htmlEl = document.documentElement;
+            htmlEl.setAttribute('data-theme', savedTheme);
+            htmlEl.style.backgroundColor = savedTheme === 'dark' ? '#050505' : '#ffffff';
+            const setBodyTheme = function() {
+                if (document.body) {
+                    document.body.setAttribute('data-theme', savedTheme);
+                    document.body.style.backgroundColor = savedTheme === 'dark' ? '#050505' : '#ffffff';
+                    document.body.style.color = savedTheme === 'dark' ? '#ffffff' : '#333333';
+                } else {
+                    const observer = new MutationObserver(function() {
+                        if (document.body) {
+                            document.body.setAttribute('data-theme', savedTheme);
+                            document.body.style.backgroundColor = savedTheme === 'dark' ? '#050505' : '#ffffff';
+                            document.body.style.color = savedTheme === 'dark' ? '#ffffff' : '#333333';
+                            observer.disconnect();
+                        }
+                    });
+                    observer.observe(htmlEl, { childList: true });
+                }
+            };
+            setBodyTheme();
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', setBodyTheme);
+            }
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>文章详情 - CaiCaiXiong</title>
@@ -18,8 +48,6 @@
     <link rel="stylesheet" href="/css/responsive.css">
     <link rel="stylesheet" href="/css/page-styles.css">
     <link rel="stylesheet" href="/css/article-detail.css">
-    <link rel="stylesheet" href="/css/toc-navigation.css">
-    <link rel="stylesheet" href="/css/article-toc-enhanced.css">
     <link rel="stylesheet" href="/css/left-toc.css">
     <link rel="stylesheet" href="/css/latest-articles.css">
     <link rel="stylesheet" href="/css/article-performance.css">
@@ -29,7 +57,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
     <link rel="stylesheet" href="/css/cli.css">
 </head>
-<body data-theme="dark">
+<body>
     <!-- 加载屏幕 -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-spinner"></div>
@@ -45,6 +73,11 @@
     <!-- 主题切换按钮 -->
     <div class="theme-toggle" id="themeToggle">
         <div class="toggle-icon">🌓</div>
+    </div>
+    
+    <!-- 阅读模式按钮 -->
+    <div class="reading-mode-toggle" id="readingModeToggle" title="阅读模式">
+        <div class="reading-icon">📖</div>
     </div>
     
     <!-- 导航栏 -->
@@ -133,24 +166,6 @@
                         </div>
                     </header>
                     
-                    <!-- 文章目录导航 -->
-                    <div class="toc-navigation" id="tocNavigation">
-                        <button class="toc-toggle" id="tocToggle" title="展开/收起目录">
-                            <span class="toc-icon">📋</span>
-                            <span class="toc-text">目录</span>
-                        </button>
-                        <nav class="toc-container" id="tocContainer">
-                            <h3 class="toc-title">文章目录</h3>
-                            <ul class="toc-list" id="tocList"></ul>
-                        </nav>
-                    </div>
-                    
-                    <!-- 原有的目录（保持兼容） -->
-                    <aside class="table-of-contents" id="tableOfContents">
-                        <h3>目录</h3>
-                        <ul id="tocListOld"></ul>
-                    </aside>
-                    
                     <!-- 文章正文 -->
                     <div class="article-body" id="articleBody">
                         <!-- 文章内容将在这里加载 -->
@@ -200,14 +215,12 @@
     </button>
     
     <!-- 引入脚本 -->
-    <script src="/js/cache-manager.js"></script>
-    <script src="/js/performance-monitor.js"></script>
     <script src="/js/init.js"></script>
     <script src="/js/enhanced-navbar-autohide.js"></script>
     <script src="/js/theme-switcher.js"></script>
     <script src="/js/mobile-nav.js"></script>
     <script src="/js/article-detail.js"></script>
-    <script src="/js/article-toc-navigator.js"></script>
+    <script src="/js/reading-mode.js"></script>
     <script src="/js/blog-data-manager.js"></script>
     <script src="/js/cli-mode.js" defer></script>
 </body>

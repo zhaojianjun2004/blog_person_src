@@ -297,9 +297,8 @@ class ArticleTocNavigator {
             }
         }, 2000);
     }
-    }
     
-    toggleImmersiveMode() {
+    toggleImmersiveMode(){
         this.isImmersive = !this.isImmersive;
         document.body.classList.toggle('immersive-reading', this.isImmersive);
         
@@ -364,14 +363,13 @@ class ArticleTocNavigator {
             this.immersiveBtn.remove();
         }
     }
-}
+    // 页面加载完成后初始化
+}document.addEventListener('DOMContentLoaded', function() {
+        // 只在文章详情页初始化
+        if (window.location.pathname.includes('article') || document.getElementById('articleBody')) {
+            setTimeout(() => {
+                window.articleTocNavigator = new ArticleTocNavigator();
+            }, 500); // 延迟初始化，确保文章内容已加载
+        }
+    });
 
-// 页面加载完成后初始化
-document.addEventListener('DOMContentLoaded', function() {
-    // 只在文章详情页初始化
-    if (window.location.pathname.includes('article') || document.getElementById('articleBody')) {
-        setTimeout(() => {
-            window.articleTocNavigator = new ArticleTocNavigator();
-        }, 500); // 延迟初始化，确保文章内容已加载
-    }
-});

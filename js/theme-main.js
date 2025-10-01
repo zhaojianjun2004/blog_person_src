@@ -23,9 +23,12 @@ function initThemeToggle() {
     const themeToggle = document.getElementById('darkmode');
     if (!themeToggle) return;
     
-    // 读取保存的主题设置
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    // 读取保存的主题设置，优先使用blog-theme
+    const savedTheme = localStorage.getItem('blog-theme') || localStorage.getItem('theme') || 'dark';
+    
+    // 确保主题已应用（预加载脚本已经处理，这里不需要过渡效果）
     document.body.setAttribute('data-theme', savedTheme);
+    document.documentElement.setAttribute('data-theme', savedTheme);
     updateThemeIcon(savedTheme);
     
     themeToggle.addEventListener('click', function() {
@@ -33,6 +36,10 @@ function initThemeToggle() {
         const newTheme = currentTheme === 'light' ? 'dark' : 'light';
         
         document.body.setAttribute('data-theme', newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
+        
+        // 同时保存到两个key，保持兼容性
+        localStorage.setItem('blog-theme', newTheme);
         localStorage.setItem('theme', newTheme);
         updateThemeIcon(newTheme);
         

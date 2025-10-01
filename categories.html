@@ -1,6 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 主题预加载脚本 - 防止闪烁，必须放在最前面 -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('blog-theme') || localStorage.getItem('theme') || 'dark';
+            const htmlEl = document.documentElement;
+            htmlEl.setAttribute('data-theme', savedTheme);
+            htmlEl.style.backgroundColor = savedTheme === 'dark' ? '#050505' : '#ffffff';
+            const setBodyTheme = function() {
+                if (document.body) {
+                    document.body.setAttribute('data-theme', savedTheme);
+                    document.body.style.backgroundColor = savedTheme === 'dark' ? '#050505' : '#ffffff';
+                    document.body.style.color = savedTheme === 'dark' ? '#ffffff' : '#333333';
+                } else {
+                    const observer = new MutationObserver(function() {
+                        if (document.body) {
+                            document.body.setAttribute('data-theme', savedTheme);
+                            document.body.style.backgroundColor = savedTheme === 'dark' ? '#050505' : '#ffffff';
+                            document.body.style.color = savedTheme === 'dark' ? '#ffffff' : '#333333';
+                            observer.disconnect();
+                        }
+                    });
+                    observer.observe(htmlEl, { childList: true });
+                }
+            };
+            setBodyTheme();
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', setBodyTheme);
+            }
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categories - CaiCaiXiong</title>
@@ -21,7 +51,7 @@
     <link rel="stylesheet" href="/css/categories-interactive.css">
     <link rel="stylesheet" href="/css/cli.css">
 </head>
-<body data-theme="dark">
+<body>
     <!-- 加载屏幕 -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-spinner"></div>
@@ -187,6 +217,7 @@
     <script src="/js/enhanced-navbar-autohide.js"></script>
     <script src="/js/theme-switcher.js"></script>
     <script src="/js/mobile-nav.js"></script>
+    <script src="/js/starfield-particles.js"></script>
     <script src="/js/categories.js"></script>
     <script src="/js/dynamic-categories.js"></script>
     <script src="/js/static-tags.js"></script>
