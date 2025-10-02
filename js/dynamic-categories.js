@@ -152,12 +152,13 @@ class DynamicCategoriesManager {
         const tagMap = {
             'java': ['Java', 'JVM', 'JUC', 'Maven','springboot'],
             'database': ['MySQL', 'Redis', 'PostgreSQL', 'SQL' , 'NoSQL' , 'MongoDB'],
-            'thinking': ['Growth', 'Learn', 'Life', 'Productivity','思考'],
+            'thinking': ['Growth', 'Learn', 'Life', 'Productivity'],
             'spring': ['SpringBoot', 'SpringCloud', 'Microservices', 'RESTAPI','Spring','security'],
             'devops': ['Docker', 'CI/CD', 'Kubernetes', 'Linux', 'Nginx','DevOps'],
             'tools': ['VSCode', 'Git', 'Github', 'CLI', 'Postman','IDEA'],
             // 日/周总结
-            'daily': ['Reflection', 'Summary','Daily', 'Journal', 'Productivity'],
+            'Summary': ['Daily', 'Weekly', 'Journal', 'Productivity'],
+            'interview': ['Interview', 'Tips', 'Experience', 'Preparation']
         };
         return tagMap[categoryId] || ['General'];
     }

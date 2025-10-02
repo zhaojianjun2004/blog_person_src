@@ -180,7 +180,8 @@ class ArticleManager {
             'api': '🔌',
             'microservices': '🔗',
             'daily': '📝',
-            'thinking': '💡'
+            'thinking': '💡',
+            'interview': '🦜',
         };
         return iconMap[category.toLowerCase()] || '📂';
     }

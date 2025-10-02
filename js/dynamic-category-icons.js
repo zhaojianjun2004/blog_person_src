@@ -154,7 +154,8 @@ class DynamicCategoryIcons {
             'life|lifestyle|personal': '🌟',
             'thought|thinking|opinion': '💭',
             'news|update|announcement': '📢',
-            'review|analysis': '📝'
+            'review|analysis': '📝',
+            'interview|sharing|experience': '🎤',
         };
         
         for (const [keywords, icon] of Object.entries(keywordMappings)) {
