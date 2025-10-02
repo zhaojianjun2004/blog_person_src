@@ -1,6 +1,6 @@
 ---
 title: 深入理解 Java ThreadLocal：原理、内存泄漏与最佳实践
-date:
+date: 2025-09-16
 updated:
 category: "java"
 tags: ["java","ThreadLocal","JUC"]
@@ -35,7 +35,7 @@ public class ThreadLocalExample {
 
 输出：
 
-```
+```java
 Thread: Thread-0
 Thread: Thread-1
 ```

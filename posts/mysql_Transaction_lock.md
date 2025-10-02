@@ -1,6 +1,6 @@
 ---
 title: mysql事务是什么？如何与Spring集成的？
-date:
+date: 2025-09-21
 updated:
 category: "database"
 tags: ["mysql","面试题"]

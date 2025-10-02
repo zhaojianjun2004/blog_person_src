@@ -3,7 +3,7 @@ title: Java面试手写代码实战：从单例模式到线程交替打印
 comments: true
 author: caicaixiong
 layout: post
-date:
+date: 2025-09-23
 updated: "2025-10-01"
 category: "java"
 toc: true

@@ -1,6 +1,6 @@
 ---
 title: 深入理解MVCC：多版本并发控制的实现原理
-date: 
+date: 2025-09-19
 category: "database"
 tags: ["Mysql","面试题","MVCC"]
 ---

@@ -1,6 +1,6 @@
 ---
 title: "【与ai对话】自我认识与对技术的思考"
-date: 
+date: 2025-09-29
 updated: 2025-09-30
 category: "thinking"
 tags: ["thoughts", "AI", "growth"]

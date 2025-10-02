@@ -1,7 +1,7 @@
 ---
 title: Failed to connect to github.com port 443 after 21133 ms问题解决
-date: 
-update: 
+date: 2025-09-02
+update: 2025-09-03
 tags:
   - "hexo"
   - "解决方案"

@@ -1,7 +1,7 @@
 ---
 title: github学生认证常见问题解决方案（已Approved）
-date:
-updated:
+date: 2025-09-16
+updated: 2025-09-16
 category: tools
 tags:
  - 'github'
