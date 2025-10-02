@@ -179,7 +179,8 @@ class ArticleManager {
             'backend': '⚙️',
             'api': '🔌',
             'microservices': '🔗',
-            'daily': '📝'
+            'daily': '📝',
+            'thinking': '💡'
         };
         return iconMap[category.toLowerCase()] || '📂';
     }
