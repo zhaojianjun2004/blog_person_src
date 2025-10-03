@@ -528,8 +528,8 @@ body.reading-mode .latest-articles-sidebar {
 /* 文章正文 */
 .article-body {
   padding: 2rem 5rem 0rem 5rem; 
-  font-size: 17px;
-  line-height: 1.5;
+  font-size: 16.4px;
+  line-height: 1.6;
   color: #000408;
   /* 文章正文字体设置,加入更好看的中文字体 */
   font-family:'georgia','serif';
