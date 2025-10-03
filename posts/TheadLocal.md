@@ -435,7 +435,7 @@ try (AutoCleanThreadLocal ctx = AutoCleanThreadLocal.of(USER_ID, "u1001")) {
 6. **ThreadLocal 在线程池中使用有哪些问题？**
 7. **如何实现 ThreadLocal 的自动清理？**
 
-> ✅ 参考答案提示：结合 `弱引用`、`ThreadLocalMap`、`remove()`、`线程复用` 等关键词回答。 
+> 结合 `弱引用`、`ThreadLocalMap`、`remove()`、`线程复用` 等关键词回答。 
 
 ### 10. 结语
 
