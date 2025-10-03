@@ -530,7 +530,7 @@ a:hover {
 
 /* 滚动条优化 */
 ::-webkit-scrollbar {
-  width: 6px; /* 减小宽度 */
+  width: 3px; /* 减小宽度 */
 }
 
 ::-webkit-scrollbar-track {

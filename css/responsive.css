@@ -158,7 +158,7 @@
 
 /* 滚动条美化 */
 ::-webkit-scrollbar {
-  width: 4px; /* 更细的滚动条 */
+  width: 3px; /* 更细的滚动条 */
 }
 
 ::-webkit-scrollbar-track {
