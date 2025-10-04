@@ -1273,15 +1273,15 @@ body.reading-mode .latest-articles-sidebar {
 /* Fluid主题的强调文本样式 */
 .article-body strong,
 .article-body b {
-  color: #2c3e50;
+  color: #636363; /* 调整为较柔和的深灰色 */
   font-weight: 600;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: none; /* 移除阴影以减少视觉干扰 */
 }
 
 [data-theme="dark"] .article-body strong,
 [data-theme="dark"] .article-body b {
-  color: #f0f6fc;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.1);
+  color: #9aa1aa; /* 调整为较柔和的浅灰色 */
+  text-shadow: none; /* 移除阴影以减少视觉干扰 */
 }
 
 .article-body em,
