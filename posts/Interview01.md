@@ -278,9 +278,162 @@ SHOW WARNINGS; -- 显示优化器重写后的 SQL
 
 ### 七、自动装配原理？流程
 
+**自动装配原理**：本质是springboot在项目启动时，根据项目中添加的<u>依赖（starter）</u>、<u>类路径下的文件</u>、以及<u>配置属性</u>等条件，自动为我们配置所需要的bean并且将它们注册到spring的IoC容器中。
+
+核心机制依赖几个关键组件与注解：
+
+1. `SpringBootApplication`注解：这是springboot应用的总入口点。这是一个组合注解，内部包含了:
+
+- `EnableAutoConfiguration`：这是启用自动装配的关键注解。它会促使springboot扫描类路径下的所有自动配置类
+- `ComponentScan`：默认扫描主配置类所在的包及其子包下的组件（`@controller`,`@service`等）
+- `Configuration`：声明当前类是一个配置类
+
+2. `spring.factories`文件：每个Starter依赖内部的`spring-boot-autoconfigure`模块中，都会在`META/INF`目录下包含一个`spring.factories`文件，这个文件里面记录了所有的自动配置类的**全限定名**。而这个文件在springboot 3之后完全替换为了`AutoConfiguration.imports`。这个新文件的内容格式上做了一些改变，每行一个全限定类名，纯文本格式，直接读取文件行，而无需解析`properties`格式。这个改变也是为了让自动配置职责转移到新的文件，让`spring.factories`文件专注于非自动配置SPI。
+3. **自动配置类**：这些类是自动配置的关键所在。通过`@Configuration`来标识spring自动配置类。在这些类的内部，会使用`@Bean`来定义需要装配到IoC容器中的Bean。
+4. **条件注解**：这是springboot自动配置的开关，通过一系列`@ConditionOnxxx`注解来决定一个自动配置类或一个Bean是否应该生效：比如
+
+- `@ConditionOnClass`：只有当类路径下包含指定的Class类，配置才生效
+- `@ConditionOnMissingBean`：只有当IoC容器中不包含指定的Bean时，配置才生效
+- `@ConditionOnProperty`：只有当指定的配置属性存在且匹配值的时候，配置才生效
+
+**自动装配的流程**：
+
+自动装配流程起始于`@SpringBootApplication`注解，这个注解内部包含了一个`@EnableAutoConfiguration`，正是它触发了自动配置机制。启动时,`AutoConfigurationImportSelector`加载所有需要配置的类，早期版本这些自动配置类的全限定名被记录在各个starter依赖的`META-INF/spring.factories`文件中，而在springboot2.7之后，官方逐渐迁移到了更简洁的`META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`文件中，采用纯文本格式每行记录一个全限定类名。`AutoConfigurationImportSelector`会读取这些文件，收集到所有的自动配置类，然后将他们交给spring容器去处理。但并不是所有的自动配置类都会被真正注册为bean，springBoot还会通过一些条件注解（比如`ConditionOnclass`、`ConditionOnMissionBean`、`ConditionOnProperty`等）来判断当前环境是否满足各个配置类的生效条件。只有当所有条件都满足的时候，对应的自动配置类才会被实例化，其中定义的Bean才能被注册到spring容器中。这样就实现了“按需分配”的效果。
+
 ### 八、设计模式应用，好处
 
+#### spring/springboot框架中的设计模式应用
+
+spring框架本身就是一个设计模式的集大成者，其核心思想（Ioc/AOP）就是对多种设计模式的巧妙应用
+
+| 模式类别   | 设计模式                       | 在spring/springboot中的应用                                  | 好处/目的                                                    |
+| ---------- | ------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **创建型** | **工厂模式 (Factory)**         | IoC 容器：`BeanFactory`或`ApplicationContext`是一个巨大的工厂，负责 Bean 的创建、管理和生命周期。它根据配置文件或注解动态实例化对象。 | 将对象的创建与使用分离，方便统一管理和替换实现类。           |
+| **创建型** | **单例模式 (Singleton)**       | Spring Bean 默认作用域：默认情况下，所有 Spring Bean 都是单例的，容器中只存在一个实例。 | 节省内存开销，避免重复创建资源消耗大的对象，提高性能。       |
+| **结构型** | **代理模式 (Proxy)**           | AOP（面向切面编程）：Spring 通过 JDK 动态代理（针对接口）或 CGLIB 代理（针对类）来为目标 Bean 生成代理对象，从而在不修改原有代码的情况下，织入事务、日志、安全等横切逻辑。（代理模式在`@Transactional`、`@Cacheable`等注解有广泛应用） | 实现无侵入式的增强，是 AOP 的核心。                          |
+| **行为型** | **模板方法 (Template Method)** | Template 家族：如`JdbcTemplate`、`RestTemplate`、`JmsTemplate`。它们定义了执行操作的固定骨架（如打开连接、执行 SQL、关闭连接），将具体细节（如创建 Statement、处理 ResultSet）留给用户实现。 | 封装不变的流程，将可变细节延迟到子类或回调函数中，避免重复代码。 |
+| **行为型** | **观察者模式 (Observer)**      | Spring 事件机制：`ApplicationEvent`（事件）和`ApplicationListener`（监听者）。当发布一个事件时（`ApplicationContext.publishEvent()`），所有感兴趣的监听器都会被通知和执行。 | 实现对象间的松耦合通知机制，用于模块间的解耦，如用户注册后发送邮件。 |
+| **结构型** | **适配器模式 (Adapter)**       | Spring MVC：`HandlerAdapter`根据不同的处理器（如实现`Controller`接口或使用`@RequestMapping`注解）选择合适的策略来执行方法。 | 统一不同的接口类型，使得框架可以同时支持多种类型的处理器。   |
+
+#### 项目中的设计模式应用
+
+##### 一、策略模式 (Strategy Pattern)
+
+###### 应用场景：优惠折扣计算
+
+核心实现：
+
+```
+IDiscountCalculateService (策略接口)
+    ↓
+AbstractDiscountCalculateService (抽象策略 + 模板方法)
+    ↓
+├── MJCalculateService (满减策略 - @Service("MJ"))
+├── ZKCalculateService (折扣策略 - @Service("ZK"))
+├── ZJCalculateService (直减策略 - @Service("ZJ"))
+└── NCalculateService  (N元购策略 - @Service("N"))
+```
+
+好处：新增促销类型只需新建一个策略类，无需修改现有代码（开闭原则）。利用Spring的 Map自动装配。做到业务隔离，每种促销规则独立实现，互不影响
+
+##### 二、责任链模式 (Chain of Responsibility)
+
+###### 应用场景：营销试算流程控制
+
+**各节点职责：**
+
+| 节点           | 职责                    | 设计价值                     |
+| -------------- | ----------------------- | ---------------------------- |
+| **RootNode**   | 参数校验、流程入口      | 统一入口，防止脏数据进入     |
+| **SwitchNode** | 流程开关控制            | 灵活控制流程走向，支持降级   |
+| **MarketNode** | 异步加载数据 + 折扣计算 | 提升性能，并行查询活动和商品 |
+| **TagNode**    | 人群标签过滤            | 精准营销，限定优惠人群       |
+| **EndNode**    | 组装返回结果            | 统一出口，标准化响应         |
+| **ErrorNode**  | 异常处理                | 统一异常处理，提供降级方案   |
+
+每个节点通过 `get()`方法决定下一个节点
+
+##### 三、工厂模式
+
+###### 应用场景：策略工厂`DefaultActivityStrategyFactory` 实现：
+
+```java
+@Service
+public class DefaultActivityStrategyFactory {
+    private final RootNode rootNode;
+    
+    public StrategyHandler strategyHandler() {
+        return rootNode; // 返回责任链的起点
+    }
+}
+```
+
+通过工厂获取策略处理器
+
+##### 四、建造者模式
+
+###### 应用场景：实体对象构建
+
+**Entity中大量使用 `@Builder` 注解：**
+
+```java
+@Data
+@Builder
+public class TrialBalanceEntity {
+    private String userId;
+    private BigDecimal originalPrice;
+    private BigDecimal deductionPrice;
+    private BigDecimal payPrice;
+}
+
+// 使用
+TrialBalanceEntity entity = TrialBalanceEntity.builder()
+    .userId("xiaofuge")
+    .originalPrice(new BigDecimal("100"))
+    .deductionPrice(new BigDecimal("20"))
+    .payPrice(new BigDecimal("80"))
+    .build();
+```
+
+
+
 ### 九、如何处理异常
+
+![image-20251006100553400](https://raw.githubusercontent.com/zhaojianjun2004/picGo/master/img/image-20251006100553400.png)
+
+**举个实际例子**：假设你开发一个用户注册功能。如果用户名已存在，你应该抛出一个自定义的 `UserAlreadyExistsException`。这个异常应该继承 `RuntimeException`（非检查异常），因为：
+
+1. 用户名重复是一个业务规则验证失败，属于程序逻辑的一部分
+2. controller 层可以直接捕获这个异常并返回友好的错误信息给前端
+3. 不需要在 service、dao 等每一层都写 `throws UserAlreadyExistsException`
+
+```java
+// 自定义业务异常（非检查异常）
+public class UserAlreadyExistsException extends RuntimeException {
+    public UserAlreadyExistsException(String username) {
+        super("用户名 " + username + " 已存在");
+    }
+}
+
+// service 层
+public void registerUser(String username) {
+    if (userRepository.existsByUsername(username)) {
+        throw new UserAlreadyExistsException(username); // 直接抛出，无需 throws 声明
+    }
+    // ... 创建用户
+}
+
+// controller 层
+@PostMapping("/register")
+public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+    try {
+        userService.registerUser(request.getUsername());
+        return ResponseEntity.ok("注册成功");
+    } catch (UserAlreadyExistsException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+}
+```
 
 ### 十、哪里会打印日志
 
