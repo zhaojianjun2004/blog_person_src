@@ -2,7 +2,7 @@
 title: Redis缓存三大经典问题
 date: 2025-10-03
 updated: 2025-10-03
-category: "database"
+category: "programming"
 tags: ["Redis", "避坑指南"]
 excerpt: "我们在使用Redis的过程中会遇到什么问题？如何解决？"
 ---

@@ -2,7 +2,7 @@
 title: Redis为什么这么快？
 date: 2025-10-03
 updated: 2025-10-03
-category: "database"
+category: "programming"
 tags: ["Redis", "原理分析"]
 excerpt: "关于Redis为什么快的话题，通过两方面（核心特性、内存与结构）来解读"
 ---
