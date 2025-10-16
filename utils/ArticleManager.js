@@ -182,6 +182,10 @@ class ArticleManager {
             'daily': '📝',
             'thinking': '💡',
             'interview': '🦜',
+            'programming': '💻',
+            'interests': '🌸',
+            'algorithms': '📐',
+            
         };
         return iconMap[category.toLowerCase()] || '📂';
     }
