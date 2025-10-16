@@ -36,3 +36,6 @@ Thumbs.db
 
 # Cache
 .cache/
+
+# 忽略提交posts/待发
+posts/待发
