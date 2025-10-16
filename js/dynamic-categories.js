@@ -150,10 +150,10 @@ class DynamicCategoriesManager {
     getRelatedTags(categoryId) {
         // 根据分类返回相关标签
         const tagMap = {
-            'java': ['Java', 'JVM', 'JUC', 'Maven','springboot'],
-            'database': ['MySQL', 'Redis', 'PostgreSQL', 'SQL' , 'NoSQL' , 'MongoDB'],
+            'programming': ['Java', 'Python', 'JavaScript', 'C++', 'Go'],
+            'interests': ['Tech', 'Hobbies','Books', 'Learning',  'Productivity'],
+            'algorithms': ['Data Structures', 'Sorting', 'Searching', 'Graphs', 'Dynamic Programming'],
             'daily': ['Growth', 'Thinking', 'Life', 'Productivity'],
-            'spring': ['SpringBoot', 'SpringCloud', 'Microservices', 'RESTAPI','Spring','security'],
             'devops': ['Docker', 'CI/CD', 'Kubernetes', 'Linux', 'Nginx','DevOps'],
             'tools': ['VSCode', 'Git', 'Github', 'CLI', 'Postman','IDEA'],
             // 日/周总结

@@ -2,8 +2,8 @@
 title: 优雅终止线程方法解析
 date: 2025-10-12
 updated: 2025-10-12
-category: "java"
-tags: ["JUC","Thread","原理分析"]
+category: "programming"
+tags: ["java","Thread","原理分析"]
 excerpt: "如何优雅的终止线程？如何定义优雅？"
 ---
 

@@ -190,9 +190,10 @@ class DynamicArticlesManager {
     
     getCategoryInfo(category) {
         const categories = {
-            'java': { name: 'Java' },
-            'spring': { name: 'Spring' },
-            'database': { name: 'Database' },
+            'programming': { name: 'Programming' },
+            'algorithms': { name: 'Algorithms' },
+            'interests': { name: 'Interests' },
+            'daily': { name: 'Daily' },
             'devops': { name: 'DevOps' },
             'architecture': { name: 'Architecture' },
             'tools': { name: 'Tools' }

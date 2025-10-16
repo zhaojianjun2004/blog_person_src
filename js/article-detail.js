@@ -133,10 +133,10 @@ class ArticleDetailManager {
     
     getCategoryDisplayName(category) {
         const categoryMap = {
-            'java': 'Java',
-            'spring': 'Spring',
-            'database': 'Database',
-            'daily': 'daily',
+            'programming': 'Programming',
+            'algorithms': 'Algorithms',
+            'interests': 'Interests',
+            'daily': 'Daily',
         };
         return categoryMap[category] || category;
     }

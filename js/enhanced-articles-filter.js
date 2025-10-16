@@ -244,12 +244,12 @@ class EnhancedArticlesFilter {
     // 获取分类显示名称
     getCategoryDisplayName(category) {
         const categoryMap = {
-            'java': 'Java',
-            'spring': 'Spring',
-            'database': '数据库',
             'devops': 'DevOps',
             'tools': '工具',
-            'daily': '日常'
+            'daily': '日常',
+            'interests': '兴趣',
+            'programming': '编程',
+            'algorithms': '算法'
         };
         return categoryMap[category] || category;
     }

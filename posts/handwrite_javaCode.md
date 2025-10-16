@@ -5,11 +5,10 @@ author: caicaixiong
 layout: post
 date: 2025-09-23
 updated: "2025-10-01"
-category: "java"
+category: "programming"
 toc: true
 toc_number: false
 tags:
-  - "面试题"
   - "java"
   - "并发编程"
   - "设计模式"

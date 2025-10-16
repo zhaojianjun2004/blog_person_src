@@ -299,7 +299,7 @@ class CategoriesPageManager {
                     break;
                 case 'recent':
                     // 模拟最近更新的分类（可以根据实际数据调整）
-                    const recentCategories = ['java', 'spring', 'database', 'devops', 'architecture', 'tools', 'daily'];
+                    const recentCategories = ['programming', 'algorithms', 'devops', 'tools', 'daily', 'interests'];
                     shouldShow = recentCategories.includes(card.dataset.category);
                     break;
                 case 'all':
@@ -334,7 +334,7 @@ class CategoriesPageManager {
                     
                 case 'recent':
                     // 模拟最近更新排序（可以根据实际数据调整）
-                    const recentOrder = ['java', 'spring', 'database', 'devops', 'architecture', 'tools', 'daily'];
+                    const recentOrder = ['programming', 'algorithms', 'devops', 'tools', 'daily'];
                     const indexA = recentOrder.indexOf(a.dataset.category) || 999;
                     const indexB = recentOrder.indexOf(b.dataset.category) || 999;
                     return indexA - indexB;
