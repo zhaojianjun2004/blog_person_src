@@ -1,5 +1,5 @@
 ---
-title: 【原理分析】Redis为什么这么快？
+title: Redis为什么这么快？
 date: 2025-10-03
 updated: 2025-10-03
 category: "database"

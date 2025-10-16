@@ -1,5 +1,5 @@
 ---
-title: 【避坑指南】Redis缓存三大经典问题
+title: Redis缓存三大经典问题
 date: 2025-10-03
 updated: 2025-10-03
 category: "database"

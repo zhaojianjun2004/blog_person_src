@@ -1,5 +1,5 @@
 ---
-title: 【原理分析】深入理解 Java ThreadLocal：原理、内存泄漏与最佳实践
+title: 彻底理解 ThreadLocal：原理、内存泄漏与最佳实践
 date: 2025-09-16
 updated:
 category: "java"

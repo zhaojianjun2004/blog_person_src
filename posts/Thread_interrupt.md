@@ -1,5 +1,5 @@
 ---
-title: 【原理分析】如何优雅的终止线程？
+title: 优雅终止线程方法解析
 date: 2025-10-12
 updated: 2025-10-12
 category: "java"
