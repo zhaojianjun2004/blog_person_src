@@ -1,0 +1,240 @@
+/**
+ * 数学公式样式
+ * 为 KaTeX 渲染的数学公式提供优化样式
+ * 确保在深色和浅色主题下都有良好的显示效果
+ */
+
+/* ============================================
+   基础公式样式
+   ============================================ */
+
+/* 块级公式容器 */
+.katex-display {
+    display: block;
+    margin: 1.5em 0;
+    text-align: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+/* 行内公式 */
+.katex {
+    font-size: 1.05em;
+    line-height: 1.2;
+}
+
+/* ============================================
+   主题适配
+   ============================================ */
+
+/* 深色主题 */
+/* 需求：不需要额外背景，统一去除背景色 */
+[data-theme="dark"] .katex-display {
+    background-color: transparent;
+}
+
+[data-theme="dark"] .katex {
+    color: #e0e0e0;
+}
+
+/* 浅色主题 */
+[data-theme="light"] .katex-display {
+    background-color: transparent;
+}
+
+[data-theme="light"] .katex {
+    color: #2c2c2c;
+}
+
+/* ============================================
+   矩阵和数组环境优化
+   ============================================ */
+
+/* 矩阵列间距 */
+.katex .arraycolsep {
+    width: 0.5em;
+}
+
+/* 矩阵行间距 */
+.katex .arraystrut {
+    height: 1.2em;
+}
+
+/* 矩阵边框和括号 */
+.katex .mopen,
+.katex .mclose {
+    font-size: 1.2em;
+}
+
+/* ============================================
+   方程组和多行公式
+   ============================================ */
+
+/* aligned 环境 */
+.katex .aligned {
+    text-align: left;
+}
+
+/* cases 环境（方程组大括号） */
+.katex .cases {
+    text-align: left;
+}
+
+/* ============================================
+   滚动条优化
+   ============================================ */
+
+/* 块级公式滚动条（针对过长公式） */
+.katex-display::-webkit-scrollbar {
+    height: 6px;
+}
+
+.katex-display::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.katex-display::-webkit-scrollbar-thumb {
+    background: rgba(100, 100, 100, 0.5);
+    border-radius: 3px;
+}
+
+.katex-display::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 100, 100, 0.7);
+}
+
+[data-theme="dark"] .katex-display::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .katex-display::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .katex-display::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================
+   错误处理样式
+   ============================================ */
+
+/* KaTeX 错误显示 */
+.katex-error {
+    color: #cc0000;
+    background-color: rgba(204, 0, 0, 0.1);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.9em;
+}
+
+/* ============================================
+   响应式优化
+   ============================================ */
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+    .katex-display {
+        margin: 1em 0;
+        padding: 0.75rem;
+        font-size: 0.95em;
+    }
+    
+    .katex {
+        font-size: 1em;
+    }
+    
+    /* 移动端公式左对齐，避免溢出 */
+    .katex-display > .katex {
+        text-align: left;
+        display: inline-block;
+        max-width: 100%;
+    }
+}
+
+/* 小屏幕设备 */
+@media (max-width: 480px) {
+    .katex-display {
+        font-size: 0.9em;
+        padding: 0.5rem;
+    }
+    
+    .katex {
+        font-size: 0.95em;
+    }
+}
+
+/* ============================================
+   打印样式
+   ============================================ */
+
+@media print {
+    .katex-display {
+        background-color: transparent;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+    
+    .katex {
+        color: #000;
+    }
+}
+
+/* ============================================
+   特殊符号和运算符优化
+   ============================================ */
+
+/* 大型运算符（求和、积分等） */
+.katex .op-symbol {
+    position: relative;
+}
+
+/* 上下标位置优化 */
+.katex .vlist-t {
+    display: inline-table;
+    vertical-align: middle;
+}
+
+/* ============================================
+   文章内容中的公式间距
+   ============================================ */
+
+/* 段落中的公式 */
+.article-body p .katex {
+    margin: 0 0.2em;
+}
+
+/* 列表中的公式 */
+.article-body li .katex {
+    margin: 0 0.15em;
+}
+
+/* 标题中的公式 */
+.article-body h1 .katex,
+.article-body h2 .katex,
+.article-body h3 .katex,
+.article-body h4 .katex,
+.article-body h5 .katex,
+.article-body h6 .katex {
+    font-size: inherit;
+}
+
+/* ============================================
+   性能优化
+   ============================================ */
+
+/* 使用 GPU 加速 */
+.katex-display,
+.katex {
+    transform: translateZ(0);
+    will-change: auto;
+}
+
+/* 减少重绘 */
+.katex-html {
+    contain: layout style paint;
+}

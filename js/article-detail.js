@@ -70,6 +70,7 @@ class ArticleDetailManager {
         scheduleTask(() => this.generateLatestArticles(), 300);
         scheduleTask(() => this.setupBackToTop(), 400);
         scheduleTask(() => this.highlightCode(), 500);
+        scheduleTask(() => this.renderMath(), 550);
         scheduleTask(() => this.initImageViewer(), 600);
     }    async loadArticle() {
         // 检查缓存
@@ -540,6 +541,20 @@ class ArticleDetailManager {
             document.querySelectorAll('pre code').forEach(block => {
                 hljs.highlightElement(block);
             });
+        }
+    }
+    
+    renderMath() {
+        // 使用全局 mathRenderer 实例渲染数学公式
+        if (window.mathRenderer) {
+            const articleBody = document.getElementById('articleBody');
+            if (articleBody) {
+                window.mathRenderer.render(articleBody).catch(error => {
+                    console.error('❌ 数学公式渲染失败:', error);
+                });
+            }
+        } else {
+            console.warn('⚠️ mathRenderer 未加载');
         }
     }
     
