@@ -3,7 +3,7 @@ title: "【与ai对话】自我认识与对技术的思考"
 date: 2025-09-29
 updated: 2025-09-30
 category: "daily"
-tags: ["thinking", "AI", "growth"]
+tags: ["thinking", "growth"]
 excerpt: "与AI的对话中思考自我认识、技术发展和人生方向的一些感悟。"
 ---
 
