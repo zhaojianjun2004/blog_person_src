@@ -185,6 +185,7 @@ class ArticleManager {
             'programming': '💻',
             'interests': '🌸',
             'algorithms': '📐',
+            'deeplearning': '🤖',
             
         };
         return iconMap[category.toLowerCase()] || '📂';

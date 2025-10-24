@@ -64,11 +64,30 @@ class DynamicCategoryIcons {
             // 数据科学与AI
             'ai': '🤖',
             'machinelearning': '🧠',
+            'deeplearning': '🧠',
+            'neuralnetwork': '🧠',
             'datascience': '📊',
             'tensorflow': '🧠',
             'pytorch': '🔥',
+            'keras': '🧠',
+            'cnn': '🖼️',
+            'rnn': '🔄',
+            'lstm': '🔄',
+            'transformer': '🤖',
+            'bert': '📖',
+            'gpt': '💬',
             'pandas': '🐼',
             'numpy': '🔢',
+            
+            // 算法与数据结构
+            'algorithms': '🔢',
+            'algorithm': '🔢',
+            'datastructure': '📐',
+            'sorting': '↕️',
+            'searching': '🔍',
+            'graph': '🕸️',
+            'tree': '🌲',
+            'dynamicprogramming': '💡',
             
             // 工具与其他
             'git': '📝',
