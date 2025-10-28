@@ -375,7 +375,7 @@ body.reading-mode .latest-articles-sidebar {
   color: #656d76 !important;
   margin: 0.6rem 0 0.4rem !important; /* 增大标题与摘要的间距 */
   line-height: 1.4 !important;
-  font-style: italic !important;
+  font-style: normal !important;
   text-align: left !important;
 }
 
@@ -423,7 +423,7 @@ body.reading-mode .latest-articles-sidebar {
   color: #656d76;
   margin: 0.3rem 0 0.8rem; /* 减小间距 */
   line-height: 1.5;
-  font-style: italic;
+  font-style: normal;
 }
 
 [data-theme="dark"] .article-excerpt {
@@ -719,7 +719,7 @@ body.reading-mode .latest-articles-sidebar {
 }
 /* Fluid主题风格段落和文本样式 */
 .article-body p {
-  margin: 1.2rem 0;
+  margin: 0.8rem 0;
   text-align: justify;
   text-indent: 0; /* Fluid风格通常不使用首行缩进 */
   font-variant-numeric: oldstyle-nums;
@@ -771,10 +771,11 @@ body.reading-mode .latest-articles-sidebar {
   background: linear-gradient(135deg, rgba(116, 185, 255, 0.08), rgba(116, 185, 255, 0.04));
   padding: 1.2rem 1.8rem;
   margin: 2rem 0;
-  color: #5f6368;
+  color: #000000;
   border-radius: 0 8px 8px 0;
   position: relative;
-  font-style: italic;
+  font-style: normal;
+  font-size: 0.9rem;
   box-shadow: 0 2px 8px rgba(116, 185, 255, 0.15);
 }
 
@@ -793,6 +794,7 @@ body.reading-mode .latest-articles-sidebar {
   margin: 0.5rem 0;
   color: inherit;
   text-indent: 0;
+  font-size: 0.9rem !important;
 }
 
 .article-body blockquote p:first-child {
@@ -817,7 +819,7 @@ body.reading-mode .latest-articles-sidebar {
 /* Fluid主题风格列表样式 */
 .article-body ul,
 .article-body ol {
-  margin: 1.1rem 0; /* 缩小大分点之间的间隙 */
+  margin: 0.6rem 0; /* 缩小大分点之间的间隙 */
   padding-left: 2rem;
   line-height: 1.2;
 }
@@ -1288,7 +1290,7 @@ body.reading-mode .latest-articles-sidebar {
 .article-body em,
 .article-body i {
   color: #5f6368;
-  font-style: italic;
+  font-style: normal;
 }
 
 [data-theme="dark"] .article-body em,
